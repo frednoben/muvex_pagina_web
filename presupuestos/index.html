@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>Presupuesto Muvex</title>
+  <link rel='stylesheet' href='style.css'>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js'></script>
+</head>
+<body>
+  <div class='container'>
+    <h1>Formulario de Presupuesto - Muvex S.A.</h1>
+    <form id='formulario'>
+      <label>Nº Presupuesto:</label>
+      <input type='text' name='numero' required value='001'>
+      <label>Fecha:</label>
+      <input type='date' name='fecha' required>
+      <label>Nombre del Cliente:</label>
+      <input type='text' name='cliente' required>
+      <label>Teléfono:</label>
+      <input type='text' name='telefono' required>
+      <label>Dirección de Origen:</label>
+      <input type='text' name='origen' required>
+      <label>Dirección de Destino:</label>
+      <input type='text' name='destino' required>
+      <label>Volumen estimado (m³):</label>
+      <input type='number' name='volumen' required>
+      <label>Fecha estimada de mudanza:</label>
+      <input type='date' name='fecha_mudanza' required>
+      <button type='submit'>Generar PDF</button>
+    </form>
+  </div>
+  <div id='plantilla' style='display:none;'>
+    <div class='presupuesto'>
+      <img src='encabezado.png' class='encabezado' />
+      <table>
+        <tr><td><strong>Presupuesto Nro.:</strong></td><td id='t_numero'></td><td><strong>Fecha:</strong></td><td id='t_fecha'></td></tr>
+        <tr><td><strong>CLIENTE:</strong></td><td id='t_cliente'></td><td><strong>TELEFONO:</strong></td><td id='t_telefono'></td></tr>
+        <tr><td><strong>DESDE:</strong></td><td id='t_origen'></td></tr>
+        <tr><td><strong>HASTA:</strong></td><td id='t_destino'></td></tr>
+      </table>
+      <p><strong>SERVICIOS A REALIZAR</strong></p>
+      <ul>
+        <li>Provisión de personal especializado en el manipuleo de artículos varios.</li>
+        <li>Mudanza de residencia a edificio 5to piso.</li>
+        <li>Protección de los ítems a ser transportados con mantas acolchadas.</li>
+        <li>Confección de lista de empaque.</li>
+        <li>Carga y estiba en camión furgón.</li>
+        <li>Descarga sin reubicación interna.</li>
+      </ul>
+      <p><strong>Costo:</strong> Gs. 1.750.000 - IVA incluido.</p>
+      <p><em>Volumen estimado:</em> <span id='t_volumen'></span> m³</p>
+      <p><em>Fecha estimada de mudanza:</em> <span id='t_fecha_mudanza'></span></p>
+      <p><strong>Incluye:</strong> Seguro hasta Gs. 10.000.000.</p>
+      <p><strong>No incluye:</strong> Servicios adicionales no especificados.</p>
+      <p><strong>Condiciones generales:</strong> El cliente no debe incluir objetos de valor o prohibidos. Muvex S.A. no se responsabiliza por daños fuera de los especificados.</p>
+      <p><strong>Fecha de realización:</strong> Confirmar con una semana de anticipación.</p>
+      <p><strong>Validez del presupuesto:</strong> Sujeto a disponibilidad.</p>
+      <p><strong>Muvex S.A.</strong> - RUC: 80151327-8</p>
+      <img src='pie.png' class='pie' />
+    </div>
+  </div>
+  <script src='script2.js'></script>
+</body>
+</html>
