@@ -1,939 +1,878 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>MUVEX S.A. - Sistema Integral (ERP)</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <style>
-    .scrollbar-thin::-webkit-scrollbar { width: 6px; height: 6px; }
-    .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
-    .scrollbar-thin::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-    .scrollbar-thin::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-  </style>
+<html lang="es-PY">
+   <head><meta charset="utf-8">
+    <link rel="canonical" href="https://muvexsa.com/" />
+      <meta name="google-site-verification" content="9_9LiO18PXlTxqG2Zd6T-yOdlfYqrUkmvrQvQbQh1uU" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Muvex S.A. | Mudanzas, Logística y Multiservice en Paraguay</title>
+	   
+	   <!-- Google tag (gtag.js) -->
+	  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17824651050"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  <!-- Firebase SDK -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-    import { getFirestore, collection, onSnapshot, doc, setDoc, updateDoc, deleteDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+  gtag('config', 'AW-17824651050');
+  gtag('config', 'G-18B8RN5L4V');
+</script>
+	   
+	  <style type="text/css">
+	  .core-features {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  width: 100%;
+}
+.core-features .grid2 {
+  width: 50%;
+  background-size: cover;
+  background-position: center center;
+  position: relative;
+}
+@media screen and (max-width: 768px) {
+  .core-features .grid2 {
+    width: 100%;
+  }
+}
+.core-features .grid2 .core-f {
+  padding: 40px;
+}
+.core-features .grid2 .core-f h2 {
+  text-transform: uppercase;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.4);
+  letter-spacing: 2px;
+  margin-bottom: 50px;
+}
+.core-features .grid2 .core-f h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.core-features .grid2 .core-f .core {
+  margin-bottom: 30px;
+}
+.core-features .grid2 .core-f .core i {
+  float: left;
+  color: #00ADB5;
+  font-size: 28px;
+}
+.core-features .grid2 .core-f .core .fh5co-post {
+  padding-left: 50px;
+}
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyAa7tWjX0qDLAtSeFrOOjml_SiXI40HIFI",
-      authDomain: "muvex-sistema.firebaseapp.com",
-      projectId: "muvex-sistema",
-      storageBucket: "muvex-sistema.firebasestorage.app",
-      messagingSenderId: "128758769784",
-      appId: "1:128758769784:web:4df06ff152c0aedeac258d"
-    };
+	  <!-- .fh5co-services .box-services .icon span i  -->
+	.fh5co-services {
+  padding-bottom: 4em;
+}
+.fh5co-services .box-services {
+  position: relative;
+  margin-bottom: 70px;
+}
+.fh5co-services .box-services .icon {
+  margin-bottom: 20px;
+}
+.fh5co-services .box-services .icon span {
+  width: 130px;
+  height: 130px;
+  display: inline-block;
+  position: relative;
+  border: 2px solid rgba(0, 0, 0, 0.05);
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+}
+.fh5co-services .box-services .icon span i {
+  position: absolute;
+  left: 0;
+  top: 32px;
+  right: 0;
+  display: block;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  font-size: 60px;
+  color: rgba(0, 0, 0, 0.5);
+  color: #5662f9;   <!-- /* verde  background: #00ADB5; */ -->
+  z-index: 1;
+}
+.fh5co-services .box-services .icon span:before {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 0;
+  content: '';
+  width: 20px;
+  height: 20px;
+  background: #5662f9;  <!-- /* verde  background: #00ADB5; */-->
+  border: 2px solid #fff;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+}
+.fh5co-services .fh5co-post h3 {
+  font-size: 20px;
+  margin-bottom: 15px;}
+.fh5co-services .call-to-action .btn-learn {
+  padding: 12px 30px;
+  background: #00dee8;
+  color: #fff;
+  }
+  
+  .IcoR2visual {
+  width: 20px !important;
+  height: 20px !important;
+  background: #FFF !important; 
+  color: #ff721b !important; 
+  border: 2px solid #fff !important;
+  -webkit-border-radius: 50% !important;
+  -moz-border-radius: 50%!important;
+  -ms-border-radius: 50%!important;
+  border-radius: 50%!important;
+}
+	  </style>
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <meta name="description" content="Servicio profesional de mudanzas, logística y fletes en Asunción y todo Paraguay. Personal propio, flota con monitoreo GPS y cuidado especializado.">
+	  <meta name="keywords" content="Muvex SA | Expertos en Mudanzas" />
+	  <meta name="author" content="R2 visual roseliromero@r2visual.com.py" />
+	  
+	  <link rel="shortcut icon" href="images/muvex_ico-.png" />
+	  <link rel="shortcut icon" href="images/muvex_ico-.png"  /> 	 
+	<link rel="icon" type="image/png" href="images/muvex_ico-.png" sizes="16x16" /> 
+	<link rel="icon" type="image/png" href="images/muvex_ico-.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="images/muvex_ico-.png" sizes="64x64" />
+	  <!-- Icomoon Icon Fonts-->
+	  <link rel="stylesheet" href="css/icomoon.css">
+	  <!-- Simple Line Icons -->
+	  <link rel="stylesheet" href="css/simple-line-icons.css">
+	  <!-- Bootstrap  -->
+	<link rel="stylesheet" href="css/bootstrap.css">
+	
+	
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    const adminEmail = "frednoben@gmail.com";
+  <!-- 
+	//////////////////////////////////////////////////////
 
-    window.firebaseServices = {
-      auth, db, adminEmail,
-      provider: new GoogleAuthProvider(),
-      signInWithPopup, signOut, onAuthStateChanged,
-      collection, onSnapshot, doc, setDoc, updateDoc, deleteDoc, getDocs
-    };
-  </script>
-</head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
-  <div id="root"></div>
+	FREE HTML 
+	DESIGNED & DEVELOPED by Rosana Romero www.r2visual.com.py
+		
+	Website: 		www.r2visual.com.py
+	Email: 			roseliromero@r2visual.com.py
+	Twitter: 		https://twitter.com/R2visual1
+	Facebook: 		https://www.facebook.com/R2visualPy/
 
-  <script type="text/babel" data-type="module">
-    const { useState, useEffect, useMemo } = React;
-    const {
-      auth, db, adminEmail, provider,
-      signInWithPopup, signOut, onAuthStateChanged,
-      collection, onSnapshot, doc, setDoc, updateDoc, deleteDoc, getDocs
-    } = window.firebaseServices;
-
-    // ─────────────────────────────────────────────────────────
-    // PANTALLA DE LOGIN
-    // ─────────────────────────────────────────────────────────
-    function LoginScreen() {
-      return (
-        <div className="h-screen flex flex-col items-center justify-center bg-slate-900">
-          <div className="bg-orange-600 text-white font-extrabold text-4xl px-5 py-3 rounded-2xl shadow-2xl mb-6">M</div>
-          <h1 className="text-3xl font-black text-white mb-1">MUVEX S.A.</h1>
-          <p className="text-orange-400 text-sm font-bold uppercase tracking-widest mb-10">Sistema Integral ERP</p>
-          <button
-            onClick={() => signInWithPopup(auth, provider)}
-            className="bg-white text-slate-900 px-8 py-4 rounded-xl font-black text-sm shadow-xl hover:bg-slate-100 transition-all flex items-center gap-3"
-          >
-            <svg className="w-5 h-5" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-            Ingresar con Google
-          </button>
-        </div>
-      );
-    }
-
-    // ─────────────────────────────────────────────────────────
-    // PANTALLA ACCESO DENEGADO
-    // ─────────────────────────────────────────────────────────
-    function AccessDenied({ user }) {
-      return (
-        <div className="h-screen flex flex-col items-center justify-center bg-slate-900 text-center px-6">
-          <div className="text-5xl mb-4">🚫</div>
-          <h1 className="text-2xl font-black text-white mb-2">Acceso Denegado</h1>
-          <p className="text-slate-400 text-sm mb-1">Tu cuenta <span className="text-orange-400 font-bold">{user?.email}</span> no está autorizada.</p>
-          <p className="text-slate-500 text-xs mb-8">Contactá al administrador del sistema para solicitar acceso.</p>
-          <button onClick={() => signOut(auth)} className="bg-red-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-red-700 transition-all">
-            Cerrar Sesión
-          </button>
-        </div>
-      );
-    }
-
-    // ─────────────────────────────────────────────────────────
-    // APP PRINCIPAL
-    // ─────────────────────────────────────────────────────────
-    function App() {
-      const [authState, setAuthState] = useState('loading'); // loading | login | denied | authorized
-      const [user, setUser] = useState(null);
-
-      // Datos ERP
-      const [jobs, setJobs] = useState([]);
-      const [staff, setStaff] = useState([]);
-      const [presupuestos, setPresupuestos] = useState([]);
-      const [usuarios, setUsuarios] = useState([]);
-
-      // UI
-      const [activeTab, setActiveTab] = useState('presupuestos');
-      const [loading, setLoading] = useState(true);
-      const [toast, setToast] = useState(null);
-      const [isJobModalOpen, setIsJobModalOpen] = useState(false);
-      const [currentJob, setCurrentJob] = useState(null);
-      const [expandedYears, setExpandedYears] = useState({});
-      const [expandedMonths, setExpandedMonths] = useState({});
-      const [currentCalendarDate, setCurrentCalendarDate] = useState(new Date());
-
-      // Formularios
-      const emptyJobForm = { sku:'', cliente:'', ruc:'', tipoTrabajo:'Standard', telefono:'', origen:'', destinos:[''], startDate: new Date().toISOString().split('T')[0], endDate: new Date().toISOString().split('T')[0], formaPago:'Transferencia', presupuesto:'', anticipo:'', factura:'', m3:'', encargadoCi:'', cuadrillaCis:[], estado:'No realizado' };
-      const [jobForm, setJobForm] = useState(emptyJobForm);
-      const [staffForm, setStaffForm] = useState({ ci: '', nombre: '' });
-      const [newUser, setNewUser] = useState({ email: '', name: '' });
-
-      const showToast = (message, type = 'success') => {
-        setToast({ message, type });
-        setTimeout(() => setToast(null), 4000);
-      };
-
-      // ── AUTH ──────────────────────────────────────────────
-      useEffect(() => {
-        const unsub = onAuthStateChanged(auth, async (u) => {
-          if (!u) { setAuthState('login'); setUser(null); return; }
-          setUser(u);
-          if (u.email === adminEmail) {
-            setAuthState('authorized');
-          } else {
-            const snap = await getDocs(collection(db, "usuarios_autorizados"));
-            const ok = snap.docs.some(d => d.id === u.email);
-            setAuthState(ok ? 'authorized' : 'denied');
-          }
-        });
-        return () => unsub();
-      }, []);
-
-      // ── LISTENERS FIRESTORE ───────────────────────────────
-      useEffect(() => {
-        if (authState !== 'authorized') return;
-        setLoading(true);
-
-        const unsubJobs = onSnapshot(collection(db, 'jobs'), snap => {
-          setJobs(snap.docs.map(d => ({ id: d.id, ...d.data() })));
-          setLoading(false);
-        }, err => { console.error(err); showToast("Error al cargar mudanzas.", "error"); setLoading(false); });
-
-        const unsubStaff = onSnapshot(collection(db, 'staff'), snap => {
-          setStaff(snap.docs.map(d => ({ id: d.id, ...d.data() })));
-        }, err => console.error(err));
-
-        const unsubPres = onSnapshot(collection(db, 'presupuestos'), snap => {
-          setPresupuestos(snap.docs.map(d => ({ id: d.id, ...d.data() })));
-        }, err => console.error(err));
-
-        const unsubUsers = onSnapshot(collection(db, 'usuarios_autorizados'), snap => {
-          setUsuarios(snap.docs.map(d => ({ id: d.id, ...d.data() })));
-        }, err => console.error(err));
-
-        return () => { unsubJobs(); unsubStaff(); unsubPres(); unsubUsers(); };
-      }, [authState]);
-
-      // Auto-expandir año/mes actual
-      useEffect(() => {
-        if (presupuestos.length > 0) {
-          const currentYear = new Date().getFullYear().toString();
-          const mesesNombres = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-          const currentMonthName = mesesNombres[new Date().getMonth()];
-          setExpandedYears(prev => Object.keys(prev).length === 0 ? { [currentYear]: true } : prev);
-          setExpandedMonths(prev => Object.keys(prev).length === 0 ? { [`${currentYear}-${currentMonthName}`]: true } : prev);
-        }
-      }, [presupuestos]);
-
-      // ── HELPERS ───────────────────────────────────────────
-      const formatCurrency = (val) => val ? 'Gs. ' + Math.round(val).toLocaleString('es-PY') : 'Gs. 0';
-      const getStaffName = (ci) => staff.find(s => s.ci === ci)?.nombre || 'Sin asignar';
-      const getTipoColor = (tipo) => {
-        const colors = { 'Integral': 'bg-blue-50 text-blue-700 border-blue-200', 'Standard': 'bg-orange-50 text-orange-700 border-orange-200', 'Flete': 'bg-emerald-50 text-emerald-700 border-emerald-200', 'Llave en mano': 'bg-purple-50 text-purple-700 border-purple-200' };
-        return colors[tipo] || 'bg-gray-50 text-gray-700 border-gray-200';
-      };
-      const formatCronograma = (start, end) => {
-        if (!start) return '-';
-        const months = ['ene.','feb.','mar.','abr.','may.','jun.','jul.','ago.','sep.','oct.','nov.','dic.'];
-        const sDate = new Date(start + 'T00:00:00');
-        if (!end || start === end) return `${sDate.getDate()} ${months[sDate.getMonth()]}`;
-        const eDate = new Date(end + 'T00:00:00');
-        if (sDate.getMonth() === eDate.getMonth()) return `${sDate.getDate()} - ${eDate.getDate()} ${months[sDate.getMonth()]}`;
-        return `${sDate.getDate()} ${months[sDate.getMonth()]} - ${eDate.getDate()} ${months[eDate.getMonth()]}`;
-      };
-      const toggleYear = (year) => setExpandedYears(p => ({ ...p, [year]: !p[year] }));
-      const toggleMonth = (year, month) => setExpandedMonths(p => ({ ...p, [`${year}-${month}`]: !p[`${year}-${month}`] }));
-
-      // ── PRESUPUESTOS AGRUPADOS ────────────────────────────
-      const presupuestosAgrupados = useMemo(() => {
-        const grupos = {};
-        const mesesNombres = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-        presupuestos.forEach(p => {
-          const date = new Date(p.fecha || p.creadoEn || new Date());
-          const year = date.getFullYear();
-          const month = mesesNombres[date.getMonth()];
-          const monthIndex = date.getMonth();
-          if (!grupos[year]) grupos[year] = {};
-          if (!grupos[year][month]) grupos[year][month] = { index: monthIndex, items: [] };
-          grupos[year][month].items.push(p);
-        });
-        Object.keys(grupos).forEach(year => {
-          Object.keys(grupos[year]).forEach(month => {
-            grupos[year][month].items.sort((a, b) => parseInt(b.nro || 0) - parseInt(a.nro || 0));
-          });
-        });
-        return grupos;
-      }, [presupuestos]);
-
-      // ── TOTALES ───────────────────────────────────────────
-      const pendingJobs = useMemo(() => jobs.filter(j => j.estado === 'No realizado'), [jobs]);
-      const completedJobs = useMemo(() => jobs.filter(j => j.estado === 'Realizado'), [jobs]);
-      const calcTot = (gr) => gr.reduce((acc, c) => ({ p: acc.p + (c.presupuesto||0), a: acc.a + (c.anticipo||0), s: acc.s + ((c.presupuesto||0)-(c.anticipo||0)) }), { p:0, a:0, s:0 });
-      const pendingTotals = useMemo(() => calcTot(pendingJobs), [pendingJobs]);
-      const completedTotals = useMemo(() => calcTot(completedJobs), [completedJobs]);
-
-      // ── APROBAR Y AGENDAR ────────────────────────────────
-      const handleAprobarYAgendar = async (presupuesto) => {
-        try {
-          await updateDoc(doc(db, 'presupuestos', presupuesto.id), { estado: 'Aprobado' });
-        } catch (err) { showToast("Error al aprobar el presupuesto.", "error"); return; }
-        setJobForm({
-          sku: presupuesto.nro || presupuesto.id || '',
-          cliente: presupuesto.cliente || '',
-          ruc: presupuesto.ruc || '',
-          tipoTrabajo: presupuesto.tipo || 'Standard',
-          telefono: presupuesto.telefono || '',
-          origen: presupuesto.origen || '',
-          destinos: presupuesto.destino ? [presupuesto.destino] : [''],
-          startDate: new Date().toISOString().split('T')[0],
-          endDate: new Date().toISOString().split('T')[0],
-          formaPago: 'Transferencia',
-          presupuesto: presupuesto.montoTotal || presupuesto.monto || '',
-          anticipo: '', factura: '', m3: presupuesto.m3 || '',
-          encargadoCi: '', cuadrillaCis: [], estado: 'No realizado'
-        });
-        setCurrentJob(null);
-        setIsJobModalOpen(true);
-        showToast(`Presupuesto Nº ${presupuesto.nro} importado. Asigná el equipo.`, 'success');
-      };
-
-      // ── JOBS CRUD ─────────────────────────────────────────
-      const handleJobFormChange = (e) => setJobForm(p => ({ ...p, [e.target.name]: e.target.value }));
-      const openNewJobModal = () => { setCurrentJob(null); setJobForm(emptyJobForm); setIsJobModalOpen(true); };
-      const openEditJobModal = (job) => { setCurrentJob(job); setJobForm({ ...job, destinos: job.destinos?.length ? [...job.destinos] : [''] }); setIsJobModalOpen(true); };
-      const addDestinoField = () => setJobForm(p => ({ ...p, destinos: [...p.destinos, ''] }));
-      const handleDestinoChange = (idx, val) => { const nd = [...jobForm.destinos]; nd[idx] = val; setJobForm(p => ({...p, destinos: nd})); };
-      const removeDestinoField = (idx) => setJobForm(p => ({...p, destinos: p.destinos.filter((_,i) => i !== idx)}));
-      const handleCuadrillaToggle = (ci) => setJobForm(p => ({ ...p, cuadrillaCis: p.cuadrillaCis.includes(ci) ? p.cuadrillaCis.filter(i => i !== ci) : [...p.cuadrillaCis, ci] }));
-
-      const handleSaveJob = async (e) => {
-        e.preventDefault();
-        const payload = { ...jobForm, presupuesto: parseFloat(jobForm.presupuesto)||0, anticipo: parseFloat(jobForm.anticipo)||0, m3: parseFloat(jobForm.m3)||0, destinos: jobForm.destinos.filter(d => d.trim() !== '') };
-        try {
-          await setDoc(doc(db, 'jobs', payload.sku), payload);
-          setIsJobModalOpen(false);
-          showToast("Mudanza guardada en la nube ✓");
-          setActiveTab('tabla');
-        } catch(err) { showToast("Error al guardar el agendamiento.", "error"); }
-      };
-
-      const toggleJobStatus = async (job) => {
-        const nextStatus = job.estado === 'Realizado' ? 'No realizado' : 'Realizado';
-        try {
-          await updateDoc(doc(db, 'jobs', job.sku || job.id), { estado: nextStatus });
-        } catch(err) { showToast("Error al actualizar estado.", "error"); }
-      };
-
-      const handleDeleteJob = async (sku) => {
-        if (!window.confirm(`¿Eliminar el agendamiento Nº ${sku}?`)) return;
-        try {
-          await deleteDoc(doc(db, 'jobs', sku));
-          setIsJobModalOpen(false);
-          showToast("Registro eliminado.");
-        } catch(e) { showToast("No se pudo eliminar.", "error"); }
-      };
-
-      // ── STAFF CRUD ────────────────────────────────────────
-      const handleSaveStaff = async (e) => {
-        e.preventDefault();
-        try {
-          await setDoc(doc(db, 'staff', staffForm.ci), staffForm);
-          setStaffForm({ ci: '', nombre: '' });
-          showToast(`${staffForm.nombre} registrado ✓`);
-        } catch(err) { showToast("Error al registrar colaborador.", "error"); }
-      };
-
-      const handleDeleteStaff = async (ci, nombre) => {
-        if (!window.confirm(`¿Dar de baja a ${nombre}?`)) return;
-        try {
-          await deleteDoc(doc(db, 'staff', ci));
-          showToast(`${nombre} dado de baja.`);
-        } catch(err) { showToast("Error al eliminar.", "error"); }
-      };
-
-      // ── USUARIOS AUTORIZADOS ──────────────────────────────
-      const handleAddUser = async () => {
-        if (!newUser.email || !newUser.name) return;
-        try {
-          await setDoc(doc(db, 'usuarios_autorizados', newUser.email), { name: newUser.name, email: newUser.email, fecha: new Date().toLocaleDateString('es-PY') });
-          setNewUser({ email: '', name: '' });
-          showToast("Usuario autorizado ✓");
-        } catch(err) { showToast("Error al agregar usuario.", "error"); }
-      };
-
-      const handleRemoveUser = async (email) => {
-        if (!window.confirm(`¿Revocar acceso de ${email}?`)) return;
-        try {
-          await deleteDoc(doc(db, 'usuarios_autorizados', email));
-          showToast("Acceso revocado.");
-        } catch(err) { showToast("Error al eliminar usuario.", "error"); }
-      };
-
-      // ── WHATSAPP ──────────────────────────────────────────
-      const sendWhatsApp = (job) => {
-        const cleanPhone = job.telefono ? job.telefono.replace(/\D/g, '') : '';
-        const crewNames = job.cuadrillaCis?.map(ci => getStaffName(ci)).join(', ') || 'Sin equipo';
-        const destinosList = job.destinos?.map((d, i) => `📍 *Destino ${i+1}:* ${d}`).join('\n') || 'No especificado';
-        const message = `🚚 *MUVEX S.A. - LOGÍSTICA DE MUDANZAS* 🚚\n\n` +
-          `*Nº Presupuesto SKU:* ${job.sku}\n*Cliente:* ${job.cliente}\n*Tipo de Servicio:* ${job.tipoTrabajo}\n` +
-          `*Fecha de Inicio:* ${formatCronograma(job.startDate, job.endDate)}\n*Volumen M³:* ${job.m3 || 0} M³\n\n` +
-          `👤 *Encargado:* ${getStaffName(job.encargadoCi)}\n👥 *Cuadrilla:* ${crewNames}\n\n` +
-          `📍 *Origen:* ${job.origen || 'No especificado'}\n${destinosList}\n\n` +
-          `💰 *Presupuesto:* ${formatCurrency(job.presupuesto)}\n💰 *Anticipo:* ${formatCurrency(job.anticipo)}\n` +
-          `💳 *Saldo a cobrar:* ${formatCurrency(job.presupuesto - job.anticipo)}\n` +
-          `📄 *Nº Factura:* ${job.factura || 'No emitida'}\n💵 *Forma de pago:* ${job.formaPago}\n\n` +
-          `🚀 _¡Buen viaje equipo! Moviendo tu mundo con total confianza._`;
-        const encoded = encodeURIComponent(message);
-        window.open(`https://api.whatsapp.com/send?phone=${cleanPhone.startsWith('0') ? '595' + cleanPhone.substring(1) : cleanPhone}&text=${encoded}`, '_blank');
-      };
-
-      // ── CALENDARIO ────────────────────────────────────────
-      const renderCalendar = () => {
-        const year = currentCalendarDate.getFullYear();
-        const month = currentCalendarDate.getMonth();
-        const monthNames = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-        const firstDayIndex = new Date(year, month, 1).getDay();
-        const totalDays = new Date(year, month + 1, 0).getDate();
-        const daysArray = [];
-        for (let i = 0; i < firstDayIndex; i++) daysArray.push(null);
-        for (let d = 1; d <= totalDays; d++) daysArray.push(new Date(year, month, d));
-
-        return (
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-            <div className="flex flex-wrap justify-between items-center mb-6 gap-4">
-              <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-                📅 Agenda Mensual — <span className="text-orange-600 font-black">{monthNames[month]} {year}</span>
-              </h2>
-              <div className="flex gap-2">
-                <button onClick={() => setCurrentCalendarDate(new Date(year, month - 1, 1))} className="px-3 py-1.5 border hover:bg-slate-50 rounded-lg text-xs font-bold transition-all">← Anterior</button>
-                <button onClick={() => setCurrentCalendarDate(new Date())} className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg text-xs font-bold transition-all">Hoy</button>
-                <button onClick={() => setCurrentCalendarDate(new Date(year, month + 1, 1))} className="px-3 py-1.5 border hover:bg-slate-50 rounded-lg text-xs font-bold transition-all">Siguiente →</button>
-              </div>
+	//////////////////////////////////////////////////////
+	 -->
+	
+  
+	   
+	   
+	  <link rel="stylesheet" href="css/components.css"> 
+      <link rel="stylesheet" href="css/responsee.css">
+      <link rel="stylesheet" href="css/icons.css">
+      <link rel="stylesheet" href="owl-carousel/owl.carousel.css">
+      <link rel="stylesheet" href="owl-carousel/owl.theme.css">
+      <!-- CUSTOM STYLE -->
+      <link rel="stylesheet" href="css/template-style.css">
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+      <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+      <script type="text/javascript" src="js/jquery-ui.min.js"></script>    
+      <script type="text/javascript" src="js/template-scripts.js"></script>
+	  
+	  <!-- SLIDE 3 CATEGORIAS INICIO -->
+	  <link rel="stylesheet" href="slide-3categ/style-3Categ.css">
+	  <!-- SLIDE 3 CATEGORIAS INICIO -->	  
+   <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MovingCompany",
+  "name": "Muvex S.A.",
+  "image": "https://www.muvexsa.com/images/logo.png",
+  "description": "Con base en Luque, atendemos mudanzas en Asunción, Lambaré, Fernando de la Mora y todo el Gran Asunción. Servicio profesional de mudanzas, logística y fletes en todo Paraguay.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Tte. Rivas 220",
+    "addressLocality": "Luque",
+    "addressRegion": "Central",
+    "postalCode": "110934",
+    "addressCountry": "PY"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": -25.2672502,
+    "longitude": -57.5059692
+  },
+  "areaServed": ["Asunción","Gran Asunción","Fernando de la Mora",
+    "Luque","Lambaré","San Lorenzo","San Bernardino",
+    "Ciudad del Este","Encarnación"],
+  "priceRange": "$",
+  "telephone": "+595981001530",
+  "url": "https://www.muvexsa.com"
+}
+</script>
+   </head>
+   <body class="size-1140">
+  	  <!-- PREMIUM FEATURES BUTTON 
+  	  <a target="_blank" class="hide-s" href="../template/onepage-premium-template/" style="position:fixed;top:130px;right:-14px;z-index:10;"><img src="img/premium-features.png" alt="Servicios premium de mudanzas y logística Muvex en Paraguay"></a>
+      -->
+	  <!-- TOP NAV WITH LOGO -->
+      <header>
+         <div id="topbar" class="hide-s hide-m">
+            <div class="line">
+               <div class="m-6 l-6 hide-s">
+                  <p>CONTACTENOS: <strong> <a href="https://wa.me/595985549400" class="LinkNegro-Nw" target="32" > (+595 981) 001 530</a> </strong>  | <strong><a href="mailto:info@muvexsa.com"  class="LinkNegro-Nw"  target="_blank"> info@muvexsa.com </a></strong></p>
+               </div>
+               <div class="s-12 m-6 l-6">
+                  <div class="social right">
+                     <a href="https://www.facebook.com/muvexsa/" target="_blank"><i class="icon-facebook_circle"></i></a> 
+					 <!--<a href="https://twitter.com/SlimWindows/" target="_blank" ><i class="icon-twitter_circle"></i></a>  -->
+					 <!-- 
+					 <a><i class="icon-google_plus_circle"></i></a> -->
+					 <a href="https://www.instagram.com/muvexsa/" target="_blank" ><i class="icon-instagram_circle"></i></a>
+					 <!--
+					  <a href="https://www.linkedin.com/company/muvexsa/" target="_blank" > <i class="fa fa-linkedin-square" style="font-size:24px;color:#000 !important;"></i> </a>  -->
+					  
+					  
+                  </div>
+               </div>
+            </div>  
+         </div> 
+         <nav>
+            <div class="line">
+               <div class="s-12 l-2">
+                  <!-- <p class="logo"><strong>One</strong>page</p> -->
+				  <a  href="index.html" > <img alt="Logo Muvex S.A. empresa de mudanzas en Paraguay" src="images/Muvex_logo.png" class="imgLogoR2" width="250" style="margin-top:10px !important;  margin-bottom: -4px !important;" ></a> <br>
+               </div>
+               <div class="top-nav s-12 l-10">
+                  
+                  <ul class="right">
+                     <li class="active-item"><a href="#carousel" Target="_self" >Principal</a></li>
+                     <!--<li><a href="#features">Quienes Somos</a></li>  <!-- Features -->
+                     <!--<li><a href="#about-us">Productos</a></li> <!-- About Us  -->
+					  <!--<li><a href="catalogo.html">Catalogo</a></li>
+					 <li><a href="photos.html">Galeria de Fotos</a></li> <!-- About Us  -->
+                     <!-- <li><a href="#our-work">Especificaciones</a></li> <!-- Our Work - Catalogo -->
+                     <!-- <li><a href="#services">Productos </a></li> <!-- Services -->
+                     <li><a href="#contact" Target="_self">Contáctenos</a></li> <!-- Contact-->
+                  </ul>
+               </div>
             </div>
-            <div className="grid grid-cols-7 gap-2 mb-2 text-center text-xs font-bold text-slate-400 uppercase tracking-widest">
-              <div>Dom</div><div>Lun</div><div>Mar</div><div>Mié</div><div>Jue</div><div>Vie</div><div>Sáb</div>
-            </div>
-            <div className="grid grid-cols-7 gap-2">
-              {daysArray.map((day, idx) => {
-                if (!day) return <div key={`empty-${idx}`} className="h-28 bg-slate-50/50 rounded-xl"></div>;
-                const dateStr = day.toISOString().split('T')[0];
-                const dayJobs = jobs.filter(j => {
-                  if (!j.startDate) return false;
-                  const start = new Date(j.startDate + 'T00:00:00');
-                  const end = new Date((j.endDate || j.startDate) + 'T00:00:00');
-                  const curr = new Date(dateStr + 'T00:00:00');
-                  return curr >= start && curr <= end;
-                });
-                return (
-                  <div key={idx} className="h-28 p-1.5 border border-slate-200 rounded-xl flex flex-col justify-between bg-white hover:shadow-sm transition-shadow">
-                    <span className="text-xs font-black text-slate-700">{day.getDate()}</span>
-                    <div className="flex-1 overflow-y-auto space-y-1 mt-1 scrollbar-thin">
-                      {dayJobs.map(job => {
-                        const colors = getTipoColor(job.tipoTrabajo);
-                        return (
-                          <div key={job.sku} onClick={() => openEditJobModal(job)} className={`text-[9px] px-1 py-0.5 rounded border font-semibold truncate cursor-pointer transition-transform hover:scale-95 ${colors}`} title={`Nº ${job.sku} - ${job.cliente}`}>
-                            #{job.sku} {job.cliente}
+         </nav>
+      </header>  
+      <section>
+         <!-- CAROUSEL --> 
+         <div id="carousel">
+            <div id="owl-demo" class="owl-carousel owl-theme"> 
+               <div class="item">
+                  <img src="images/Web_slide-presentac.jpg" alt="Camión de mudanzas Muvex en Asunción Paraguay">
+                  <div class="line"> 
+                     <div class="text hide-s">
+                        <!-- botones del slide  Siguiente - Atras
+						<div class="line"> 
+                          <div class="prev-arrow hide-s hide-m">
+                             <i class="icon-chevron_left"></i>
                           </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        );
-      };
-
-      // ── RENDER STATES ─────────────────────────────────────
-      if (authState === 'loading') return (
-        <div className="h-screen flex items-center justify-center bg-slate-900">
-          <div className="text-white text-center">
-            <div className="bg-orange-600 text-white font-extrabold text-4xl px-5 py-3 rounded-2xl shadow-2xl mb-4 inline-block">M</div>
-            <p className="text-slate-400 text-sm mt-4 animate-pulse">Verificando acceso...</p>
-          </div>
-        </div>
-      );
-      if (authState === 'login') return <LoginScreen />;
-      if (authState === 'denied') return <AccessDenied user={user} />;
-
-      // ── MAIN APP ──────────────────────────────────────────
-      return (
-        <div className="min-h-screen bg-slate-50 text-slate-800 font-sans flex flex-col">
-
-          {/* TOAST */}
-          {toast && (
-            <div className="fixed bottom-6 right-6 z-50 px-5 py-3 rounded-2xl shadow-2xl border text-xs font-black bg-slate-900 text-white animate-bounce">
-              📢 {toast.message}
-            </div>
-          )}
-
-          {/* HEADER */}
-          <header className="bg-slate-900 text-white px-6 py-4 flex flex-wrap justify-between items-center gap-4 sticky top-0 z-40 border-b border-slate-800 shadow-md">
-            <div className="flex items-center gap-3">
-              <div className="bg-orange-600 text-white font-extrabold text-xl px-3 py-1.5 rounded-xl shadow-lg">M</div>
-              <div>
-                <h1 className="text-lg font-black tracking-tight">MUVEX S.A.</h1>
-                <p className="text-[10px] text-orange-400 uppercase tracking-widest font-bold">Sistema Integral ERP</p>
-              </div>
-            </div>
-
-            <nav className="flex gap-2 flex-wrap">
-              {[
-                { id: 'presupuestos', label: '💰 Cotizaciones', color: 'bg-emerald-600' },
-                { id: 'tabla', label: '📋 Agendamientos', color: 'bg-blue-600' },
-                { id: 'calendario', label: '📆 Calendario', color: 'bg-blue-600' },
-                { id: 'personal', label: '👥 Cuadrilla', color: 'bg-blue-600' },
-              ].map(tab => (
-                <button key={tab.id} onClick={() => setActiveTab(tab.id)}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${activeTab === tab.id ? `${tab.color} text-white shadow-md` : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}`}>
-                  {tab.label}
-                </button>
-              ))}
-              {user?.email === adminEmail && (
-                <button onClick={() => setActiveTab('admin')}
-                  className={`px-3 py-2 rounded-xl text-xs font-bold transition-all ${activeTab === 'admin' ? 'bg-slate-700 text-white border border-slate-600' : 'bg-slate-900 text-slate-400 hover:text-white'}`}>
-                  ⚙️ Admin
-                </button>
-              )}
-            </nav>
-
-            <div className="flex items-center gap-3">
-              <span className="text-xs bg-slate-800 px-3 py-1.5 rounded-full border border-slate-700 hidden md:block">
-                {user?.displayName}
-              </span>
-              <button onClick={() => signOut(auth)} className="text-xs text-red-400 hover:text-red-300 font-bold">Salir</button>
-            </div>
-          </header>
-
-          <main className="flex-1 p-6 max-w-7xl mx-auto w-full space-y-6">
-
-            {/* ══════════════════════════════════════════
-                MÓDULO 1: COTIZACIONES
-            ══════════════════════════════════════════ */}
-            {activeTab === 'presupuestos' && (
-              <div className="space-y-6">
-                <div className="flex flex-wrap justify-between items-center p-5 bg-gradient-to-r from-emerald-900 to-emerald-950 rounded-2xl shadow-md text-white gap-4">
-                  <div>
-                    <h2 className="text-lg font-black tracking-tight">Módulo Comercial: Cotizaciones Registradas</h2>
-                    <p className="text-xs text-emerald-200 mt-1">Buscá, analizá y aprobá cotizaciones. Al aprobar, pasa directo al área logística.</p>
-                  </div>
-                  <span className="text-xs bg-emerald-800/80 px-3.5 py-1.5 rounded-xl font-bold border border-emerald-700/50">Sincronizado en Tiempo Real</span>
-                </div>
-
-                {loading ? (
-                  <div className="text-center py-12"><p className="text-slate-400 animate-pulse">Cargando datos...</p></div>
-                ) : Object.keys(presupuestosAgrupados).length === 0 ? (
-                  <div className="text-center py-12 bg-white rounded-2xl border">
-                    <p className="text-slate-400 font-bold text-lg mb-2">📋 Sin cotizaciones aún</p>
-                    <p className="text-slate-400 text-sm">Los presupuestos generados desde la app de cotizaciones aparecerán aquí.</p>
-                  </div>
-                ) : (
-                  Object.keys(presupuestosAgrupados).sort((a,b) => b-a).map(year => {
-                    const isYearOpen = !!expandedYears[year];
-                    const yearMonths = presupuestosAgrupados[year];
-                    let yearTotalCount = 0, yearApprovedCount = 0;
-                    Object.keys(yearMonths).forEach(m => {
-                      const items = yearMonths[m].items;
-                      yearTotalCount += items.length;
-                      yearApprovedCount += items.filter(p => p.estado === 'Aprobado').length;
-                    });
-                    return (
-                      <div key={year} className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                        <div onClick={() => toggleYear(year)} className="bg-slate-900 text-white px-5 py-4 cursor-pointer flex justify-between items-center hover:bg-slate-800 transition-all select-none">
-                          <div className="flex items-center gap-3">
-                            <span className="text-lg">📂</span>
-                            <h3 className="text-base font-black tracking-wider text-slate-100">EJERCICIO COMERCIAL {year}</h3>
+                          <div class="next-arrow hide-s hide-m">
+                             <i class="icon-chevron_right"></i>
                           </div>
-                          <div className="flex items-center gap-3">
-                            <div className="flex gap-2 text-[11px] font-bold">
-                              <span className="bg-slate-800 text-slate-300 px-3 py-1 rounded-full border border-slate-700">Emitidos: {yearTotalCount}</span>
-                              <span className="bg-emerald-950 text-emerald-400 px-3 py-1 rounded-full border border-emerald-800">Aprobados: {yearApprovedCount}</span>
-                            </div>
-                            <span className={`transform transition-transform duration-200 font-bold text-slate-400 ${isYearOpen ? 'rotate-180' : 'rotate-0'}`}>▼</span>
+                        </div> 
+						-->
+						<!-- texto del slide  -->
+						 <!-- 
+                        <h2>ABERTURAS DE PVC</h2>
+                        <p>Calidad y Seguridad al menor costo</p>
+						-->
+                     </div>
+                  </div>
+               </div>
+               <div class="item">
+                  <img src="images/Web_slide-presentac_2.jpg" alt="Servicio de fletes y logística corporativa en Paraguay">
+                  <div class="line">
+				  
+                     <div class="text hide-s"> 
+					 
+                        <!-- botones del slide  Siguiente - Atras
+						<div class="line"> 
+                          <div class="prev-arrow hide-s hide-m">
+                             <i class="icon-chevron_left"></i>
                           </div>
-                        </div>
-
-                        {isYearOpen && (
-                          <div className="p-4 bg-slate-50/50 space-y-4">
-                            {Object.keys(presupuestosAgrupados[year])
-                              .sort((a,b) => presupuestosAgrupados[year][b].index - presupuestosAgrupados[year][a].index)
-                              .map(month => {
-                                const monthKey = `${year}-${month}`;
-                                const isMonthOpen = !!expandedMonths[monthKey];
-                                const monthItems = presupuestosAgrupados[year][month].items;
-                                return (
-                                  <div key={month} className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
-                                    <div onClick={() => toggleMonth(year, month)} className="bg-slate-100 border-b border-slate-200 px-5 py-3 cursor-pointer flex justify-between items-center hover:bg-slate-200/50 transition-all select-none">
-                                      <h4 className="font-bold text-slate-700 uppercase tracking-wider text-xs flex items-center gap-2">📅 {month}</h4>
-                                      <div className="flex items-center gap-3">
-                                        <div className="flex gap-1.5 text-[10px] font-extrabold">
-                                          <span className="bg-slate-200 text-slate-700 px-2.5 py-1 rounded-lg border border-slate-300">Emitidos: {monthItems.length}</span>
-                                          <span className="bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-lg border border-emerald-200">Aprobados: {monthItems.filter(p => p.estado === 'Aprobado').length}</span>
-                                        </div>
-                                        <span className={`transform transition-transform duration-200 text-xs text-slate-400 font-bold ${isMonthOpen ? 'rotate-180' : 'rotate-0'}`}>▼</span>
-                                      </div>
-                                    </div>
-
-                                    {isMonthOpen && (
-                                      <div className="divide-y divide-slate-100">
-                                        {monthItems.map(pres => {
-                                          const isAprobado = pres.estado === 'Aprobado';
-                                          const isAgendado = jobs.some(j => j.sku === pres.nro);
-                                          const statusStyle = isAprobado ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800';
-                                          return (
-                                            <div key={pres.id} className={`p-4 flex flex-wrap lg:flex-nowrap justify-between items-center gap-4 hover:bg-slate-50/80 transition-all ${isAgendado ? 'opacity-55 grayscale' : ''}`}>
-                                              <div className="flex-1 min-w-[240px]">
-                                                <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                                                  <span className="font-black text-slate-900 text-sm">Nº {pres.nro}</span>
-                                                  <span className="font-bold text-slate-700 text-sm">— {pres.cliente}</span>
-                                                  <span className={`text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase tracking-widest ${statusStyle}`}>{pres.estado || 'Enviado'}</span>
-                                                  {isAgendado && <span className="text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full font-bold">✓ En Logística</span>}
-                                                </div>
-                                                <div className="text-xs text-slate-500 flex flex-wrap gap-x-4 gap-y-1 font-medium">
-                                                  <span>📞 {pres.telefono || '-'}</span>
-                                                  <span>RUC: {pres.ruc || '-'}</span>
-                                                  <span>{pres.m3 || 0} M³</span>
-                                                </div>
-                                              </div>
-                                              <div className="flex-1 min-w-[200px] text-xs text-slate-600">
-                                                <div className="font-extrabold text-slate-900 text-sm mb-1">{formatCurrency(pres.montoTotal)}</div>
-                                                <div className="truncate text-[10px] text-slate-400">📍 Origen: {pres.origen || '-'}</div>
-                                                <div className="truncate text-[10px] text-slate-400">📍 Destino: {pres.destino || '-'}</div>
-                                              </div>
-                                              <div className="text-right">
-                                                <button disabled={isAgendado} onClick={() => handleAprobarYAgendar(pres)}
-                                                  className={`px-4 py-2.5 rounded-xl text-xs font-black shadow-sm transition-all flex items-center gap-2 ${isAgendado ? 'bg-slate-100 text-slate-400 cursor-not-allowed border' : 'bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold hover:shadow-md'}`}>
-                                                  {isAgendado ? 'Ya Agendado ✓' : 'Aprobar y Agendar →'}
-                                                </button>
-                                              </div>
-                                            </div>
-                                          );
-                                        })}
-                                      </div>
-                                    )}
-                                  </div>
-                                );
-                              })}
+                          <div class="next-arrow hide-s hide-m">
+                             <i class="icon-chevron_right"></i>
                           </div>
-                        )}
-                      </div>
-                    );
-                  })
-                )}
-              </div>
-            )}
-
-            {/* ══════════════════════════════════════════
-                MÓDULO 2: AGENDAMIENTOS
-            ══════════════════════════════════════════ */}
-            {activeTab === 'tabla' && (
-              <div className="space-y-6">
-                <div className="flex flex-wrap justify-between items-center p-4 bg-white rounded-xl border border-slate-200 gap-4">
-                  <button onClick={openNewJobModal} className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-extrabold px-4 py-2.5 rounded-xl shadow transition-all">
-                    ＋ Nueva Mudanza Manual
-                  </button>
-                  <div className="text-xs text-slate-500 font-bold">Pendientes arriba · Historial abajo</div>
-                </div>
-
-                {/* PENDIENTES */}
-                <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-                  <div className="bg-slate-900 text-white px-5 py-4 font-bold text-sm flex justify-between items-center">
-                    <span className="flex items-center gap-2">
-                      <span className="h-2.5 w-2.5 rounded-full bg-blue-500 animate-pulse"></span>
-                      🔵 LOGÍSTICA: MUDANZAS PENDIENTES ({pendingJobs.length})
-                    </span>
-                    <span className="text-xs text-orange-500 bg-slate-800 px-2.5 py-1 rounded-full font-black">Mesa de Control</span>
+                        </div> 
+						-->
+						<!-- texto del slide -->
+						
+                        <h2>Tu COMODIDAD Y </h2>
+                        <p> 
+tranquilidad 
+es nuestra prioridad</p>
+						
+                     </div>
                   </div>
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-left text-xs whitespace-nowrap">
-                      <thead className="bg-slate-50 border-b font-bold text-slate-500 uppercase tracking-wider">
-                        <tr>
-                          <th className="px-4 py-3 text-center">Estado</th>
-                          <th className="px-4 py-3">SKU - Cliente</th>
-                          <th className="px-4 py-3">Tipo</th>
-                          <th className="px-4 py-3">Cronograma</th>
-                          <th className="px-4 py-3 text-center">Ubicación</th>
-                          <th className="px-4 py-3">Líder & Cuadrilla</th>
-                          <th className="px-4 py-3 text-right">Presupuesto</th>
-                          <th className="px-4 py-3 text-right">Anticipo</th>
-                          <th className="px-4 py-3 text-right text-orange-600 bg-orange-50/20 font-black border-l">Saldo a Cobrar</th>
-                          <th className="px-4 py-3 text-center">Acción</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y font-medium text-slate-700">
-                        {pendingJobs.length === 0 ? (
-                          <tr><td colSpan="10" className="text-center py-10 text-slate-400 italic">No hay mudanzas activas agendadas.</td></tr>
-                        ) : pendingJobs.map(job => {
-                          const colors = getTipoColor(job.tipoTrabajo);
-                          return (
-                            <tr key={job.sku} className="hover:bg-slate-50/80 transition-all">
-                              <td className="px-4 py-3 text-center">
-                                <button onClick={() => toggleJobStatus(job)} className="w-5 h-5 rounded border border-slate-300 hover:border-emerald-500 flex items-center justify-center font-bold mx-auto">✓</button>
-                              </td>
-                              <td className="px-4 py-3 font-bold text-slate-900">
-                                <span onClick={() => openEditJobModal(job)} className="cursor-pointer hover:underline text-blue-600">{job.sku} - {job.cliente}</span>
-                                <div className="text-[10px] text-slate-400 font-normal">Factura: {job.factura || '-'} | RUC: {job.ruc || '-'}</div>
-                              </td>
-                              <td className="px-4 py-3"><span className={`px-2.5 py-1 rounded-full font-bold uppercase tracking-wide text-[10px] ${colors}`}>{job.tipoTrabajo}</span></td>
-                              <td className="px-4 py-3 font-bold text-slate-600">📅 {formatCronograma(job.startDate, job.endDate)}</td>
-                              <td className="px-4 py-3 text-center">
-                                <div className="flex gap-1 justify-center">
-                                  {job.origen && <a href={job.origen} target="_blank" rel="noreferrer" className="bg-slate-100 hover:bg-slate-200 h-6 w-6 rounded-lg flex items-center justify-center font-bold text-xs">O</a>}
-                                  {job.destinos?.map((d, i) => <a key={i} href={d} target="_blank" rel="noreferrer" className="bg-orange-50 hover:bg-orange-100 h-6 w-6 rounded-lg flex items-center justify-center font-bold text-orange-600 text-xs">D{i+1}</a>)}
-                                </div>
-                              </td>
-                              <td className="px-4 py-3">
-                                <div className="font-bold text-slate-800">Líder: {getStaffName(job.encargadoCi)}</div>
-                                <div className="text-[9px] text-slate-400 truncate max-w-[150px]">{job.cuadrillaCis?.map(ci => getStaffName(ci)).join(', ') || 'Sin equipo'}</div>
-                              </td>
-                              <td className="px-4 py-3 text-right font-bold">{formatCurrency(job.presupuesto)}</td>
-                              <td className="px-4 py-3 text-right text-slate-500">{formatCurrency(job.anticipo)}</td>
-                              <td className="px-4 py-3 text-right font-black text-orange-600 bg-orange-50/20 border-l">{formatCurrency(job.presupuesto - job.anticipo)}</td>
-                              <td className="px-4 py-3 text-center">
-                                <div className="flex gap-2 justify-center">
-                                  <button onClick={() => openEditJobModal(job)} className="hover:text-blue-600 p-1 bg-slate-50 rounded-lg hover:bg-slate-100">✏️</button>
-                                  <button onClick={() => sendWhatsApp(job)} className="hover:text-emerald-600 p-1 bg-emerald-50 rounded-lg hover:bg-emerald-100">💬</button>
-                                </div>
-                              </td>
-                            </tr>
-                          );
-                        })}
-                      </tbody>
-                      <tfoot className="bg-slate-50 font-bold border-t">
-                        <tr>
-                          <td colSpan="6" className="px-4 py-3 text-right uppercase tracking-wider text-slate-400 text-[10px]">Totales Pendientes:</td>
-                          <td className="px-4 py-3 text-right text-slate-950">{formatCurrency(pendingTotals.p)}</td>
-                          <td className="px-4 py-3 text-right text-slate-500">{formatCurrency(pendingTotals.a)}</td>
-                          <td className="px-4 py-3 text-right text-orange-600 bg-orange-100/30 font-black border-l">{formatCurrency(pendingTotals.s)}</td>
-                          <td></td>
-                        </tr>
-                      </tfoot>
-                    </table>
+               </div>
+               <div class="item">
+                  <img src="images/Web_slide-presentac_3.jpg" alt="Personal de mudanzas embalando muebles con cuidado especializado">
+                  <div class="line">
+                     <div class="text hide-s">
+					 
+                        <!-- botones del slide  Siguiente - Atras
+						<div class="line"> 
+                          <div class="prev-arrow hide-s hide-m">
+                             <i class="icon-chevron_left"></i>
+                          </div>
+                          <div class="next-arrow hide-s hide-m">
+                             <i class="icon-chevron_right"></i>
+                          </div>
+                        </div> 
+						-->
+						<!-- texto del slide -->
+						 
+                        <h2>¡Tu mudanza, sin estrés!</h2>
+                        <p>Tu tranquilidad es nuestra prioridad</p>
+ 
+
+
+
+
+						
+                     </div>
                   </div>
-                </div>
-
-                {/* COMPLETADOS */}
-                <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm opacity-85">
-                  <div className="bg-slate-800 text-white px-5 py-4 font-bold text-sm border-b">
-                    🟢 MUDANZAS COMPLETADAS ({completedJobs.length})
+               </div>
+            </div>
+         </div>
+         <!-- FIRST BLOCK -->
+         
+         <!-- FEATURES -->
+		  <!-- lideres frame INICIO ======================================== -->
+        <!-- <div id="features"> .............. -->
+           
+		 <!-- lideres frame FIN ======================================== -->
+		 
+		 
+		 <!-- SERVICES  INICIO -->
+		  <!-- 
+         <div id="services">
+            <div class="line">
+               <h2 class="section-title">What we do</h2>
+               <div class="margin">
+                  <div class="s-12 m-6 l-4 margin-bottom">
+                     <i class="icon-vector"></i>
+                     <div class="service-text">
+                        <h3>We create</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                     </div>
                   </div>
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-left text-xs whitespace-nowrap">
-                      <thead className="bg-slate-50 border-b font-bold text-slate-500 uppercase tracking-wider">
-                        <tr>
-                          <th className="px-4 py-3">Cliente</th>
-                          <th className="px-4 py-3">Cronograma</th>
-                          <th className="px-4 py-3">Encargado</th>
-                          <th className="px-4 py-3 text-right">Presupuesto</th>
-                          <th className="px-4 py-3 text-right">Anticipo</th>
-                          <th className="px-4 py-3 text-right text-slate-600 bg-slate-50 font-black border-l">Saldo Cobrado</th>
-                          <th className="px-4 py-3 text-center">Acción</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y font-medium text-slate-500">
-                        {completedJobs.map(job => (
-                          <tr key={job.sku} className="hover:bg-slate-50 line-through text-slate-400">
-                            <td className="px-4 py-3 font-bold text-slate-700">{job.sku} - {job.cliente}</td>
-                            <td className="px-4 py-3">{formatCronograma(job.startDate, job.endDate)}</td>
-                            <td className="px-4 py-3 text-xs">{getStaffName(job.encargadoCi)}</td>
-                            <td className="px-4 py-3 text-right">{formatCurrency(job.presupuesto)}</td>
-                            <td className="px-4 py-3 text-right">{formatCurrency(job.anticipo)}</td>
-                            <td className="px-4 py-3 text-right font-bold text-slate-700 bg-slate-50/50 border-l">{formatCurrency(job.presupuesto - job.anticipo)}</td>
-                            <td className="px-4 py-3 text-center">
-                              <button onClick={() => toggleJobStatus(job)} className="bg-slate-200 text-slate-700 rounded-lg px-3 py-1 font-bold hover:bg-slate-300">Desarchivar</button>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                  <div class="s-12 m-6 l-4 margin-bottom">
+                     <i class="icon-eye"></i>
+                     <div class="service-text">
+                        <h3>We look to the future</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                     </div>
                   </div>
-                </div>
-              </div>
-            )}
-
-            {/* ══════════════════════════════════════════
-                MÓDULO 3: CALENDARIO
-            ══════════════════════════════════════════ */}
-            {activeTab === 'calendario' && renderCalendar()}
-
-            {/* ══════════════════════════════════════════
-                MÓDULO 4: CUADRILLA
-            ══════════════════════════════════════════ */}
-            {activeTab === 'personal' && (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm h-fit">
-                  <h3 className="text-xs font-bold text-slate-900 mb-4 uppercase tracking-widest pb-2 border-b">Añadir Colaborador</h3>
-                  <form onSubmit={handleSaveStaff} className="space-y-4 text-xs">
-                    <div>
-                      <label className="block font-bold text-slate-500 uppercase mb-1">Cédula de Identidad (CI)</label>
-                      <input type="text" placeholder="Ej: 4.152.635" required value={staffForm.ci} onChange={e => setStaffForm(p => ({ ...p, ci: e.target.value }))} className="w-full border px-3 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600" />
-                    </div>
-                    <div>
-                      <label className="block font-bold text-slate-500 uppercase mb-1">Nombre Completo</label>
-                      <input type="text" placeholder="Ej: Walter Galeano" required value={staffForm.nombre} onChange={e => setStaffForm(p => ({ ...p, nombre: e.target.value }))} className="w-full border px-3 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600" />
-                    </div>
-                    <button type="submit" className="w-full bg-blue-600 text-white text-xs font-bold py-2.5 rounded-xl hover:bg-blue-700 shadow-sm transition-all">Registrar Colaborador</button>
-                  </form>
-                </div>
-                <div className="bg-white p-6 rounded-2xl border border-slate-200 md:col-span-2 shadow-sm">
-                  <h3 className="text-xs font-bold text-slate-900 mb-4 uppercase tracking-widest pb-2 border-b">Personal Registrado ({staff.length})</h3>
-                  <div className="divide-y max-h-[500px] overflow-y-auto pr-2 scrollbar-thin">
-                    {staff.length === 0 ? <p className="text-slate-400 text-xs py-4 text-center">Sin colaboradores registrados.</p> : staff.map(s => (
-                      <div key={s.ci} className="py-3 flex justify-between items-center text-xs">
-                        <div>
-                          <p className="font-bold text-slate-900">{s.nombre}</p>
-                          <p className="text-[10px] text-slate-400 font-mono font-bold">CI: {s.ci}</p>
-                        </div>
-                        <button onClick={() => handleDeleteStaff(s.ci, s.nombre)} className="text-red-500 hover:bg-red-50 px-3 py-1.5 rounded-xl font-bold transition-all">Dar de Baja 🗑️</button>
-                      </div>
-                    ))}
+                  <div class="s-12 m-12 l-4 margin-bottom">
+                     <i class="icon-random"></i>
+                     <div class="service-text">
+                        <h3>We find a solution</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                     </div>
                   </div>
-                </div>
-              </div>
-            )}
+               </div>
+            </div>
+         </div>
+		 <!-- SERVICES  FIN -->
+		 	
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+         <!-- ABOUT US -->
+         <div id="about-us">
+            
+			<div class="s-12 m-12 l-6 media-container">
+               <img src="images/img-presentac.jpg" alt="Mudanza residencial profesional Muvex en Asunción">
+            </div>
+            <article class="s-12 m-12 l-6">
+               <h3> Tu mudanza <br> está en manos expertas: eficiencia, seguridad y atención personalizada.</h3> <!-- About Us  -->
+               <p>
 
-            {/* ══════════════════════════════════════════
-                MÓDULO 5: ADMINISTRACIÓN (solo admin)
-            ══════════════════════════════════════════ */}
-            {activeTab === 'admin' && user?.email === adminEmail && (
-              <div className="max-w-3xl mx-auto space-y-6">
-                <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                  <h2 className="text-base font-black text-slate-900 mb-1">⚙️ Administrar Accesos</h2>
-                  <p className="text-slate-500 text-xs mb-6">Gestioná los usuarios que pueden ingresar al ERP.</p>
 
-                  <div className="flex gap-2 mb-6 flex-wrap">
-                    <input placeholder="Nombre completo" value={newUser.name} onChange={e => setNewUser({...newUser, name: e.target.value})} className="border p-2.5 rounded-xl flex-1 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                    <input placeholder="Email de Google" value={newUser.email} onChange={e => setNewUser({...newUser, email: e.target.value})} className="border p-2.5 rounded-xl flex-1 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                    <button onClick={handleAddUser} className="bg-green-600 text-white px-5 py-2.5 rounded-xl font-bold text-xs hover:bg-green-700 transition-all">Agregar</button>
+Brindamos soluciones de mudanza eficientes y seguras, anticipándonos a las necesidades de nuestros clientes. Nos enfocamos en ofrecer un servicio personalizado, garantizando la protección de cada objeto y la tranquilidad de nuestros clientes durante todo el proceso de mudanza. <br>
+
+
+Nuestro compromiso es con la calidad, la puntualidad y la satisfacción del cliente.<br>
+
+
+Con Muvex, tu mudanza es sinónimo de seguridad y eficiencia. Relájate, que nosotros cuidamos de tus bienes.
+               </p>
+			   <!-- ICONOS
+               <div class="about-us-icons">
+                  <i class="icon-paperplane_ico"></i> <i class="icon-trophy"></i> <i class="icon-clock"></i>
+               </div>
+			    -->
+            </article>
+         </div>
+		 
+		 
+		 <div  id="contenedor-Center" style="background-color: #f2f6fc">
+				 <center>
+				 <p>&nbsp;  </p>
+	  			 <p>&nbsp;  </p>
+			     <h3 class="section-title"><span style="color:#ff721b"> Simplificamos tu mudanza:</span> en solo 3 pasos </h3>
+				 <p>&nbsp;  </p>
+				</center>
+	
+			 
+<!-- INICIO TABLE IMG 2	==========================================	-->	 			 
+<table width="80%" border="0" cellspacing="15" cellpadding="15"  style="background-color: #f2f6fc!important; border-bottom: 2px solid #f2f6fc!important;     border-right: 2px solid #f2f6fc!important; border-left: 2px solid #f2f6fc!important;border-top: 2px solid #f2f6fc!important;">
+	
+		
+	<tr style="background-color: #fFF!important;">
+      <td class="boxPadd-R2_right">
+		  
+<!-- INICIO  IMG 1	==========================================	-->
+	<CENTER>
+		<a href="#contact" >
+		<img src="images/Muvex_img-1_v4.gif" style="width: 80%!important;"  alt="Equipo de mudanzas Muvex trabajando con cuidado especializado"/>
+		</a>	
+    </CENTER>
+		</td>
+    </tr>
+	
+	
+    <tr style="background-color: #fFF!important;">
+      <td class="boxPadd-R2_right">
+		  
+<!-- TEMA 2 INICIO ==========================================	-->	 	
+	<CENTER>
+		<a href="#contact" >
+		<img src="images/img-2-general.jpg" style="width: 70%!important;"  alt="Flota vehicular Muvex con monitoreo GPS para mudanzas en Paraguay"/>
+		</a>	
+    </CENTER>
+		</td>
+    </tr>
+	
+	<tr style="background-color: #fFF!important;">
+      <td class="boxPadd-R2_right">
+		  
+<!-- INICIO  IMG 3	==========================================	-->
+	<CENTER>
+		<a href="#contact" >
+		<img src="images/Muvex_img-3-gif.gif" style="width: 80%!important;"  alt="Embalaje profesional de muebles y objetos frágiles Muvex"/>
+		</a>	
+    </CENTER>
+		</td>
+    </tr>
+	</table>   
+			 
+	
+
+</div>	
+		
+		 
+				
+		  
+		  
+		 <!-- AGREGANDO TEST DESCRIPCIONES INICIO ===================   -->
+		<!-- FEATURES INICIO  ===================  -->
+         <div id="features">
+            <div class="line">
+               <div class="margin">
+				
+                  <h3>Muvex. <span style="color:#ff721b"> Expertos en Mudanzas </span> </h3>
+				  <p>Relájate: protegemos cada detalle de tu mudanza.
+				  </p>
+				  <br><br><br>
+				  
+				  
+				  <!-- Atribut-Gral INICIO ===================   -->
+					<div class="s-12 m-6 l-3 margin-bottom"> <!-- <div class="col-md-3 text-center"> ===================   -->
+						<div class="box-services">
+							<div class="icon to-animate">
+								<span ><i class="icon-user-following"></i>   <!-- 
+<i class="icon-globe"></i> --- icono planeta
+<i class="icon-lightbulb-o"></i> -->
+								<!-- ICONO PIPETA <span><i class="icon-chemistry"></i></span> 
+									ICONO hoja icomoon icon-leaf
+VER ICONOS - ALTERNATIVAS EN LA WEB https://simplelineicons.github.io/
+								-->
+							</div>
+							<div class="fh5co-post to-animate">
+								<h3><span style="color:#ff721b">Vocación </span> al Cliente </h3>
+								<p>simplificamos tu mudanza para que sea fácil y sin estrés.  <br><br></p>
+								<p>&nbsp;  </p>
+								<p>&nbsp;  </p>
+								<p>&nbsp;  </p>
+								
+							</div>
+						</div>
+
+						<div class="box-services">
+							<div class="icon to-animate">
+							
+								
+								<span><i class="icon-hourglass"></i></i>
+								<!-- ICONO PIPETA
+									<i class="icon-energy"></i></i> icono de rayo - energia
+								<i class="icon-hourglass to-animate-2" style="color:#0096db!important;"></i>
+								-->
+								
+								</span> 
+							</div>
+							<div class="fh5co-post to-animate">
+								<h3><span style="color:#ff721b"> Puntualidad </span> y compromiso </h3>
+								<p>tu mudanza comienza y termina a la hora acordada.</p>
+								
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="s-12 m-6 l-3 margin-bottom"> <!-- <div class="col-md-3 text-center"> ===================   -->
+						<div class="box-services">
+							<div class="icon to-animate">
+								<span><i class="icon-tag"></i></span> 
+								
+								<!-- ICONO DE CALIDAD - CERTIFICACION <i class="icon-badge"></i> 
+									ICONO monitor <i class="icon-screen-desktop"></i> -->
+								<!-- ICONO TROFEO  <i class="icon-trophy"></i> -->
+							</div>
+							<div class="fh5co-post to-animate">
+								<h3> <span style="color:#ff721b">Tarifas </span> justas</h3>
+								<p>cotizaciones claras y finales, sin costos ocultos.</p>
+								<p>&nbsp;  </p>
+								<p>&nbsp;  </p>
+								<p>&nbsp;  </p>
+								<p>&nbsp;  </p>
+							</div>
+						</div>
+
+						<div class="box-services">
+							<div class="icon to-animate">
+								<span><i class="icon-layers to-animate-2" width="80%"></i></span>
+							</div>
+							<div class="fh5co-post to-animate">
+								<h3><span style="color:#ff721b">Garantia  </span> Total</h3>
+								<p>emitimos una póliza de seguro y confeccionamos un contrato.</p>
+								<p>&nbsp;  </p>
+							</div>
+						</div>
+					</div>
+					
+					<div class="s-12 m-6 l-3 margin-bottom"> <!-- <div class="col-md-3 text-center"> ===================   -->
+						<div class="box-services">
+							<div class="icon to-animate">
+								<span><i class="icon-speedometer"></i></span><!-- icono persona  class="icon-people" -->
+								<!-- icono llave  class="icon-key" -->
+							</div>
+							<div class="fh5co-post to-animate">
+								<h3><span style="color:#ff721b"> Capacidad </span> de carga </h3>
+								<p>furgones y vehículos, con diferentes capacidades de carga a su disposición.</p>
+								<p>&nbsp;  </p>
+								<p>&nbsp;  </p>
+								<p>&nbsp;  </p>
+								<p>&nbsp;  </p>
+							</div>
+						</div>
+
+						<div class="box-services">
+							<div class="icon to-animate">
+								<span><i class="icon-check"></i></span>
+							</div>
+							<div class="fh5co-post to-animate">
+								<h3> <span style="color:#ff721b">100% </span>  Habilitados</h3>
+								<p>para circular en todo el territorio nacional. </p>
+								<p>&nbsp;  </p>
+							</div>
+						</div>
+					</div>
+					<div class="s-12 m-6 l-3 margin-bottom"> <!-- <div class="col-md-3 text-center"> ===================   -->
+						<div class="box-services">
+							<div class="icon to-animate"> 
+								<span><i class="icon-puzzle"></i></span> <!-- ICONO libro <i class="icon-book-open"></i> -->
+								<!-- auxilio class="icon-life-saver", class="icon-columns2 to-animate-2" -->
+							</div>
+							<div class="fh5co-post to-animate">
+								<h3><span style="color:#ff721b"> Adaptación </span> ideal </h3>
+								<p> adaptamos nuestros servicios a tus necesidades</p>
+								<p>&nbsp;  </p>
+								<p>&nbsp;  </p>
+								<p>&nbsp;  </p>
+								<p>&nbsp;  </p>
+							</div>
+						</div>
+
+						<div class="box-services">
+							<div class="icon to-animate">
+								 <span><i class="icon-location-pin"></i></span>  <!-- ICONO llave <i class="icon-key"></i> -->
+							</div>
+							<div class="fh5co-post to-animate">
+								
+								<h3> <span style="color:#ff721b"> Rastreo </span> Satelital</h3>
+								<p>podrás dar seguimiento en tiempo real a tu mudanza</p>
+								<p>&nbsp;  </p> 
+							</div>
+						</div>
+					</div>
+					<!-- Atribut-Gral FIN ===================   -->
+					
+					
+				  
+				  
+				  
+				  
+               </div>
+            </div>
+         </div>
+		 
+		  <!-- FEATURES FIN  ===================  -->
+		 
+		  
+		  
+		  
+		  
+		<!-- AGREGANDO TEST........ FIN ===================   -->
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+         <!-- OUR WORK -->
+         
+		 <!-- SERVICES -->
+         <!-- SERVICES  INICIO -->
+         
+		 <!-- SERVICES  FIN -->
+		 
+		 
+         <!-- LATEST NEWS -->
+		 <!-- 
+         <div id="latest-news">
+            <div class="line">
+              <h2 class="section-title">Latest News</h2> 
+              <div class="margin">
+                <div class="s-12 m-6 l-6">
+                  <div class="s-12 l-2">
+                    <div class="news-date">
+                      <p class="day">28</p><p class="month">AUGUST</p><p class="year">2015</p>
+                    </div>
                   </div>
-
-                  <table className="w-full text-left text-xs bg-white rounded-xl border overflow-hidden">
-                    <thead className="bg-slate-50 border-b">
-                      <tr>
-                        <th className="p-3 font-bold text-slate-500 uppercase tracking-wider">Nombre</th>
-                        <th className="p-3 font-bold text-slate-500 uppercase tracking-wider">Email</th>
-                        <th className="p-3 font-bold text-slate-500 uppercase tracking-wider">Fecha</th>
-                        <th className="p-3 font-bold text-slate-500 uppercase tracking-wider text-center">Acción</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y">
-                      {usuarios.length === 0 ? (
-                        <tr><td colSpan="4" className="p-4 text-center text-slate-400">No hay usuarios autorizados adicionales.</td></tr>
-                      ) : usuarios.map(u => (
-                        <tr key={u.id} className="hover:bg-slate-50">
-                          <td className="p-3 font-bold">{u.name}</td>
-                          <td className="p-3 text-slate-500">{u.email}</td>
-                          <td className="p-3 text-slate-400">{u.fecha}</td>
-                          <td className="p-3 text-center"><button onClick={() => handleRemoveUser(u.email)} className="text-red-500 font-bold hover:bg-red-50 px-3 py-1.5 rounded-lg transition-all">Eliminar</button></td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            )}
-
-          </main>
-
-          {/* ══════════════════════════════════════════
-              MODAL: AGENDAMIENTO DE MUDANZA
-          ══════════════════════════════════════════ */}
-          {isJobModalOpen && (
-            <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4">
-              <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border">
-                <div className="bg-slate-900 text-white px-6 py-4 flex justify-between items-center rounded-t-2xl sticky top-0 z-10">
-                  <h3 className="text-sm font-black uppercase tracking-widest">{currentJob ? `Editar Mudanza Nº ${currentJob.sku}` : 'Cargar Agendamiento'}</h3>
-                  <button onClick={() => setIsJobModalOpen(false)} className="text-xl font-bold hover:text-red-400">✕</button>
-                </div>
-
-                <form onSubmit={handleSaveJob} className="p-6 space-y-6 text-xs">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                      <label className="block font-bold text-slate-500 uppercase mb-1">Presupuesto SKU *</label>
-                      <input type="text" name="sku" required disabled={!!currentJob} value={jobForm.sku} onChange={handleJobFormChange} className="w-full border px-3 py-2.5 rounded-xl disabled:bg-slate-100 disabled:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                  <div class="s-12 l-10">
+                    <div class="news-text">
+                      <h4>First latest News</h4>
+                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.</p>
                     </div>
-                    <div>
-                      <label className="block font-bold text-slate-500 uppercase mb-1">Cliente *</label>
-                      <input type="text" name="cliente" required value={jobForm.cliente} onChange={handleJobFormChange} className="w-full border px-3 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                    </div>
-                    <div>
-                      <label className="block font-bold text-slate-500 uppercase mb-1">RUC</label>
-                      <input type="text" name="ruc" value={jobForm.ruc} onChange={handleJobFormChange} className="w-full border px-3 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                  </div>   
+                </div> 
+                <div class="s-12 m-6 l-6">
+                  <div class="s-12 l-2">
+                    <div class="news-date">
+                      <p class="day">12</p><p class="month">JULY</p><p class="year">2015</p>
                     </div>
                   </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                      <label className="block font-bold text-slate-500 uppercase mb-1">Tipo de Mudanza</label>
-                      <select name="tipoTrabajo" value={jobForm.tipoTrabajo} onChange={handleJobFormChange} className="w-full border px-3 py-2.5 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <option value="Integral">🔵 Integral</option>
-                        <option value="Standard">Standard</option>
-                        <option value="Flete">Flete</option>
-                        <option value="Llave en mano">Llave en mano</option>
-                      </select>
+                  <div class="s-12 l-10">
+                    <div class="news-text">
+                      <h4>Second latest News</h4>
+                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.</p>
                     </div>
-                    <div>
-                      <label className="block font-bold text-slate-500 uppercase mb-1">Teléfono WhatsApp</label>
-                      <input type="text" name="telefono" value={jobForm.telefono} onChange={handleJobFormChange} className="w-full border px-3 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                    </div>
-                    <div>
-                      <label className="block font-bold text-slate-500 uppercase mb-1">M³ Volumen</label>
-                      <input type="number" step="0.1" name="m3" value={jobForm.m3} onChange={handleJobFormChange} className="w-full border px-3 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block font-bold text-slate-500 uppercase mb-1">Fecha de Inicio</label>
-                      <input type="date" name="startDate" value={jobForm.startDate} onChange={handleJobFormChange} className="w-full border px-3 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                    </div>
-                    <div>
-                      <label className="block font-bold text-slate-500 uppercase mb-1">Fecha de Fin</label>
-                      <input type="date" name="endDate" value={jobForm.endDate} onChange={handleJobFormChange} className="w-full border px-3 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                    </div>
-                  </div>
-
-                  <div className="space-y-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
-                    <div>
-                      <label className="block font-bold text-slate-500 uppercase mb-1">Origen Google Maps</label>
-                      <input type="url" name="origen" value={jobForm.origen} onChange={handleJobFormChange} className="w-full border px-3 py-2.5 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="https://maps.app.goo.gl/..." />
-                    </div>
-                    <div>
-                      <div className="flex justify-between items-center mb-1">
-                        <label className="font-bold text-slate-500 uppercase">Destino(s) Google Maps</label>
-                        <button type="button" onClick={addDestinoField} className="text-blue-600 hover:underline font-bold text-xs">＋ Agregar destino</button>
-                      </div>
-                      {jobForm.destinos.map((dest, i) => (
-                        <div key={i} className="flex gap-2 mb-2 items-center">
-                          <span className="font-bold text-slate-400">D{i+1}</span>
-                          <input type="url" value={dest} onChange={(e) => handleDestinoChange(i, e.target.value)} className="flex-1 border px-3 py-2.5 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="https://maps.app.goo.gl/..." />
-                          {jobForm.destinos.length > 1 && (
-                            <button type="button" onClick={() => removeDestinoField(i)} className="text-red-500 font-bold bg-red-50 px-2 py-2 rounded-xl hover:bg-red-100">✕</button>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-orange-50/10 p-4 rounded-xl border border-orange-100">
-                    <div>
-                      <label className="block font-bold text-slate-600 mb-2">👑 Encargado (Líder)</label>
-                      <select name="encargadoCi" value={jobForm.encargadoCi} onChange={handleJobFormChange} className="w-full border px-3 py-2.5 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <option value="">-- Seleccionar Líder --</option>
-                        {staff.map(s => <option key={s.ci} value={s.ci}>{s.nombre} (CI: {s.ci})</option>)}
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block font-bold text-slate-600 mb-2">👥 Miembros de la Cuadrilla</label>
-                      <div className="max-h-28 overflow-y-auto border rounded-xl bg-white p-2 space-y-1.5 scrollbar-thin">
-                        {staff.map(s => (
-                          <label key={s.ci} className="flex items-center gap-2 cursor-pointer p-1 rounded hover:bg-slate-50">
-                            <input type="checkbox" checked={jobForm.cuadrillaCis.includes(s.ci)} onChange={() => handleCuadrillaToggle(s.ci)} className="rounded" />
-                            <span>{s.nombre} (CI: {s.ci})</span>
-                          </label>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                      <label className="block font-bold text-slate-500 mb-1">Monto Presupuesto (Gs)</label>
-                      <input type="number" name="presupuesto" value={jobForm.presupuesto} onChange={handleJobFormChange} className="w-full border px-3 py-2.5 rounded-xl font-bold focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                    </div>
-                    <div>
-                      <label className="block font-bold text-slate-500 mb-1">Monto Anticipo (Gs)</label>
-                      <input type="number" name="anticipo" value={jobForm.anticipo} onChange={handleJobFormChange} className="w-full border px-3 py-2.5 rounded-xl font-bold focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                    </div>
-                    <div className="bg-orange-50 p-2 rounded-xl text-center border border-orange-100 flex flex-col justify-center">
-                      <span className="text-[10px] font-bold text-orange-800 uppercase">Saldo Pendiente</span>
-                      <span className="text-base font-black text-orange-600">{formatCurrency((parseFloat(jobForm.presupuesto)||0) - (parseFloat(jobForm.anticipo)||0))}</span>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block font-bold text-slate-500 uppercase mb-1">Nº de Factura</label>
-                    <input type="text" name="factura" value={jobForm.factura} onChange={handleJobFormChange} placeholder="Ej: 001-001-0002026" className="w-full border px-3 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                  </div>
-
-                  <div className="flex justify-between items-center pt-4 border-t">
-                    {currentJob && (
-                      <button type="button" onClick={() => handleDeleteJob(currentJob.sku)} className="bg-red-50 hover:bg-red-100 text-red-700 font-bold px-4 py-2.5 rounded-xl transition-all">Eliminar 🗑️</button>
-                    )}
-                    <div className="flex gap-2 ml-auto">
-                      <button type="button" onClick={() => setIsJobModalOpen(false)} className="px-4 py-2.5 border rounded-xl font-bold text-slate-500 hover:bg-slate-50">Cancelar</button>
-                      <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-bold shadow-md transition-all">Guardar Agendamiento</button>
-                    </div>
-                  </div>
-                </form>
+                  </div>   
+                </div>  
               </div>
             </div>
-          )}
+         </div>
+		 -->
 
-          <footer className="bg-slate-900 text-slate-400 py-6 px-6 text-center text-[10px] mt-12 border-t border-slate-800">
-            <p>© 2026 Muvex S.A. Todos los derechos reservados.</p>
-            <p className="mt-1 text-slate-500">Sistema desarrollado a medida · Firebase Hosting</p>
-          </footer>
-
-        </div>
-      );
-    }
-
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<App />);
-  </script>
-</body>
+		 
+         <!-- CONTACT -->
+         <div id="contact">
+            <div class="line">
+				
+ 				
+		<p>&nbsp;</p>
+				
+               <center>
+               <h2 class="TitulContact">Contáctenos</h2>
+			   <center/> 
+               <div class="margin">
+			   
+                  <div class="s-12 m-12 l-3 hide-m hide-s margin-bottom right-align">
+                    <img src="images/Slim_contact.jpg" alt="Contacto Muvex S.A. servicio de mudanzas en Asunción">
+                  </div>
+                  <div class="s-12 m-12 l-4 margin-bottom right-align">
+                    
+					 
+				
+					<h3 class="section-title"><span style="color:#aeacac"> Estaremos encantados de responder cualquier duda o consulta que desee realizar.</span>  </h3>    
+					  
+					<table class="SimpleStyleTable">
+   <tr class="SimpleTd">
+    <td class="SimpleTd"><i class="icon-location-pin"  style="color:#ff721b !important; background-color:transparent !important;"></i></td>
+    <td class="SimpleTd"> Teniente Rivas. Luque, Paraguay<br>
+ 
+	<a href="https://maps.app.goo.gl/Szd9NpGpYLgknSk37"  class="LinkGris" target="_blank"> VER UBICACIÓN </a></td>
+  </tr>
+	<!-- 					
+  <tr class="SimpleTd">
+    <td class="SimpleTd"><i class="icon-phone"  style="color:#ff721b !important; background-color:transparent !important;"></i></td>
+    <td class="SimpleTd">(+595 21) 328 2245</td>
+  </tr>
+  -->
+   <tr class="SimpleTd">
+    <td class="SimpleTd"><i class="icon-call-in"  style="color:#ff721b !important; background-color:transparent !important;" ></i>
+	   
+	   
+	   </td>
+    <td class="SimpleTd">(+595 981) 001530 
+	   </td>
+  </tr>
+	<tr class="SimpleTd">
+    <td class="SimpleTd"><i class="icon-bubble"  style="color:#ff721b !important; background-color:transparent !important;" ></i>
+	   
+	   
+	   </td>
+    <td class="SimpleTd"> Link al Whatsapp:    <a href="https://wa.me/595981001530" class="LinkGris" target="32" > https://wa.me/595981001530</a>
+	 
+	   </td>
+  </tr>
+   <tr class="SimpleTd">
+    <td class="SimpleTd"><i class="icon-envelope"  style="color:#ff721b !important; background-color:transparent !important;" ></i></td>
+    <td class="SimpleTd">
+		<!-- <a href="mailto:info@slimwindows.com.py" class="LinkGris" target="_blank">info@slimwindows.com.py</a>, <br /> -->
+						<a href="mailto:info@muvexsa.com" class="LinkGris" target="_blank">info@muvexsa.com</a></td>
+  </tr>
+   <tr class="SimpleTd">
+    <td class="SimpleTd"><i class="icon-dribbble"  style="color:#ff721b !important; background-color:transparent !important;"></i></td>
+    <td class="SimpleTd"><a href="http://www.muvexsa.com/" class="LinkGris" >www.muvexsa.com</a></td>
+  </tr>
+</table>
+                     
+                     <br />
+                     <!--  <h3>Social</h3>  -->
+                     <a href="https://www.facebook.com/muvexsa/" target="_blank" ><i class="icon-facebook icon"  style="color:#ff721b !important; background-color:transparent !important;"></i> </a>
+                     <a href="https://www.instagram.com/muvexsa/" target="_blank" > <i class="icon-instagram"  style="color:#ff721b !important; background-color:transparent !important;"></i> </a>
+                     <a href="https://www.linkedin.com/company/muvexsa/" target="_blank" > <i class="fa fa-linkedin-square" style="font-size:24px;color:#ff721b !important; background-color:transparent !important;"></i> </a>
+					
+                  </div>
+                  <div class="s-12 m-12 l-5">
+                    
+					<center>
+					<h4><span style="color:#ff721b; font-size:45important;"> Solicitá Presupuesto</span>  </h4>
+					<center/>
+					<br />
+                    <form action="contacto.php" method="post" class="contact-form">
+ 
+<div class="form-group">
+ <input type="text" class="form-control" id="nombre" placeholder="Nombre y Apellido" name="nombre"   required />
+</div> 
+<div class="form-group"> 
+ <input id="direccion" type="text" name="direccion" class="form-control" placeholder="Direccion" required />
+ </div>
+<div class="form-group">
+ <input id="ciudad" type="text" name="ciudad" class="form-control" placeholder="Ciudad" required />
+</div> 
+<div class="form-group">
+ <input id="datos" type="text" name="datos" class="form-control" placeholder=" Nro de Teléfono o Celular" required />
+</div>
+<div class="form-group">
+ <input id="correo" type="text" name="correo" class="form-control" placeholder="Email" required />
+</div> 
+<div class="form-group">
+ <textarea id="mensaje" name="mensaje" class="form-control" placeholder="Mensaje" required></textarea>
+</div>
+<div class="form-group"> 
+ <input  id="btn-submit" class="BotForm" type="submit" name="submit" value="Enviar"  />
+</div>
+</form>
+<p>&nbsp;  </p>
+<p>&nbsp;  </p>
+<p>&nbsp;  </p>
+<p>&nbsp;  </p>
+<p>&nbsp;  </p>
+<p>&nbsp;  </p>
+<p>&nbsp;  </p>
+                  </div>                
+               </div>
+            </div>
+         </div>
+         <!-- MAP -->
+         <div id="map-block">  	  
+            
+			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3608.0992622429862!2d-57.505990999999995!3d-25.267246099999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x945da5005e4db211%3A0xfa728cdfa781385!2zTXV2ZXggU0EgfCBFeHBlcnRvcyBlbiBNdWRhbnphcyDwn4e18J-Hvg!5e0!3m2!1ses-419!2spy!4v1729535128205!5m2!1ses-419!2spy" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> 
+			 
+			 
+			</div>
+      </section>
+      <!-- FOOTER -->
+      <footer>
+         <div class="line">
+            <div class="s-12 l-6">
+               <p>Copyright &copy; 2024, Muvex SA | Expertos en Mudanzas.</p>
+               <p>Diseño & Desarrollo <a href="https://www.r2visual.com.py/" style="font-size:12px !important; color:#Fff !important; text-decoration:underline !important;"  target="_blank">R2 visual</a></p>
+            </div>
+            <div class="s-12 l-6">
+               <!--
+			   <a class="right" href="http://www.myresponsee.com" title="Responsee - lightweight responsive framework">Design and coding<br> by Responsee Team</a>
+			   -->
+            </div>
+         </div>
+      </footer>
+      <script type="text/javascript" src="js/responsee.js"></script>
+      <script type="text/javascript" src="owl-carousel/owl.carousel.js"></script>
+      <script type="text/javascript">
+         jQuery(document).ready(function($) {
+            var theme_slider = $("#owl-demo");
+            var owl = $('#owl-demo');
+            owl.owlCarousel({
+              nav: false,
+              dots: true,
+              items: 1,
+              loop: true,
+              autoplay: true,
+              autoplayTimeout: 6000
+            });
+            var owl = $('#owl-demo2');
+            owl.owlCarousel({
+              nav: true,
+              dots: false,
+              items: 1,
+              loop: true,
+              navText: ["&#xf007","&#xf006"],
+              autoplay: true,
+              autoplayTimeout: 4000
+            });
+        
+            // Custom Navigation Events
+            $(".next-arrow").click(function() {
+                theme_slider.trigger('next.owl');
+            })
+            $(".prev-arrow").click(function() {
+                theme_slider.trigger('prev.owl');
+            })     
+        }); 
+      </script>
+   </body>
 </html>
+
+<!-- SLIDE 3 CATEGORIAS INICIO -->
+	<script src="slide-3categ/jquery.min.js"></script>
+	<script src="slide-3categ/style-3Categ.js"></script>
+	<!-- SLIDE 3 CATEGORIAS FIN -->
