@@ -3,4 +3,8 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/muvexsac/public_html/
     - rm -rf $DEPLOYPATH/css $DEPLOYPATH/font $DEPLOYPATH/Gallery-js $DEPLOYPATH/GalleryCss $DEPLOYPATH/js $DEPLOYPATH/owl-carousel $DEPLOYPATH/img $DEPLOYPATH/presupuestos $DEPLOYPATH/slide-3categ $DEPLOYPATH/web_10
-    - /bin/cp -r . $DEPLOYPATH
+    - cp index.html $DEPLOYPATH/index.html
+    - cp -r images $DEPLOYPATH/
+    - cp .htaccess $DEPLOYPATH/.htaccess
+    - cp sitemap.xml $DEPLOYPATH/sitemap.xml
+    - cp contacto.php $DEPLOYPATH/contacto.php
