@@ -10,6 +10,14 @@
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="images/favicon-180x180.png">
+<!-- Google tag (gtag.js) - Google Ads AW-17824651050 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17824651050"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-17824651050');
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;900&family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
@@ -2218,6 +2226,26 @@
     }, 4500);
   }
 
+  // Función de conversión WhatsApp para Google Ads
+  function trackWhatsApp() {
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'conversion', {
+        'send_to': 'AW-17824651050/whatsapp_click_muvex'
+      });
+    }
+  }
+
+  // Tracking automático en todos los links de WhatsApp
+  document.addEventListener('DOMContentLoaded', function() {
+    var waLinks = document.querySelectorAll('a[href*="wa.me"]');
+    waLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        trackWhatsApp();
+      });
+    });
+  });
+
+  // Botón formulario WhatsApp
   document.getElementById('send-wa-btn').addEventListener('click', function(e) {
     e.preventDefault();
     var name = document.getElementById('f-name').value.trim();
@@ -2235,6 +2263,7 @@
     if (to) text += '\n*Hasta:* ' + to;
     if (msg) text += '\n*Detalles:* ' + msg;
 
+    trackWhatsApp();
     window.open('https://wa.me/595981001530?text=' + encodeURIComponent(text), '_blank');
   });
 </script>
