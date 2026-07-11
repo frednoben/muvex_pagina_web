@@ -2227,22 +2227,25 @@
     }, 4500);
   }
 
-  // Función de conversión WhatsApp para Google Ads
+  // Función de conversión WhatsApp para Google Ads + Google Analytics
   function trackWhatsApp() {
     if (typeof gtag !== 'undefined') {
+      // Conversión para Google Ads (ya existente)
       gtag('event', 'conversion', {
         'send_to': 'AW-17824651050/whatsapp_click_muvex'
       });
+      // Evento para Google Analytics (nuevo)
+      gtag('event', 'contacto_whatsapp');
     }
   }
 
   // Tracking automático en todos los links de WhatsApp
-  document.addEventListener('DOMContentLoaded', function() {
-    var waLinks = document.querySelectorAll('a[href*="wa.me"]');
-    waLinks.forEach(function(link) {
-      link.addEventListener('click', function() {
-        trackWhatsApp();
-      });
+  // (este script está al final del body, el DOM ya está listo,
+  // no hace falta esperar a DOMContentLoaded)
+  var waLinks = document.querySelectorAll('a[href*="wa.me"]');
+  waLinks.forEach(function(link) {
+    link.addEventListener('click', function() {
+      trackWhatsApp();
     });
   });
 
