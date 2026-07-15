@@ -1485,7 +1485,8 @@
   /* MOBILE */
   @media (max-width: 900px) {
     .hero { grid-template-columns: 1fr; }
-    .hero-right { display: none; }
+    .hero-right { height: 340px; }
+    .hero-right .hero-card { bottom: 20px; right: 20px; left: 20px; min-width: auto; }
     .services-header { grid-template-columns: 1fr; gap: 24px; }
     .services-grid { grid-template-columns: 1fr 1fr; }
     .logo-strip { grid-template-columns: repeat(3, 1fr); }
@@ -1508,6 +1509,9 @@
   }
 
   @media (max-width: 600px) {
+    .hero-right { height: 260px; }
+    .hero-right .hero-card { padding: 14px 18px; gap: 8px; }
+    .hero-card-phone { font-size: 17px; }
     .hero-logo-img { max-width: 300px; }
     .payments { padding: 64px 0; }
     .pay-logo { width: 118px; height: 72px; margin: 0 8px; border-radius: 11px; }
