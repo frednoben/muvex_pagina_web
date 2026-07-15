@@ -1485,8 +1485,15 @@
   /* MOBILE */
   @media (max-width: 900px) {
     .hero { grid-template-columns: 1fr; }
-    .hero-right { height: 340px; }
-    .hero-right .hero-card { bottom: 20px; right: 20px; left: 20px; min-width: auto; }
+    .hero-right { height: 380px; }
+    .hero-right .hero-card {
+      bottom: 16px; right: 16px; left: 16px; min-width: auto;
+      flex-direction: row; align-items: center; justify-content: space-between;
+      padding: 14px 16px; gap: 12px;
+    }
+    .hero-card-top { display: none; }
+    .hero-card-phone { font-size: 16px; margin-bottom: 0; }
+    .hero-card-link { padding: 10px 18px; font-size: 12px; white-space: nowrap; flex-shrink: 0; }
     .services-header { grid-template-columns: 1fr; gap: 24px; }
     .services-grid { grid-template-columns: 1fr 1fr; }
     .logo-strip { grid-template-columns: repeat(3, 1fr); }
@@ -1509,9 +1516,10 @@
   }
 
   @media (max-width: 600px) {
-    .hero-right { height: 260px; }
-    .hero-right .hero-card { padding: 14px 18px; gap: 8px; }
-    .hero-card-phone { font-size: 17px; }
+    .hero-right { height: 320px; }
+    .hero-right .hero-card { padding: 12px 14px; gap: 8px; }
+    .hero-card-phone { font-size: 14px; }
+    .hero-card-link { padding: 9px 14px; }
     .hero-logo-img { max-width: 300px; }
     .payments { padding: 64px 0; }
     .pay-logo { width: 118px; height: 72px; margin: 0 8px; border-radius: 11px; }
