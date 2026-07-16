@@ -1526,6 +1526,117 @@
     .services-grid { grid-template-columns: 1fr; }
     .logo-strip { grid-template-columns: 1fr 1fr; }
   }
+
+  /* FAQ */
+  .faq { padding: 72px 24px; max-width: 820px; margin: 0 auto; }
+  .faq-list { margin-top: 28px; display: flex; flex-direction: column; gap: 14px; }
+  .faq-item {
+    border: 1px solid var(--gray-mid);
+    border-radius: 14px;
+    padding: 4px 24px;
+    background: var(--white);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .faq-item[open] {
+    border-color: rgba(255,108,14,0.35);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  }
+  .faq-question {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 18px;
+    padding: 20px 0;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .faq-question::-webkit-details-marker { display: none; }
+  .faq-icon {
+    color: var(--orange);
+    font-size: 15px;
+    font-weight: 700;
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255,108,14,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.25s ease, background 0.25s ease;
+  }
+  .faq-item[open] .faq-icon { transform: rotate(135deg); background: var(--orange); color: var(--white); }
+
+  .faq-answer {
+    padding: 0 0 24px 0;
+    font-family: var(--font-body);
+    color: var(--gray-text);
+    line-height: 1.65;
+    font-size: 15px;
+    border-top: 1px solid var(--gray-light);
+    margin-top: -2px;
+    padding-top: 18px;
+  }
+  .faq-answer > p { margin-bottom: 12px; }
+  .faq-answer > p:last-child { margin-bottom: 0; }
+
+  /* Lista con check, para servicios / garantías */
+  .faq-tags { list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 4px 0 16px; }
+  .faq-tags li {
+    position: relative;
+    padding-left: 26px;
+  }
+  .faq-tags li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--orange);
+    font-weight: 700;
+  }
+  .faq-tags strong { color: #2A2A28; font-family: var(--font-display); font-weight: 600; }
+
+  /* Badge de respaldo (RUC) */
+  .faq-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gray-light);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: #4A4A45;
+    margin-top: 4px;
+  }
+
+  /* Mini pasos numerados dentro de una respuesta */
+  .faq-steps { display: flex; flex-direction: column; gap: 16px; margin: 12px 0 16px; }
+  .faq-step { display: flex; align-items: flex-start; gap: 14px; }
+  .faq-step-num {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--orange);
+    color: var(--white);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .faq-step-title { font-family: var(--font-display); font-weight: 600; color: #2A2A28; font-size: 15px; margin-bottom: 2px; }
+  .faq-step-desc { color: var(--gray-text); font-size: 14.5px; line-height: 1.55; }
+
+  @media (max-width: 640px) {
+    .faq { padding: 48px 20px; }
+    .faq-item { padding: 4px 16px; }
+    .faq-question { font-size: 16px; padding: 16px 0; }
+  }
 </style>
 <script type="application/ld+json">
 {
@@ -1613,6 +1724,46 @@
       {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Mudanza Llave en Mano"}}
     ]
   }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Qué servicios de mudanza ofrece Muvex en Asunción y Gran Asunción?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "En Muvex ofrecemos cuatro tipos de servicio adaptados a cada necesidad: Flete (transporte simple de tus pertenencias), Mudanza Standard (transporte con personal de carga y descarga), Mudanza Integral (incluye embalaje profesional de tus objetos) y Mudanza Llave en Mano (servicio completo de principio a fin, incluyendo desarme y armado de muebles). Atendemos mudanzas residenciales y corporativas en Asunción, Luque, San Lorenzo, Fernando de la Mora, Lambaré y en general todo el Gran Asunción, además de trabajar a nivel nacional en todo Paraguay."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cómo puedo solicitar un presupuesto para mi mudanza con Muvex?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "El proceso consta de 3 pasos. 1. Contacto: nos escribís por WhatsApp o completás el formulario con los detalles de tu mudanza. 2. Presupuesto y kit de embalaje: te entregamos una cotización clara y sin costos ocultos, junto con un kit de embalaje para que vayas guardando tus objetos con tiempo. 3. Ejecución: el día acordado, nuestro equipo se encarga de todo el movimiento."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Realizan traslados de oficinas y mudanzas corporativas los fines de semana?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Ofrecemos traslados de oficinas y mudanzas corporativas los fines de semana para no interrumpir la operación comercial de la empresa, permitiendo que el equipo retome sus actividades con normalidad el lunes siguiente."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Es seguro el traslado de mis pertenencias con Muvex?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Muvex cuenta con personal propio capacitado, embalaje profesional y flota con monitoreo GPS. Es una empresa legalmente constituida en Paraguay, con RUC 80151327-8, lo que respalda cada servicio ofrecido."
+      }
+    }
+  ]
 }
 </script>
 </head>
@@ -2170,6 +2321,92 @@
 <div class="map-section">
   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3608.0992622429862!2d-57.505990999999995!3d-25.267246099999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x945da5005e4db211%3A0xfa728cdfa781385!2zTXV2ZXggU0EgfCBFeHBlcnRvcyBlbiBNdWRhbnphcyDwn4e18J-Hvg!5e0!3m2!1ses-419!2spy!4v1729535128205!5m2!1ses-419!2spy" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <p class="section-label" style="color: rgba(255,108,14,0.8)">Preguntas frecuentes</p>
+  <h2 class="section-title">Todo lo que necesitás saber</h2>
+
+  <div class="faq-list">
+
+    <details class="faq-item">
+      <summary class="faq-question">
+        ¿Qué servicios de mudanza ofrece Muvex en Asunción y Gran Asunción?
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-answer">
+        <p>Ofrecemos cuatro tipos de servicio, para mudanzas residenciales y corporativas:</p>
+        <ul class="faq-tags">
+          <li><strong>Flete</strong> — transporte simple de tus pertenencias</li>
+          <li><strong>Mudanza Standard</strong> — transporte con personal de carga y descarga</li>
+          <li><strong>Mudanza Integral</strong> — incluye embalaje profesional de tus objetos</li>
+          <li><strong>Mudanza Llave en Mano</strong> — servicio completo, incluye desarme y armado de muebles</li>
+        </ul>
+        <p>Cobertura: Asunción, Luque, San Lorenzo, Fernando de la Mora, Lambaré y todo el Gran Asunción, además de a nivel nacional en Paraguay.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-question">
+        ¿Cómo puedo solicitar un presupuesto para mi mudanza con Muvex?
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-answer">
+        <p>El proceso es simple y consta de 3 pasos:</p>
+        <div class="faq-steps">
+          <div class="faq-step">
+            <span class="faq-step-num">1</span>
+            <div>
+              <p class="faq-step-title">Contacto</p>
+              <p class="faq-step-desc">Nos escribís por WhatsApp o completás el formulario con los detalles de tu mudanza.</p>
+            </div>
+          </div>
+          <div class="faq-step">
+            <span class="faq-step-num">2</span>
+            <div>
+              <p class="faq-step-title">Presupuesto y kit de embalaje</p>
+              <p class="faq-step-desc">Te entregamos una cotización clara y sin costos ocultos, junto con un kit de embalaje para que vayas guardando tus objetos con tiempo.</p>
+            </div>
+          </div>
+          <div class="faq-step">
+            <span class="faq-step-num">3</span>
+            <div>
+              <p class="faq-step-title">Ejecución</p>
+              <p class="faq-step-desc">El día acordado, nuestro equipo se encarga de todo el movimiento con total tranquilidad.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-question">
+        ¿Realizan traslados de oficinas y mudanzas corporativas los fines de semana?
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-answer">
+        <p>Sí. Ofrecemos traslados de oficinas y mudanzas corporativas los fines de semana precisamente para no interrumpir la operación comercial de tu empresa. De esta forma, tu equipo puede volver a trabajar con normalidad el lunes siguiente, sin pérdida de horas productivas.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-question">
+        ¿Es seguro el traslado de mis pertenencias con Muvex?
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-answer">
+        <p>Sí. Trabajamos con tres garantías clave:</p>
+        <ul class="faq-tags">
+          <li><strong>Personal capacitado</strong> — equipo propio, no tercerizado</li>
+          <li><strong>Embalaje profesional</strong> — protección de cada objeto</li>
+          <li><strong>Monitoreo GPS</strong> — seguimiento en tiempo real de la flota</li>
+        </ul>
+        <div class="faq-note">🏢&nbsp; Muvex S.A. es una empresa legalmente constituida en Paraguay — RUC 80151327-8.</div>
+      </div>
+    </details>
+
+  </div>
+</section>
 
 <!-- FOOTER -->
 <footer>
