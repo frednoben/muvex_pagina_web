@@ -2488,6 +2488,24 @@
     }
   }
 
+  // --- Atribución de origen Muvex (web vs Google Ads) ---
+  // Detecta si el visitante llegó desde un anuncio de Google (por el gclid que
+  // agrega el etiquetado automático) y arma el texto prellenado según eso.
+  // El oyente de WhatsApp lee ese texto para clasificar el origen del mensaje.
+  function muvexEsGoogle() {
+    var p = new URLSearchParams(location.search);
+    return p.has('gclid') || (p.get('utm_source') || '').toLowerCase() === 'google';
+  }
+  function muvexOrigenTexto() {
+    return muvexEsGoogle()
+      ? 'Hola, vi su anuncio en Google, quiero cotizar una mudanza'
+      : 'Hola, vengo de la web, quiero cotizar una mudanza';
+  }
+  (function () {
+    var href = 'https://wa.me/595981001530?text=' + encodeURIComponent(muvexOrigenTexto());
+    document.querySelectorAll('a[href*="wa.me"]').forEach(function (a) { a.href = href; });
+  })();
+
   // Tracking automático en todos los links de WhatsApp
   // (este script está al final del body, el DOM ya está listo,
   // no hace falta esperar a DOMContentLoaded)
@@ -2516,6 +2534,7 @@
     if (to) text += '\n*Hasta:* ' + to;
     if (msg) text += '\n*Detalles:* ' + msg;
 
+    text += '\n\n_Origen: ' + (muvexEsGoogle() ? 'anuncio en Google' : 'vengo de la web') + '_';
     trackWhatsApp();
     window.open('https://wa.me/595981001530?text=' + encodeURIComponent(text), '_blank');
   });
