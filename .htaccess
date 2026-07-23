@@ -1,5 +1,9 @@
 RewriteEngine On
 
+# Bloquear acceso a archivos y carpetas ocultas (.git, .cpanel.yml, .gitignore, .DS_Store, etc.)
+# Excepción: .well-known (necesario para certificados SSL)
+RewriteRule "(^|/)\.(?!well-known)" - [F,L]
+
 # Redirigir sin-www -> www (canonical SEO)
 RewriteCond %{HTTP_HOST} ^muvexsa\.com [NC]
 RewriteRule ^(.*)$ https://www.muvexsa.com/$1 [R=301,L]
