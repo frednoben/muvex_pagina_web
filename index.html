@@ -536,154 +536,124 @@
   .services-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 2px;
+    gap: 18px;
   }
 
+  /* Tarjeta dividida: foto arriba (sin texto encima), contenido abajo sobre blanco */
   .service-card {
     background: var(--white);
-    padding: 0;
-    transition: transform 0.3s;
-    position: relative;
+    border: 1px solid var(--gray-mid);
+    border-radius: 18px;
     overflow: hidden;
-    min-height: 400px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-  }
-
-  .service-card-bg {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    transition: transform 0.5s ease;
-  }
-
-  .service-card.map-card {
-    min-height: 520px;
-  }
-
-  .service-card.map-card .service-card-bg {
-    background-color: #1a1a1a;
-  }
-
-  .service-card.map-card .map-img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: center center;
-    padding: 16px;
-    box-sizing: border-box;
-  }
-
-  .service-card:hover .service-card-bg {
-    transform: scale(1.06);
-  }
-
-  .service-card-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.3) 55%, rgba(0,0,0,0.1) 100%);
-    transition: background 0.3s;
-  }
-
-  .service-card:hover .service-card-overlay {
-    background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.4) 55%, rgba(0,0,0,0.15) 100%);
-  }
-
-  .service-card-content {
     position: relative;
-    z-index: 2;
-    padding: 28px 32px;
+    transition: transform 0.3s, box-shadow 0.3s;
   }
+  .service-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(0,0,0,0.08); }
+  .service-card.featured { outline: 3px solid var(--orange); outline-offset: -3px; }
+  .service-card.best-value { outline: 3px solid var(--black); outline-offset: -3px; }
 
-  .service-card::before {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--orange);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s;
-    z-index: 3;
-  }
+  .service-photo { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--gray-light); }
+  .service-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+  .service-card:hover .service-photo img { transform: scale(1.05); }
 
-  .service-card:hover::before { transform: scaleX(1); }
-  .service-card:hover { transform: translateY(-4px); }
+  .service-card-content { padding: 22px 22px 24px; display: flex; flex-direction: column; flex: 1; }
 
   .service-number {
     font-family: var(--font-display);
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 700;
-    color: var(--orange);
+    color: var(--orange-text);
     letter-spacing: 1px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
 
-  .service-icon-wrap {
-    width: 60px;
-    height: 60px;
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(4px);
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 18px;
-  }
-
-  .service-icon-wrap svg {
-    width: 30px;
-    height: 30px;
-    stroke: white;
-    fill: none;
-    stroke-width: 1.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
+  /* Título y descripción con altura fija (2 y 3 líneas) para que las 4 tarjetas queden alineadas */
   .service-name {
     font-family: var(--font-display);
-    font-size: 27px;
-    font-weight: 700;
-    color: white;
-    line-height: 1.2;
-    margin-bottom: 12px;
-    letter-spacing: -0.3px;
+    font-size: 23px;
+    font-weight: 800;
+    color: var(--black);
+    line-height: 1.15;
+    min-height: 2.3em;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    letter-spacing: -0.4px;
   }
 
   .service-desc {
-    font-size: 16px;
-    line-height: 1.6;
-    color: rgba(255,255,255,0.88);
+    font-size: 15px;
+    line-height: 1.55;
+    min-height: 4.65em;
+    color: var(--gray-text);
     font-weight: 300;
-    margin-bottom: 18px;
+    margin-bottom: 14px;
   }
 
-  /* Botón "Consultar este servicio" por tarjeta: abre WhatsApp con el paquete ya indicado */
+  .service-incl { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+  .service-incl li { position: relative; padding-left: 22px; font-size: 14px; line-height: 1.4; color: var(--black); }
+  .service-incl li::before { content: "✓"; position: absolute; left: 0; color: var(--orange); font-weight: 700; }
+
+  /* Botón "Consultar este servicio": abre WhatsApp con el paquete ya indicado */
   .service-cta {
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    align-self: flex-start;
+    margin-top: auto;
     min-height: 44px;
     padding: 10px 18px;
     border-radius: 100px;
-    background: rgba(255,255,255,0.14);
-    border: 1px solid rgba(255,255,255,0.35);
-    color: var(--white);
+    background: var(--wa-green);
+    color: var(--wa-text);
     font-family: var(--font-display);
-    font-weight: 600;
+    font-weight: 700;
     font-size: 14px;
     text-decoration: none;
-    backdrop-filter: blur(4px);
-    transition: background 0.2s, border-color 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
   }
-  .service-cta svg { width: 16px; height: 16px; fill: var(--wa-green); flex-shrink: 0; }
-  .service-cta:hover { background: var(--orange); border-color: var(--orange); color: var(--black); }
-  .service-cta:hover svg { fill: var(--black); }
+  .service-cta svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
+  .service-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,0.35); }
+
+  /* ===== TABLA COMPARATIVA "¿Qué incluye cada paquete?" ===== */
+  .compare { margin-top: 56px; }
+  .compare-title { font-family: var(--font-display); font-size: 24px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .compare-sub { color: var(--gray-text); font-size: 15px; margin-bottom: 22px; }
+  .compare-table-wrap { overflow-x: auto; }
+  .compare-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--white);
+    border: 1px solid var(--gray-mid);
+    border-radius: 18px;
+    overflow: hidden;
+    font-size: 15px;
+  }
+  .compare-table th, .compare-table td { padding: 14px 16px; border-bottom: 1px solid var(--gray-light); text-align: center; }
+  .compare-table th { font-family: var(--font-display); font-size: 15px; font-weight: 700; background: var(--black); color: var(--white); }
+  .compare-table th:first-child, .compare-table td:first-child { text-align: left; font-weight: 500; }
+  .compare-table td.y { color: var(--orange-text); font-weight: 800; font-size: 18px; }
+  .compare-table td.n { color: #B5B5B0; }
+  .compare-table .hl { background: rgba(255,108,14,0.08); }
+  .compare-table th.hl { background: var(--orange); color: var(--black); }
+  .compare-table tr:last-child td { border-bottom: 0; }
+  .compare-table .service-cta { min-height: 40px; padding: 8px 14px; font-size: 13px; }
+  .compare-table th small { display: block; font-weight: 500; font-size: 11px; opacity: 0.8; margin-top: 2px; letter-spacing: 0.5px; }
+
+  /* Versión móvil de la comparativa: un desplegable por paquete */
+  .compare-mobile { display: none; flex-direction: column; gap: 10px; }
+  .compare-mobile details { background: var(--white); border: 1px solid var(--gray-mid); border-radius: 14px; padding: 4px 16px; }
+  .compare-mobile summary { list-style: none; cursor: pointer; padding: 14px 0; font-family: var(--font-display); font-weight: 700; font-size: 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .compare-mobile summary::-webkit-details-marker { display: none; }
+  .compare-mobile summary::after { content: "+"; color: var(--orange); font-weight: 700; font-size: 20px; }
+  .compare-mobile details[open] summary::after { content: "–"; }
+  .compare-mobile .service-incl { margin: 0 0 14px; }
+  .compare-mobile .service-incl li.no { color: var(--gray-text); }
+  .compare-mobile .service-incl li.no::before { content: "–"; color: #B5B5B0; }
+  .compare-mobile .service-cta { margin: 0 0 14px; }
 
   /* HOW IT WORKS */
   .how {
@@ -1458,12 +1428,12 @@
   @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } .marquee { overflow-x: auto; } }
 
 
-  /* ===== SERVICE CARD BADGES + HIGHLIGHTS ===== */
+  /* ===== SERVICE CARD BADGES ===== */
   .service-badge {
     position: absolute;
-    top: 16px;
-    left: 16px;
-    z-index: 4;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -1471,26 +1441,14 @@
     color: var(--black);
     font-family: var(--font-body);
     font-weight: 700;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    padding: 7px 12px;
+    padding: 6px 11px;
     border-radius: 100px;
-    box-shadow: 0 6px 18px rgba(255,108,14,0.35);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
   }
-  .service-badge.value {
-    background: var(--black);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-  }
-  .service-card.featured,
-  .service-card.best-value {
-    outline: 3px solid var(--orange);
-    outline-offset: -3px;
-    z-index: 2;
-  }
-  .service-card.best-value { outline-color: var(--black); }
-  .service-card.featured::before,
-  .service-card.best-value::before { transform: scaleX(1); }
+  .service-badge.value { background: var(--black); color: var(--white); }
 
   /* ===== COVERAGE ZONES ===== */
   .coverage {
@@ -1668,11 +1626,11 @@
     .hero-card-phone { font-size: 16px; margin-bottom: 0; }
     .hero-card-link { padding: 10px 16px; font-size: 13px; white-space: nowrap; flex-shrink: 0; }
     .services-header { grid-template-columns: 1fr; gap: 20px; }
-    .services-grid { grid-template-columns: 1fr 1fr; }
-    .service-card { min-height: 340px; }
-    .service-card-content { padding: 22px 20px; }
-    .service-name { font-size: 22px; }
-    .service-desc { font-size: 15px; }
+    .services-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+    .service-card-content { padding: 18px 18px 20px; }
+    .compare { margin-top: 40px; }
+    .compare-table-wrap { display: none; }
+    .compare-mobile { display: flex; }
     .logo-strip { grid-template-columns: repeat(3, 1fr); gap: 14px; }
     .coverage-grid { grid-template-columns: 1fr; gap: 14px; }
     .coverage-col { padding: 20px 18px; }
@@ -1715,7 +1673,7 @@
     .hero-card-phone { font-size: 15px; }
     .pay-logo { width: 118px; height: 72px; margin: 0 8px; border-radius: 11px; }
     .services-grid { grid-template-columns: 1fr; }
-    .service-card { min-height: 300px; }
+    .service-name, .service-desc { min-height: 0; }   /* en una columna no hace falta igualar alturas */
     .logo-strip { grid-template-columns: repeat(6, 1fr); gap: 10px; }
     .client-logo { grid-column: span 2; height: 68px; padding: 8px 14px; }
     .client-logo:nth-child(4) { grid-column: 2 / span 2; }   /* fila 2: dos logos centrados (3 + 2) */
@@ -2168,63 +2126,90 @@
     <p class="section-body">Elegí el nivel de servicio que mejor se adapta a tu mudanza. Desde el simple traslado de cajas embaladas hasta el servicio completo llave en mano, con personal propio y el cuidado que tus pertenencias merecen.</p>
   </div>
   <div class="services-grid">
-    <!-- Card 1: Fletes — camión con cajas desde atrás -->
     <div class="service-card">
-      <div class="service-card-bg" style="background-image:url('images/servicio-fletes-deposito.webp');"></div>
-      <div class="service-card-overlay"></div>
+      <div class="service-photo">
+        
+        <img src="images/servicio-fletes-deposito.webp" alt="Camión de Muvex con cajas listas para un flete" width="800" height="600" loading="lazy" decoding="async">
+      </div>
       <div class="service-card-content">
         <div class="service-number">01</div>
-        <div class="service-icon-wrap">
-          <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-        </div>
         <h3 class="service-name">Fletes</h3>
-        <p class="service-desc">Traslado ágil de mercaderías o equipos ya embalados.</p>
+        <p class="service-desc">Traslado ágil y seguro de muebles, equipos o mercaderías previamente embalados.</p>
+        <ul class="service-incl"><li>Vehículos monitoreados por GPS</li><li>Personal propio para la carga y descarga</li><li>Traslado cuidadoso hasta el destino indicado</li></ul>
         <a href="https://wa.me/595981001530" class="service-cta" target="_blank" rel="noopener" data-origen="servicio" data-servicio="Fletes"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Consultar este servicio</a>
       </div>
     </div>
-    <!-- Card 2: Mudanza Standard — casa pequeña junto a edificio -->
     <div class="service-card featured">
-      <span class="service-badge">⭐ Más Solicitado</span>
-      <div class="service-card-bg" style="background-image:url('images/servicio-mudanza-standard.webp');"></div>
-      <div class="service-card-overlay"></div>
+      <div class="service-photo">
+        <span class="service-badge">★ Más solicitado</span>
+        <img src="images/servicio-mudanza-standard.webp" alt="Camión de mudanza cargado con muebles y cajas" width="800" height="600" loading="lazy" decoding="async">
+      </div>
       <div class="service-card-content">
         <div class="service-number">02</div>
-        <div class="service-icon-wrap">
-          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        </div>
         <h3 class="service-name">Mudanza Standard</h3>
-        <p class="service-desc">Embalaje de muebles y equipos grandes y traslado de cajas del cliente. Ubicación de muebles en destino.</p>
+        <p class="service-desc">Nos ocupamos de trasladar tus pertenencias y proteger los muebles y equipos de mayor tamaño.</p>
+        <ul class="service-incl"><li>Incluye todo lo ofrecido en Fletes</li><li>Embalaje de muebles y equipos grandes</li><li>Carga, traslado y descarga de tus cajas previamente embaladas</li><li>Ubicación de los muebles en el lugar indicado</li></ul>
         <a href="https://wa.me/595981001530" class="service-cta" target="_blank" rel="noopener" data-origen="servicio" data-servicio="Mudanza Standard"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Consultar este servicio</a>
       </div>
     </div>
-    <!-- Card 3: Mudanza Integral — mansión grande de frente -->
-    <div class="service-card best-value">
-      <span class="service-badge value">👑 Mejor Valor</span>
-      <div class="service-card-bg" style="background-image:url('images/servicio-mudanza-integral.webp');"></div>
-      <div class="service-card-overlay"></div>
+    <div class="service-card">
+      <div class="service-photo">
+        
+        <img src="images/servicio-mudanza-integral.webp" alt="Equipo de Muvex embalando objetos frágiles" width="800" height="600" loading="lazy" decoding="async">
+      </div>
       <div class="service-card-content">
         <div class="service-number">03</div>
-        <div class="service-icon-wrap">
-          <svg viewBox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
-        </div>
         <h3 class="service-name">Mudanza Integral</h3>
-        <p class="service-desc">Servicio completo. Incluye embalaje de muebles, electrodomésticos, decoración frágil, cristalería y juguetes. Insumos premium incluidos. Ubicación de muebles en destino.</p>
+        <p class="service-desc">Una solución completa para que no tengas que preocuparte por el embalaje de tus pertenencias.</p>
+        <ul class="service-incl"><li>Incluye todo lo ofrecido en Mudanza Standard</li><li>Materiales de embalaje premium incluidos</li><li>Embalaje profesional de electrodomésticos y objetos frágiles</li><li>Protección especial para cristalería, adornos y artículos delicados</li><li>Carga, traslado, descarga y ubicación de los muebles</li></ul>
         <a href="https://wa.me/595981001530" class="service-cta" target="_blank" rel="noopener" data-origen="servicio" data-servicio="Mudanza Integral"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Consultar este servicio</a>
       </div>
     </div>
-    <!-- Card 4: Mudanza Llave en Mano — cocina organizada puertas abiertas -->
     <div class="service-card">
-      <div class="service-card-bg" style="background-image:url('images/servicio-mudanza-llave-en-mano.webp');"></div>
-      <div class="service-card-overlay"></div>
+      <div class="service-photo">
+        
+        <img src="images/servicio-mudanza-llave-en-mano.webp" alt="Entrega de llaves en una casa ya organizada" width="800" height="600" loading="lazy" decoding="async">
+      </div>
       <div class="service-card-content">
         <div class="service-number">04</div>
-        <div class="service-icon-wrap">
-          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
         <h3 class="service-name">Mudanza Llave en Mano</h3>
-        <p class="service-desc">Todo lo anterior + desembalaje y ubicación exacta de cada ítem en su lugar correspondiente en el destino.</p>
+        <p class="service-desc">Nos encargamos de cada detalle para que llegues y encuentres todo organizado en su lugar.</p>
+        <ul class="service-incl"><li>Incluye todo lo ofrecido en Mudanza Integral</li><li>Desembalaje completo de tus pertenencias</li><li>Organización de objetos en muebles y espacios indicados</li><li>Armado y ubicación final según tus preferencias</li><li>Servicio personalizado, adaptado a tus necesidades</li></ul>
         <a href="https://wa.me/595981001530" class="service-cta" target="_blank" rel="noopener" data-origen="servicio" data-servicio="Mudanza Llave en Mano"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Consultar este servicio</a>
       </div>
+    </div>
+  </div>
+
+  <!-- COMPARATIVA DE PAQUETES -->
+  <div class="compare" id="comparar">
+    <h3 class="compare-title">¿Qué incluye cada paquete?</h3>
+    <p class="compare-sub">Cada nivel suma prestaciones al anterior. Si no sabés cuál te conviene, escribinos y te asesoramos.</p>
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <thead><tr><th scope="col">Prestación</th><th scope="col">Fletes</th><th scope="col" class="hl">Standard<small>Más solicitado</small></th><th scope="col">Integral</th><th scope="col">Llave en Mano</th></tr></thead>
+        <tbody>
+          <tr><td>Vehículos monitoreados por GPS</td><td class="y"><span aria-label="incluido">✓</span></td><td class="y hl"><span aria-label="incluido">✓</span></td><td class="y"><span aria-label="incluido">✓</span></td><td class="y"><span aria-label="incluido">✓</span></td></tr>
+          <tr><td>Personal propio para la carga y descarga</td><td class="y"><span aria-label="incluido">✓</span></td><td class="y hl"><span aria-label="incluido">✓</span></td><td class="y"><span aria-label="incluido">✓</span></td><td class="y"><span aria-label="incluido">✓</span></td></tr>
+          <tr><td>Traslado cuidadoso hasta el destino indicado</td><td class="y"><span aria-label="incluido">✓</span></td><td class="y hl"><span aria-label="incluido">✓</span></td><td class="y"><span aria-label="incluido">✓</span></td><td class="y"><span aria-label="incluido">✓</span></td></tr>
+          <tr><td>Embalaje de muebles y equipos grandes</td><td class="n"><span aria-label="no incluido">–</span></td><td class="y hl"><span aria-label="incluido">✓</span></td><td class="y"><span aria-label="incluido">✓</span></td><td class="y"><span aria-label="incluido">✓</span></td></tr>
+          <tr><td>Carga, traslado y descarga de tus cajas previamente embaladas</td><td class="n"><span aria-label="no incluido">–</span></td><td class="y hl"><span aria-label="incluido">✓</span></td><td class="y"><span aria-label="incluido">✓</span></td><td class="y"><span aria-label="incluido">✓</span></td></tr>
+          <tr><td>Ubicación de los muebles en el lugar indicado</td><td class="n"><span aria-label="no incluido">–</span></td><td class="y hl"><span aria-label="incluido">✓</span></td><td class="y"><span aria-label="incluido">✓</span></td><td class="y"><span aria-label="incluido">✓</span></td></tr>
+          <tr><td>Materiales de embalaje premium incluidos</td><td class="n"><span aria-label="no incluido">–</span></td><td class="n hl"><span aria-label="no incluido">–</span></td><td class="y"><span aria-label="incluido">✓</span></td><td class="y"><span aria-label="incluido">✓</span></td></tr>
+          <tr><td>Embalaje profesional de electrodomésticos y objetos frágiles</td><td class="n"><span aria-label="no incluido">–</span></td><td class="n hl"><span aria-label="no incluido">–</span></td><td class="y"><span aria-label="incluido">✓</span></td><td class="y"><span aria-label="incluido">✓</span></td></tr>
+          <tr><td>Protección especial para cristalería, adornos y artículos delicados</td><td class="n"><span aria-label="no incluido">–</span></td><td class="n hl"><span aria-label="no incluido">–</span></td><td class="y"><span aria-label="incluido">✓</span></td><td class="y"><span aria-label="incluido">✓</span></td></tr>
+          <tr><td>Desembalaje completo de tus pertenencias</td><td class="n"><span aria-label="no incluido">–</span></td><td class="n hl"><span aria-label="no incluido">–</span></td><td class="n"><span aria-label="no incluido">–</span></td><td class="y"><span aria-label="incluido">✓</span></td></tr>
+          <tr><td>Organización de objetos en muebles y espacios indicados</td><td class="n"><span aria-label="no incluido">–</span></td><td class="n hl"><span aria-label="no incluido">–</span></td><td class="n"><span aria-label="no incluido">–</span></td><td class="y"><span aria-label="incluido">✓</span></td></tr>
+          <tr><td>Armado y ubicación final según tus preferencias</td><td class="n"><span aria-label="no incluido">–</span></td><td class="n hl"><span aria-label="no incluido">–</span></td><td class="n"><span aria-label="no incluido">–</span></td><td class="y"><span aria-label="incluido">✓</span></td></tr>
+          <tr><td>Servicio personalizado, adaptado a tus necesidades</td><td class="n"><span aria-label="no incluido">–</span></td><td class="n hl"><span aria-label="no incluido">–</span></td><td class="n"><span aria-label="no incluido">–</span></td><td class="y"><span aria-label="incluido">✓</span></td></tr>
+          <tr><td></td><td><a href="https://wa.me/595981001530" class="service-cta" target="_blank" rel="noopener" data-origen="comparativa" data-servicio="Fletes"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Consultar</a></td><td class="hl"><a href="https://wa.me/595981001530" class="service-cta" target="_blank" rel="noopener" data-origen="comparativa" data-servicio="Mudanza Standard"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Consultar</a></td><td><a href="https://wa.me/595981001530" class="service-cta" target="_blank" rel="noopener" data-origen="comparativa" data-servicio="Mudanza Integral"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Consultar</a></td><td><a href="https://wa.me/595981001530" class="service-cta" target="_blank" rel="noopener" data-origen="comparativa" data-servicio="Mudanza Llave en Mano"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Consultar</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="compare-mobile">
+      <details><summary>Fletes</summary><ul class="service-incl"><li class="">Vehículos monitoreados por GPS</li><li class="">Personal propio para la carga y descarga</li><li class="">Traslado cuidadoso hasta el destino indicado</li><li class="no">Embalaje de muebles y equipos grandes</li><li class="no">Carga, traslado y descarga de tus cajas previamente embaladas</li><li class="no">Ubicación de los muebles en el lugar indicado</li><li class="no">Materiales de embalaje premium incluidos</li><li class="no">Embalaje profesional de electrodomésticos y objetos frágiles</li><li class="no">Protección especial para cristalería, adornos y artículos delicados</li><li class="no">Desembalaje completo de tus pertenencias</li><li class="no">Organización de objetos en muebles y espacios indicados</li><li class="no">Armado y ubicación final según tus preferencias</li><li class="no">Servicio personalizado, adaptado a tus necesidades</li></ul><a href="https://wa.me/595981001530" class="service-cta" target="_blank" rel="noopener" data-origen="comparativa" data-servicio="Fletes"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Consultar</a></details>
+      <details open><summary>Mudanza Standard</summary><ul class="service-incl"><li class="">Vehículos monitoreados por GPS</li><li class="">Personal propio para la carga y descarga</li><li class="">Traslado cuidadoso hasta el destino indicado</li><li class="">Embalaje de muebles y equipos grandes</li><li class="">Carga, traslado y descarga de tus cajas previamente embaladas</li><li class="">Ubicación de los muebles en el lugar indicado</li><li class="no">Materiales de embalaje premium incluidos</li><li class="no">Embalaje profesional de electrodomésticos y objetos frágiles</li><li class="no">Protección especial para cristalería, adornos y artículos delicados</li><li class="no">Desembalaje completo de tus pertenencias</li><li class="no">Organización de objetos en muebles y espacios indicados</li><li class="no">Armado y ubicación final según tus preferencias</li><li class="no">Servicio personalizado, adaptado a tus necesidades</li></ul><a href="https://wa.me/595981001530" class="service-cta" target="_blank" rel="noopener" data-origen="comparativa" data-servicio="Mudanza Standard"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Consultar</a></details>
+      <details><summary>Mudanza Integral</summary><ul class="service-incl"><li class="">Vehículos monitoreados por GPS</li><li class="">Personal propio para la carga y descarga</li><li class="">Traslado cuidadoso hasta el destino indicado</li><li class="">Embalaje de muebles y equipos grandes</li><li class="">Carga, traslado y descarga de tus cajas previamente embaladas</li><li class="">Ubicación de los muebles en el lugar indicado</li><li class="">Materiales de embalaje premium incluidos</li><li class="">Embalaje profesional de electrodomésticos y objetos frágiles</li><li class="">Protección especial para cristalería, adornos y artículos delicados</li><li class="no">Desembalaje completo de tus pertenencias</li><li class="no">Organización de objetos en muebles y espacios indicados</li><li class="no">Armado y ubicación final según tus preferencias</li><li class="no">Servicio personalizado, adaptado a tus necesidades</li></ul><a href="https://wa.me/595981001530" class="service-cta" target="_blank" rel="noopener" data-origen="comparativa" data-servicio="Mudanza Integral"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Consultar</a></details>
+      <details><summary>Mudanza Llave en Mano</summary><ul class="service-incl"><li class="">Vehículos monitoreados por GPS</li><li class="">Personal propio para la carga y descarga</li><li class="">Traslado cuidadoso hasta el destino indicado</li><li class="">Embalaje de muebles y equipos grandes</li><li class="">Carga, traslado y descarga de tus cajas previamente embaladas</li><li class="">Ubicación de los muebles en el lugar indicado</li><li class="">Materiales de embalaje premium incluidos</li><li class="">Embalaje profesional de electrodomésticos y objetos frágiles</li><li class="">Protección especial para cristalería, adornos y artículos delicados</li><li class="">Desembalaje completo de tus pertenencias</li><li class="">Organización de objetos en muebles y espacios indicados</li><li class="">Armado y ubicación final según tus preferencias</li><li class="">Servicio personalizado, adaptado a tus necesidades</li></ul><a href="https://wa.me/595981001530" class="service-cta" target="_blank" rel="noopener" data-origen="comparativa" data-servicio="Mudanza Llave en Mano"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Consultar</a></details>
     </div>
   </div>
 </section>
