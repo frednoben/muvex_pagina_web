@@ -99,9 +99,10 @@
   .nav-links {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 28px;
     list-style: none;
   }
+  .nav-links > li { flex-shrink: 0; }
 
   .nav-links a {
     display: inline-block;
@@ -147,25 +148,31 @@
   }
 
   /* BOTÓN COTIZAR — más grande y con más resalte */
-  .nav-cta {
-    display: flex;
+  .nav-links .nav-cta, .nav-cta {
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
+    flex-shrink: 0;
+    white-space: nowrap;
     background: var(--orange);
-    color: var(--black) !important;
+    color: #1A1200 !important;
     opacity: 1 !important;
-    padding: 14px 28px;
+    padding: 0 24px;
+    height: 46px;
+    line-height: 1;
     border-radius: 100px;
     font-family: var(--font-display);
     font-weight: 700 !important;
     font-size: 15px;
+    letter-spacing: 0;
     text-decoration: none;
-    letter-spacing: -0.2px;
     box-shadow: 0 4px 20px rgba(255,108,14,0.3);
-    transition: transform 0.2s, box-shadow 0.2s !important;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s !important;
   }
 
-  .nav-cta:hover {
+  .nav-links .nav-cta:hover, .nav-cta:hover {
+    background: #FF8A3D;
     transform: translateY(-2px);
     box-shadow: 0 10px 32px rgba(255,108,14,0.5) !important;
   }
@@ -173,6 +180,7 @@
   .whatsapp-icon {
     width: 18px;
     height: 18px;
+    flex-shrink: 0;
     fill: currentColor;
   }
 
@@ -1620,6 +1628,13 @@
   .mobile-bar-call { background: rgba(255,255,255,0.1); color: var(--white); }
   .mobile-bar-wa { background: var(--wa-green); color: var(--wa-text); }
 
+  /* Escritorio angosto / tablet horizontal: la barra se compacta para que entre el botón Cotizar */
+  @media (max-width: 1150px) {
+    .nav-links { gap: 18px; }
+    .nav-links a { font-size: 13px; }
+    .nav-phone { display: none !important; }
+  }
+
   /* ===== TABLET: 2 columnas de servicios antes de llegar a móvil ===== */
   @media (max-width: 1200px) {
     .services-grid { grid-template-columns: 1fr 1fr; }
@@ -1993,9 +2008,9 @@
       </div>
     </li>
     <li>
-      <div style="display:flex;align-items:center;gap:16px;">
+      <div style="display:flex;align-items:center;gap:18px;flex-shrink:0;">
         <!-- TELÉFONO CLICKEABLE -->
-        <a href="tel:+595981001530" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--white);">
+        <a href="tel:+595981001530" class="nav-phone" data-origen="nav-llamar" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--white);">
           <!-- Ícono teléfono verde bonito -->
           <div style="width:42px;height:42px;background:rgba(37,211,102,0.12);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
             <svg style="width:22px;height:22px;" viewBox="0 0 24 24" fill="#25D366">
