@@ -2764,12 +2764,48 @@
   document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeMenu(); });
 
   // --- Atribución de origen Muvex (web vs Google Ads) ---
-  // Se considera anuncio solo si viene el gclid del etiquetado automático o utm_medium=cpc/ppc/paid.
-  // Un utm_source=google sin medio pago (por ejemplo, desde la ficha de Google Business) cuenta como web.
+  // Conserva durante 90 días los identificadores publicitarios y UTM. De esta manera,
+  // el origen no se pierde si la persona navega por la página antes de contactar.
+  var MUVEX_ATTRIBUTION_KEY = 'muvex_attribution_v1';
+  var MUVEX_ATTRIBUTION_TTL = 90 * 24 * 60 * 60 * 1000;
+  var MUVEX_ATTRIBUTION_FIELDS = [
+    'gclid', 'gbraid', 'wbraid',
+    'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'
+  ];
+
+  function muvexGuardarAtribucion() {
+    var params = new URLSearchParams(location.search);
+    var data = {};
+    MUVEX_ATTRIBUTION_FIELDS.forEach(function(field) {
+      var value = params.get(field);
+      if (value) data[field] = value.slice(0, 250);
+    });
+    if (!Object.keys(data).length) return;
+    data.saved_at = Date.now();
+    try { localStorage.setItem(MUVEX_ATTRIBUTION_KEY, JSON.stringify(data)); } catch (e) {}
+  }
+
+  function muvexLeerAtribucion() {
+    try {
+      var data = JSON.parse(localStorage.getItem(MUVEX_ATTRIBUTION_KEY) || '{}');
+      if (!data.saved_at || Date.now() - data.saved_at > MUVEX_ATTRIBUTION_TTL) {
+        localStorage.removeItem(MUVEX_ATTRIBUTION_KEY);
+        return {};
+      }
+      return data;
+    } catch (e) {
+      return {};
+    }
+  }
+
+  muvexGuardarAtribucion();
+
+  // Se considera anuncio si existe un identificador de clic de Google o un medio pago.
+  // utm_source=google sin medio pago (por ejemplo, la ficha de Google Business) cuenta como web.
   function muvexEsGoogleAds() {
-    var p = new URLSearchParams(location.search);
-    var medium = (p.get('utm_medium') || '').toLowerCase();
-    return p.has('gclid') || medium === 'cpc' || medium === 'ppc' || medium === 'paid';
+    var data = muvexLeerAtribucion();
+    var medium = (data.utm_medium || '').toLowerCase();
+    return Boolean(data.gclid || data.gbraid || data.wbraid || medium === 'cpc' || medium === 'ppc' || medium === 'paid');
   }
   function muvexOrigenTexto(servicio) {
     var base = muvexEsGoogleAds()
@@ -2782,11 +2818,21 @@
     a.href = 'https://wa.me/595981001530?text=' + encodeURIComponent(muvexOrigenTexto(a.getAttribute('data-servicio')));
   });
 
-  // Conversión WhatsApp para Google Ads + evento en GA4 con el botón de origen
+  // Conversión WhatsApp para Google Ads + evento en GA4 con el botón de origen.
+  // La etiqueta de conversión debe coincidir exactamente con la creada en Google Ads.
   function trackWhatsApp(origen, servicio) {
     if (typeof gtag !== 'undefined') {
-      gtag('event', 'conversion', { 'send_to': 'AW-17824651050/whatsapp_click_muvex' });
-      gtag('event', 'contacto_whatsapp', { 'boton': origen || 'otro', 'servicio': servicio || '' });
+      gtag('event', 'conversion', {
+        'send_to': 'AW-17824651050/eyyaCNCZ4cUcEKquurNC',
+        'value': 1.0,
+        'currency': 'USD',
+        'transport_type': 'beacon'
+      });
+      gtag('event', 'contacto_whatsapp', {
+        'boton': origen || 'otro',
+        'servicio': servicio || '',
+        'origen_trafico': muvexEsGoogleAds() ? 'google_ads' : 'web'
+      });
     }
   }
   document.querySelectorAll('a[href*="wa.me"]').forEach(function(link) {
@@ -2797,7 +2843,10 @@
   // Llamadas telefónicas también se registran en GA4
   document.querySelectorAll('a[href^="tel:"]').forEach(function(link) {
     link.addEventListener('click', function() {
-      if (typeof gtag !== 'undefined') gtag('event', 'contacto_llamada', { 'boton': link.getAttribute('data-origen') || 'otro' });
+      if (typeof gtag !== 'undefined') gtag('event', 'contacto_llamada', {
+        'boton': link.getAttribute('data-origen') || 'otro',
+        'origen_trafico': muvexEsGoogleAds() ? 'google_ads' : 'web'
+      });
     });
   });
 
@@ -2836,6 +2885,11 @@
     if (msg) text += '\n*Detalles:* ' + msg;
     text += '\n\n_Origen: ' + (muvexEsGoogleAds() ? 'anuncio en Google' : 'vengo de la web') + '_';
 
+    if (typeof gtag !== 'undefined') gtag('event', 'generate_lead', {
+      'method': 'whatsapp_form',
+      'servicio': type.value,
+      'origen_trafico': muvexEsGoogleAds() ? 'google_ads' : 'web'
+    });
     trackWhatsApp('formulario', type.value);
     window.open('https://wa.me/595981001530?text=' + encodeURIComponent(text), '_blank', 'noopener');
   });
