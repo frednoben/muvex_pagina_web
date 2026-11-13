@@ -1531,6 +1531,20 @@
   /* Zoom lento y sutil sobre la foto visible (lo activa el script; no corre con "reducir movimiento") */
   .hero-slides.zoom img { transition: opacity 1.1s ease-in-out, transform 7s ease-out; }
   .hero-slides.zoom img.active { transform: scale(1.05); }
+  /* Foto apaisada del camión completo: en escritorio se muestra entera (sin recortar) y con los bordes difuminados,
+     porque la columna del hero es más alta que ancha. La máscara tiene la misma proporción que la foto (1400x1040). */
+  @media (min-width: 901px) {
+    .hero-slides img.hero-slide-entera {
+      object-fit: contain;
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='1040' viewBox='0 0 1400 1040'%3E%3Cfilter id='b' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeGaussianBlur stdDeviation='14'/%3E%3C/filter%3E%3Crect x='30' y='30' width='1340' height='980' rx='40' fill='%23000' filter='url(%23b)'/%3E%3C/svg%3E");
+              mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='1040' viewBox='0 0 1400 1040'%3E%3Cfilter id='b' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeGaussianBlur stdDeviation='14'/%3E%3C/filter%3E%3Crect x='30' y='30' width='1340' height='980' rx='40' fill='%23000' filter='url(%23b)'/%3E%3C/svg%3E");
+      -webkit-mask-size: contain; mask-size: contain;
+      -webkit-mask-position: center; mask-position: center;
+      -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+      transform: scale(0.955);                     /* el zoom lento va de 95,5 % a 100 %: nunca se sale de la columna */
+    }
+    .hero-slides.zoom img.hero-slide-entera.active { transform: scale(1); }
+  }
   /* Render del camión (trae fondo claro propio): se difuminan sus bordes para que se funda con el fondo del hero
      en vez de verse como un recuadro. La máscara tiene la misma proporción que la imagen (900x611) y usa "contain",
      así calza exacto con la foto en cualquier tamaño de pantalla. */
@@ -2097,7 +2111,10 @@
         <source media="(max-width: 900px)" srcset="images/equipo-muvex-camion-hero-movil.webp" width="900" height="630">
         <img src="images/equipo-muvex-camion-hero.webp" alt="Equipo de Muvex uniformado frente al camión de mudanzas de la empresa" class="active" width="1200" height="1600" fetchpriority="high" style="object-position: center center;">
       </picture>
-      <img src="images/equipo-camion-hero.webp" alt="Equipo Muvex junto al camión de mudanzas en Asunción, Paraguay" width="460" height="533" loading="lazy" style="object-position: center center;">
+      <picture>
+        <source media="(max-width: 900px)" srcset="images/equipo-camion-hero-movil.webp" width="900" height="692">
+        <img src="images/equipo-camion-hero.webp" alt="Equipo Muvex junto al camión de mudanzas en Asunción, Paraguay" width="1400" height="1040" class="hero-slide-entera" loading="lazy" style="object-position: center center;">
+      </picture>
       <img src="images/embalaje-profesional-mudanza-asuncion.webp" alt="Embalaje profesional de cajas en mudanza" width="768" height="1024" loading="lazy" style="object-position: center 45%;">
       <img src="images/maniobra-especializada-muebles-muvex.webp" alt="Maniobra especializada de muebles por el equipo Muvex" width="768" height="1024" loading="lazy" style="object-position: center 40%;">
       <img src="images/equipo-muvex-furgon-mudanza.webp" alt="Equipo Muvex listo en el furgón de mudanza" width="768" height="1024" loading="lazy" style="object-position: center 30%;">
