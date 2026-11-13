@@ -22,7 +22,8 @@
 <meta name="twitter:title" content="Muvex S.A. | Mudanzas sin estrés en Asunción y todo Paraguay">
 <meta name="twitter:description" content="Mudanzas residenciales, corporativas y traslados a depósito. Personal propio, embalaje profesional y flota con GPS. Cotizá por WhatsApp.">
 <meta name="twitter:image" content="https://www.muvexsa.com/images/og-muvex.jpg">
-<link rel="preload" as="image" href="images/img-presentac.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="images/equipo-muvex-camion-hero.webp" media="(min-width: 901px)" fetchpriority="high">
+<link rel="preload" as="image" href="images/equipo-muvex-camion-hero-movil.webp" media="(max-width: 900px)" fetchpriority="high">
 <link rel="icon" type="image/svg+xml" href="images/logo-m.svg">
 <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
@@ -1527,6 +1528,9 @@
     transition: opacity 1.1s ease-in-out;
   }
   .hero-slides img.active { opacity: 1; }
+  /* Zoom lento y sutil sobre la foto visible (lo activa el script; no corre con "reducir movimiento") */
+  .hero-slides.zoom img { transition: opacity 1.1s ease-in-out, transform 7s ease-out; }
+  .hero-slides.zoom img.active { transform: scale(1.05); }
   /* Render del camión (trae fondo claro propio): se difuminan sus bordes para que se funda con el fondo del hero
      en vez de verse como un recuadro. La máscara tiene la misma proporción que la imagen (900x611) y usa "contain",
      así calza exacto con la foto en cualquier tamaño de pantalla. */
@@ -2088,7 +2092,11 @@
   </div>
   <div class="hero-right">
     <div class="hero-slides" id="hero-slides">
-      <img src="images/img-presentac.jpg" alt="Camión Muvex con identidad de marca" class="active" width="900" height="611" fetchpriority="high" style="object-position: center center; object-fit: contain;">
+      <!-- Foto real del equipo con el camión: recorte apaisado en móvil, recorte alto en escritorio -->
+      <picture>
+        <source media="(max-width: 900px)" srcset="images/equipo-muvex-camion-hero-movil.webp" width="900" height="630">
+        <img src="images/equipo-muvex-camion-hero.webp" alt="Equipo de Muvex uniformado frente al camión de mudanzas de la empresa" class="active" width="1200" height="1600" fetchpriority="high" style="object-position: center center;">
+      </picture>
       <img src="images/equipo-camion-hero.webp" alt="Equipo Muvex junto al camión de mudanzas en Asunción, Paraguay" width="460" height="533" loading="lazy" style="object-position: center center;">
       <img src="images/embalaje-profesional-mudanza-asuncion.webp" alt="Embalaje profesional de cajas en mudanza" width="768" height="1024" loading="lazy" style="object-position: center 45%;">
       <img src="images/maniobra-especializada-muebles-muvex.webp" alt="Maniobra especializada de muebles por el equipo Muvex" width="768" height="1024" loading="lazy" style="object-position: center 40%;">
@@ -2754,6 +2762,11 @@
   // Hero crossfade carousel (se pausa si el usuario pide menos movimiento o la pestaña está oculta)
   var heroSlides = document.querySelectorAll('#hero-slides img');
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (heroSlides.length && !reduceMotion) {
+    requestAnimationFrame(function() { requestAnimationFrame(function() {
+      document.getElementById('hero-slides').classList.add('zoom');
+    }); });
+  }
   if (heroSlides.length > 1 && !reduceMotion) {
     var current = 0;
     setInterval(function() {
