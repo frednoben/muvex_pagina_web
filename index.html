@@ -1734,6 +1734,205 @@
   a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible {
     outline: 3px solid var(--orange); outline-offset: 2px;
   }
+  /* ===== EL PROCESO: animaciones de las tarjetas (entrada escalonada, números, flechas) =====
+     Estado por defecto = estado final (sin JS o con "menos movimiento" se ve todo quieto y completo).
+     El JS agrega .anim-ready y, al entrar en pantalla, .in-view. */
+  .how .step-num {
+    display: inline-block;
+    align-self: flex-start;
+    color: transparent;
+    background: linear-gradient(90deg, var(--orange) 0 50%, rgba(255,108,14,0.28) 50% 100%);
+    background-size: 200% 100%;
+    background-position: 0 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    transition: filter 0.25s;
+  }
+  .how-step:hover .step-num { filter: drop-shadow(0 4px 10px rgba(255,108,14,0.35)); }
+  .how-step:not(:last-child)::after { transition: box-shadow 0.25s; }
+  .how-step:hover::after { box-shadow: 0 8px 22px rgba(255,108,14,0.5), 0 0 0 5px #F3F5F8, 0 0 0 10px rgba(255,108,14,0.16); }
+
+  /* --d: entrada de la tarjeta · --nd: el número se llena · --ad: aparece la flecha */
+  .how-step:nth-child(1) { --d: 0s;    --nd: 0.55s; --ad: 0.8s; }
+  .how-step:nth-child(2) { --d: 0.18s; --nd: 0.73s; --ad: 1s; }
+  .how-step:nth-child(3) { --d: 0.36s; --nd: 0.91s; }
+
+  .how.anim-ready .how-step { opacity: 0; translate: 0 28px; }
+  .how.anim-ready .step-num { background-position: 100% 0; }
+  .how.anim-ready .how-step:not(:last-child)::after { scale: 0; }
+
+  .how.in-view .how-step, .how .how-step.in-view { animation: how-card-in 0.7s cubic-bezier(.2,.7,.2,1) var(--d) both; }
+  .how.in-view .step-num, .how .how-step.in-view .step-num { animation: how-num-fill 0.9s ease-out var(--nd) both; }
+  .how.in-view .how-step:not(:last-child)::after,
+  .how .how-step.in-view:not(:last-child)::after {
+    animation: how-arrow-in 0.45s cubic-bezier(.3,1.6,.5,1) var(--ad) both,
+               how-arrow-pulse 2.6s ease-in-out calc(var(--ad) + 1.2s) infinite;
+  }
+
+  @keyframes how-card-in { from { opacity: 0; translate: 0 28px; } to { opacity: 1; translate: 0 0; } }
+  @keyframes how-num-fill { from { background-position: 100% 0; } to { background-position: 0 0; } }
+  @keyframes how-arrow-in { from { scale: 0; } to { scale: 1; } }
+  @keyframes how-arrow-pulse { 0%, 100% { scale: 1; } 50% { scale: 1.12; } }
+
+  /* Celular: cada tarjeta se anima al aparecer y una flecha hacia abajo las une */
+  @media (max-width: 900px) {
+    .how-grid { gap: 44px; }
+    .how-step:nth-child(n) { --d: 0s; --nd: 0.45s; --ad: 0.75s; }
+    .how .how-step:not(:last-child)::after {
+      display: block; top: auto; right: auto; bottom: -38px; left: 50%;
+      margin-left: -16px; width: 32px; height: 32px; background-size: 16px; rotate: 90deg;
+    }
+  }
+
+  /* ===== EL PROCESO: escenas animadas (SVG) de cada paso ===== */
+  .how-step-img svg { width: 100%; height: 100%; display: block; padding: 10px 16px; box-sizing: border-box; }
+  .how-step-img svg { transition: transform 0.5s cubic-bezier(.2,.7,.2,1); }
+  .how-step:hover .how-step-img svg { transform: scale(1.03); }
+  .how-step:not(.e3-run) .e3 .hA, .how-step:not(.e3-run) .e3 .crew, .how-step:not(.e3-run) .e3 .pin { opacity: 0; }
+  .how-step:not(.e3-run) .e3 .lift { opacity: 1; transform: translateY(-68px); }
+  .how-step:not(.e3-run) .e3 .rope { opacity: 1; transform: scaleY(.34); }
+
+.e1 * { transform-box: fill-box; }
+.e1 .pop { transform-origin: center; }
+.e1-run .e1-fade { animation: e1-fade 10s infinite; }
+@keyframes e1-fade { 0% { opacity:0 } 4% { opacity:1 } 94% { opacity:1 } 100% { opacity:0 } }
+.e1-run .e1 .phone > g { animation: e1-phoneg 10s infinite;  }
+@keyframes e1-phoneg { 0% { transform:translateY(30px);opacity:0 } 5%,100% { transform:translateY(0);opacity:1 } }
+.e1-run .e1 .b1 { transform-origin: right bottom; animation: e1-b1 10s infinite; }
+@keyframes e1-b1 { 0% { transform:scale(0);opacity:0 } 7% { transform:scale(0);opacity:0 } 9.5% { transform:scale(1.12);opacity:1 } 11% { transform:scale(1);opacity:1 } 92% { transform:scale(1);opacity:1 } 100% { transform:scale(1);opacity:1 } }
+.e1 .dots { opacity:0 }
+.e1-run .e1 .dots { animation: e1-dots 10s infinite;  }
+@keyframes e1-dots { 0%,15% { opacity:0 } 16%,25% { opacity:1 } 26%,100% { opacity:0 } }
+.e1-run .e1 .dots circle { animation: e1-dot .9s infinite ease-in-out; } .e1 .d1 { animation-delay:.15s !important } .e1 .d2 { animation-delay:.3s !important }
+@keyframes e1-dot { 0%,60%,100% { transform:translateY(0) } 30% { transform:translateY(-2.5px) } }
+.e1-run .e1 .b2 { transform-origin: left bottom; animation: e1-b2 10s infinite; }
+@keyframes e1-b2 { 0% { transform:scale(0);opacity:0 } 26% { transform:scale(0);opacity:0 } 28.5% { transform:scale(1.12);opacity:1 } 30% { transform:scale(1);opacity:1 } 92% { transform:scale(1);opacity:1 } 100% { transform:scale(1);opacity:1 } }
+.e1-run .e1 .adv { animation: e1-adv 10s infinite;  }
+@keyframes e1-adv { 0%,30% { transform:translateX(-90px);opacity:0 } 31% { opacity:1 } 38%,100% { transform:translateX(0);opacity:1 } }
+.e1 .tape { transform-origin: left center; }
+.e1-run .e1 .tape { animation: e1-tape 10s infinite; animation-timing-function: ease-out; }
+@keyframes e1-tape { 0%,39% { transform:scaleX(0) } 48%,100% { transform:scaleX(1) } }
+.e1-run .e1 .meas { transform-origin: center; animation: e1-meas 10s infinite; }
+@keyframes e1-meas { 0% { transform:scale(0);opacity:0 } 48% { transform:scale(0);opacity:0 } 50.5% { transform:scale(1.12);opacity:1 } 52% { transform:scale(1);opacity:1 } 92% { transform:scale(1);opacity:1 } 100% { transform:scale(1);opacity:1 } }
+.e1-run .e1 .list > g { animation: e1-listg 10s infinite;  }
+@keyframes e1-listg { 0%,50% { transform:translateY(10px);opacity:0 } 54%,100% { transform:translateY(0);opacity:1 } }
+.e1 .c1 { stroke-dasharray:14; }
+.e1-run .e1 .c1 { animation: e1-c1 10s infinite; }
+@keyframes e1-c1 { 0% { stroke-dashoffset:14 } 57% { stroke-dashoffset:14 } 60% { stroke-dashoffset:0 } 100% { stroke-dashoffset:0 } }
+.e1 .c2 { stroke-dasharray:14; }
+.e1-run .e1 .c2 { animation: e1-c2 10s infinite; }
+@keyframes e1-c2 { 0% { stroke-dashoffset:14 } 61% { stroke-dashoffset:14 } 64% { stroke-dashoffset:0 } 100% { stroke-dashoffset:0 } }
+.e1 .c3 { stroke-dasharray:14; }
+.e1-run .e1 .c3 { animation: e1-c3 10s infinite; }
+@keyframes e1-c3 { 0% { stroke-dashoffset:14 } 65% { stroke-dashoffset:14 } 68% { stroke-dashoffset:0 } 100% { stroke-dashoffset:0 } }
+.e1 .c4 { stroke-dasharray:14; }
+.e1-run .e1 .c4 { animation: e1-c4 10s infinite; }
+@keyframes e1-c4 { 0% { stroke-dashoffset:14 } 69% { stroke-dashoffset:14 } 72% { stroke-dashoffset:0 } 100% { stroke-dashoffset:0 } }
+.e1 .plane { opacity:0 }
+.e1-run .e1 .plane { animation: e1-plane 10s infinite;  }
+@keyframes e1-plane { 0%,73% { transform:translate(220px,60px) rotate(-20deg) scale(.6);opacity:0 } 74% { transform:translate(220px,60px) rotate(-20deg) scale(.8);opacity:1 } 79% { transform:translate(275px,30px) rotate(5deg) scale(1);opacity:1 } 82% { transform:translate(305px,130px) rotate(40deg) scale(.6);opacity:0 } 100% { opacity:0 } }
+.e1-run .e1 .b3 { transform-origin: left bottom; animation: e1-b3 10s infinite; }
+@keyframes e1-b3 { 0% { transform:scale(0);opacity:0 } 82% { transform:scale(0);opacity:0 } 84.5% { transform:scale(1.12);opacity:1 } 86% { transform:scale(1);opacity:1 } 92% { transform:scale(1);opacity:1 } 100% { transform:scale(1);opacity:1 } }
+.e1-run .e1 .ok { transform-origin: center; animation: e1-ok 10s infinite; }
+@keyframes e1-ok { 0% { transform:scale(0);opacity:0 } 86% { transform:scale(0);opacity:0 } 88.5% { transform:scale(1.12);opacity:1 } 90% { transform:scale(1);opacity:1 } 92% { transform:scale(1);opacity:1 } 100% { transform:scale(1);opacity:1 } }
+
+.e2 * { transform-box: fill-box; }
+.e2 .pop { transform-origin: center; }
+.e2-run .e2-fade { animation: e2-fade 10s infinite; }
+@keyframes e2-fade { 0% { opacity:0 } 4% { opacity:1 } 94% { opacity:1 } 100% { opacity:0 } }
+.e2-run .e2 .doc > g { animation: e2-docg 10s infinite;  }
+@keyframes e2-docg { 0% { transform:translateY(24px);opacity:0 } 6%,100% { transform:translateY(0);opacity:1 } }
+.e2-run .e2 .r1 { animation: e2-r1 10s infinite;  }
+@keyframes e2-r1 { 0% { transform:translateX(-10px);opacity:0 } 8% { transform:translateX(-10px);opacity:0 } 11%,100% { transform:translateX(0);opacity:1 } }
+.e2-run .e2 .r2 { animation: e2-r2 10s infinite;  }
+@keyframes e2-r2 { 0% { transform:translateX(-10px);opacity:0 } 11% { transform:translateX(-10px);opacity:0 } 14%,100% { transform:translateX(0);opacity:1 } }
+.e2-run .e2 .r3 { animation: e2-r3 10s infinite;  }
+@keyframes e2-r3 { 0% { transform:translateX(-10px);opacity:0 } 14% { transform:translateX(-10px);opacity:0 } 17%,100% { transform:translateX(0);opacity:1 } }
+.e2-run .e2 .r4 { animation: e2-r4 10s infinite;  }
+@keyframes e2-r4 { 0% { transform:translateX(-10px);opacity:0 } 17% { transform:translateX(-10px);opacity:0 } 20%,100% { transform:translateX(0);opacity:1 } }
+.e2 .sel { transform-origin:center; }
+.e2-run .e2 .sel { animation: e2-sel 10s infinite;  }
+@keyframes e2-sel { 0%,25% { opacity:0;transform:scale(.96) } 28% { opacity:1;transform:scale(1.03) } 30%,100% { opacity:1;transform:scale(1) } }
+.e2-run .e2 .dot { transform-origin: center; animation: e2-dot 10s infinite; }
+@keyframes e2-dot { 0% { transform:scale(0);opacity:0 } 27% { transform:scale(0);opacity:0 } 29.5% { transform:scale(1.12);opacity:1 } 31% { transform:scale(1);opacity:1 } 92% { transform:scale(1);opacity:1 } 100% { transform:scale(1);opacity:1 } }
+.e2-run .e2 .star { transform-origin: center; animation: e2-star 10s infinite; }
+@keyframes e2-star { 0% { transform:scale(0);opacity:0 } 31% { transform:scale(0);opacity:0 } 33.5% { transform:scale(1.12);opacity:1 } 35% { transform:scale(1);opacity:1 } 92% { transform:scale(1);opacity:1 } 100% { transform:scale(1);opacity:1 } }
+.e2 .line { stroke-dasharray:164; }
+.e2-run .e2 .line { animation: e2-line 10s infinite;  }
+@keyframes e2-line { 0%,35% { stroke-dashoffset:164 } 40%,100% { stroke-dashoffset:0 } }
+.e2-run .e2 .tot { animation: e2-tot 10s infinite;  }
+@keyframes e2-tot { 0%,39% { opacity:0 } 42%,100% { opacity:1 } }
+.e2-run .e2 .fine { animation: e2-fine 10s infinite;  }
+@keyframes e2-fine { 0%,40% { opacity:0 } 43%,100% { opacity:1 } }
+.e2 .stamp { transform-origin:center; }
+.e2-run .e2 .stamp { animation: e2-stamp 10s infinite;  }
+@keyframes e2-stamp { 0%,46% { transform:scale(2.2);opacity:0 } 49% { transform:scale(.95);opacity:1 } 51%,100% { transform:scale(1);opacity:1 } }
+.e2-run .e2 .cal > g { animation: e2-calg 10s infinite;  }
+@keyframes e2-calg { 0%,53% { transform:translateY(-14px);opacity:0 } 57%,100% { transform:translateY(0);opacity:1 } }
+.e2 .ring2 { stroke-dasharray:52; }
+.e2-run .e2 .ring2 { animation: e2-ring2 10s infinite; }
+@keyframes e2-ring2 { 0% { stroke-dashoffset:52 } 59% { stroke-dashoffset:52 } 65% { stroke-dashoffset:0 } 100% { stroke-dashoffset:0 } }
+.e2-run .e2 .hora { transform-origin: center; animation: e2-hora 10s infinite; }
+@keyframes e2-hora { 0% { transform:scale(0);opacity:0 } 66% { transform:scale(0);opacity:0 } 68.5% { transform:scale(1.12);opacity:1 } 70% { transform:scale(1);opacity:1 } 92% { transform:scale(1);opacity:1 } 100% { transform:scale(1);opacity:1 } }
+.e2-run .e2 .k1 { animation: e2-k1 10s infinite;  }
+@keyframes e2-k1 { 0% { transform:translateY(-140px);opacity:0 } 70% { transform:translateY(-140px);opacity:0 } 73% { transform:translateY(0);opacity:1 } 74.2% { transform:translateY(-5px) } 75.5%,100% { transform:translateY(0);opacity:1 } }
+.e2-run .e2 .k2 { animation: e2-k2 10s infinite;  }
+@keyframes e2-k2 { 0% { transform:translateY(-140px);opacity:0 } 73% { transform:translateY(-140px);opacity:0 } 76% { transform:translateY(0);opacity:1 } 77.2% { transform:translateY(-5px) } 78.5%,100% { transform:translateY(0);opacity:1 } }
+.e2-run .e2 .k3 { animation: e2-k3 10s infinite;  }
+@keyframes e2-k3 { 0% { transform:translateY(-140px);opacity:0 } 76% { transform:translateY(-140px);opacity:0 } 79% { transform:translateY(0);opacity:1 } 80.2% { transform:translateY(-5px) } 81.5%,100% { transform:translateY(0);opacity:1 } }
+.e2-run .e2 .k4 { animation: e2-k4 10s infinite;  }
+@keyframes e2-k4 { 0% { transform:translateY(-140px);opacity:0 } 79% { transform:translateY(-140px);opacity:0 } 82% { transform:translateY(0);opacity:1 } 83.2% { transform:translateY(-5px) } 84.5%,100% { transform:translateY(0);opacity:1 } }
+.e2-run .e2 .k5 { animation: e2-k5 10s infinite;  }
+@keyframes e2-k5 { 0% { transform:translateY(-140px);opacity:0 } 82% { transform:translateY(-140px);opacity:0 } 85% { transform:translateY(0);opacity:1 } 86.2% { transform:translateY(-5px) } 87.5%,100% { transform:translateY(0);opacity:1 } }
+.e2-run .e2 .kit { transform-origin: center; animation: e2-kit 10s infinite; }
+@keyframes e2-kit { 0% { transform:scale(0);opacity:0 } 87% { transform:scale(0);opacity:0 } 89.5% { transform:scale(1.12);opacity:1 } 91% { transform:scale(1);opacity:1 } 92% { transform:scale(1);opacity:1 } 100% { transform:scale(1);opacity:1 } }
+
+.e3 * { transform-box: fill-box; }
+.e3 .pop { transform-origin: center; }
+.e3-run .e3-fade { animation: e3-fade 13s infinite; }
+@keyframes e3-fade { 0% { opacity:0 } 4% { opacity:1 } 94% { opacity:1 } 100% { opacity:0 } }
+.e3 .cl1, .e3 .cl2 { }
+.e3-run .e3 .cl1 { animation: e3-cl1 16s infinite; animation-timing-function:linear; }
+@keyframes e3-cl1 { 0%,100% { transform:translateX(0) } 50% { transform:translateX(-30px) } }
+.e3-run .e3 .cl2 { animation: e3-cl2 20s infinite;  }
+@keyframes e3-cl2 { 0%,100% { transform:translateX(0) } 50% { transform:translateX(-24px) } }
+.e3-run .e3 .crew { animation: e3-crew 13s infinite;  }
+@keyframes e3-crew { 0%,4% { transform:translateX(0);opacity:1 } 22% { transform:translateX(70px);opacity:1 } 25%,100% { transform:translateX(70px);opacity:0 } }
+.e3 .e3-la, .e3 .e3-lb { transform-origin: center top; }.e3-run .e3 .e3-la { animation: e3-leg .45s infinite ease-in-out; } .e3-run .e3 .e3-lb { animation: e3-leg .45s infinite ease-in-out reverse; }
+@keyframes e3-leg { 0%,100% { transform:rotate(12deg) } 50% { transform:rotate(-12deg) } }
+.e3-run .e3 .truck { animation: e3-truck 13s infinite;  }
+@keyframes e3-truck { 0%,30% { transform:translateX(120px) } 30% { transform:translateX(120px);animation-timing-function:ease-in } 44% { transform:translateX(420px) } 44.1% { transform:translateX(-260px);animation-timing-function:ease-out } 56% { transform:translateX(0) rotate(0) } 57.5% { transform:translateX(3px) rotate(1deg) } 59%,100% { transform:translateX(0) rotate(0) } }
+.e3 .truck { transform-origin: right bottom; } .e3 .wh { transform-origin:center; }
+.e3-run .e3 .wh { animation: e3-wh 13s infinite;  }
+@keyframes e3-wh { 0%,30% { transform:rotate(0);animation-timing-function:ease-in } 44% { transform:rotate(1200deg) } 44.1% { transform:rotate(1200deg);animation-timing-function:ease-out } 56%,100% { transform:rotate(2400deg) } }
+.e3-run .e3 .dash { animation: e3-dash 13s infinite;  }
+@keyframes e3-dash { 0%,30% { transform:translateX(0);animation-timing-function:ease-in } 44% { transform:translateX(-160px);animation-timing-function:linear } 46% { transform:translateX(-200px);animation-timing-function:ease-out } 56%,100% { transform:translateX(-400px) } }
+.e3-run .e3 .bob { animation: e3-bob 13s infinite;  }
+@keyframes e3-bob { 0%,30% { transform:translateY(0) } 32% { transform:translateY(0) } 34% { transform:translateY(-1.5px) } 36% { transform:translateY(0) } 38% { transform:translateY(-1.5px) } 40% { transform:translateY(0) } 42% { transform:translateY(-1.5px) } 44% { transform:translateY(0) } 46% { transform:translateY(-1.5px) } 48% { transform:translateY(0) } 50% { transform:translateY(-1.5px) } 52% { transform:translateY(0) } 54% { transform:translateY(-1.5px) } 56% { transform:translateY(0) } 58%,100% { transform:translateY(0) } }
+.e3 .puff { opacity:0 }
+.e3-run .e3 .puff { animation: e3-puff 13s infinite;  }
+@keyframes e3-puff { 0%,29% { opacity:0 } 31%,56% { opacity:1 } 58%,100% { opacity:0 } }
+.e3 .pin { transform-origin:center bottom; }
+.e3-run .e3 .pin { animation: e3-pin 13s infinite;  }
+@keyframes e3-pin { 0%,29% { transform:scale(0) } 32% { transform:scale(1.1) } 34%,54% { transform:scale(1) } 57%,100% { transform:scale(0) } }
+.e3-run .e3 .hA { animation: e3-hA 13s infinite;  }
+@keyframes e3-hA { 0%,40% { opacity:1 } 44%,100% { opacity:0 } }
+.e3-run .e3 .hB { animation: e3-hB 13s infinite;  }
+@keyframes e3-hB { 0%,44% { opacity:0;transform:translateX(30px) } 50%,100% { opacity:1;transform:translateX(0) } }
+.e3-run .e3 .bw { animation: e3-bw 13s infinite;  }
+@keyframes e3-bw { 0%,52% { opacity:0 } 56%,100% { opacity:1 } }
+.e3-run .e3 .gw { animation: e3-gw 13s infinite;  }
+@keyframes e3-gw { 0%,52% { opacity:0 } 56%,100% { opacity:1 } }
+.e3 .lift, .e3 .rope { opacity:0 } .e3 .rope { transform-origin: center top; }
+.e3-run .e3 .lift { animation: e3-lift 13s infinite; animation-timing-function:ease-in-out; }
+@keyframes e3-lift { 0%,55% { transform:translateY(0);opacity:0 } 58%,62% { transform:translateY(0);opacity:1 } 80%,100% { transform:translateY(-68px);opacity:1 } }
+.e3-run .e3 .rope { animation: e3-rope 13s infinite; animation-timing-function:ease-in-out; }
+@keyframes e3-rope { 0%,57% { transform:scaleY(1);opacity:0 } 59%,62% { transform:scaleY(1);opacity:1 } 80%,100% { transform:scaleY(.34);opacity:1 } }
+.e3-run .e3 .pull { animation: e3-pull .7s infinite ease-in-out; }
+@keyframes e3-pull { 0%,100% { transform:translateX(0) } 50% { transform:translateX(6px) } }
+.e3-run .e3 .ok { transform-origin: center; animation: e3-ok 13s infinite; }
+@keyframes e3-ok { 0% { transform:scale(0);opacity:0 } 84% { transform:scale(0);opacity:0 } 86.5% { transform:scale(1.12);opacity:1 } 88% { transform:scale(1);opacity:1 } 92% { transform:scale(1);opacity:1 } 100% { transform:scale(1);opacity:1 } }
+
   @media (prefers-reduced-motion: reduce) {
     .ticker-track { animation: none; }
     .floating-wa, .hero-card-dot { animation: none; }
@@ -2336,9 +2535,72 @@
   <div class="how-grid">
 
     <!-- PASO 1: imagen izquierda, texto derecha -->
-    <div class="how-step">
+    <div class="how-step" data-scene="e1">
       <div class="how-step-img">
-        <img src="images/paso-1-visitamos.webp" alt="Asesor de Muvex con la planilla de presupuesto" width="680" height="506" loading="lazy" decoding="async">
+        <svg class="e1" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Animación: el cliente escribe por WhatsApp y el asesor de Muvex visita la casa para relevar la mudanza">
+<g class="e1-fade">
+  <path d="M10 230 h380" stroke="#1F2D3A" stroke-width="1.6"/>
+  <!-- sofá del cliente -->
+  <g transform="translate(130 160)">
+    <rect x="10" y="0" width="120" height="44" rx="8" fill="#DCE5F2" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="0" y="16" width="20" height="38" rx="6" fill="#B8CAE6" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="120" y="16" width="20" height="38" rx="6" fill="#B8CAE6" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="18" y="26" width="104" height="22" rx="4" fill="#B8CAE6" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M12 54 v16 M128 54 v16" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+  </g>
+  <!-- cinta métrica -->
+  <g class="tape"><rect x="124" y="148" width="148" height="6" fill="#FFD166" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M128 148 v3" stroke="#1F2D3A" stroke-width="1"/><path d="M138 148 v3" stroke="#1F2D3A" stroke-width="1"/><path d="M148 148 v3" stroke="#1F2D3A" stroke-width="1"/><path d="M158 148 v3" stroke="#1F2D3A" stroke-width="1"/><path d="M168 148 v3" stroke="#1F2D3A" stroke-width="1"/><path d="M178 148 v3" stroke="#1F2D3A" stroke-width="1"/><path d="M188 148 v3" stroke="#1F2D3A" stroke-width="1"/><path d="M198 148 v3" stroke="#1F2D3A" stroke-width="1"/><path d="M208 148 v3" stroke="#1F2D3A" stroke-width="1"/><path d="M218 148 v3" stroke="#1F2D3A" stroke-width="1"/><path d="M228 148 v3" stroke="#1F2D3A" stroke-width="1"/><path d="M238 148 v3" stroke="#1F2D3A" stroke-width="1"/><path d="M248 148 v3" stroke="#1F2D3A" stroke-width="1"/><path d="M258 148 v3" stroke="#1F2D3A" stroke-width="1"/><path d="M268 148 v3" stroke="#1F2D3A" stroke-width="1"/></g>
+  <g class="meas"><rect x="236" y="128" width="40" height="15" rx="4" fill="#1F2D3A"/>
+    <text x="256" y="139" text-anchor="middle" font-family="Outfit, 'DM Sans', sans-serif" font-size="8" font-weight="800" fill="#fff">2,10 m</text></g>
+  <!-- asesor midiendo -->
+  <g transform="translate(78 80)"><g class="adv">
+    <ellipse cx="4" cy="148" rx="28" ry="4" fill="#B8CAE6" opacity=".7"/>
+    <g><rect x="-15" y="84" width="13" height="58" rx="4" fill="#5E6469" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="-7" cy="145" rx="10" ry="4.5" fill="#2B2F33"/></g>
+    <g><rect x="2" y="84" width="13" height="58" rx="4" fill="#5E6469" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="11" cy="145" rx="10" ry="4.5" fill="#2B2F33"/></g>
+    <rect x="-4" y="29" width="8" height="8" fill="#F5C6A5"/>
+    <rect x="-17" y="35" width="34" height="53" rx="9" fill="#1E2226" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="-17" y="82" width="34" height="5" fill="#33383D"/>
+    <path d="M-6 50 l2.5-4 2.5 3 2.5-3 2.5 4" fill="none" stroke="#FF6C0E" stroke-width="1.6"/>
+    <text x="7" y="51" font-family="Outfit, 'DM Sans', sans-serif" font-size="6" font-weight="800" fill="#fff">muvex</text>
+    <circle cx="-9" cy="21" r="2.6" fill="#F5C6A5" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="0" cy="20" r="12" fill="#F5C6A5" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="5.5" cy="19" r="1.4" fill="#1F2D3A"/>
+    <path d="M3 25.5 q3.5 3 7 0" fill="none" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M-13 15 a13 12 0 0 1 26 0 z" fill="#FF6C0E" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="9" y="12.5" width="15" height="4.2" rx="2" fill="#E85F0A" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M-4 10 l2-3 2 2 2-2 2 3" fill="none" stroke="#1F2D3A" stroke-width="1.3"/>
+    <rect x="4" y="47" width="36" height="10" rx="5" fill="#2A2F34" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="41" cy="52" r="4.5" fill="#F5C6A5" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="38" y="51" width="14" height="14" rx="3" fill="#FFB703" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="45" cy="58" r="3" fill="#1F2D3A"/>
+    
+    <rect x="6" y="57" width="36" height="10" rx="5" fill="#1E2226" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="43" cy="62" r="4.5" fill="#F5C6A5" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></g></g>
+  <!-- planilla de relevamiento -->
+  <g class="list"><g>
+    <rect x="124" y="16" width="112" height="112" rx="10" fill="#fff" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <text x="136" y="33" font-family="Outfit, 'DM Sans', sans-serif" font-size="8" font-weight="800" fill="#1F2D3A">Relevamiento</text>
+    <rect x="136" y="42" width="10" height="10" rx="2.5" fill="none" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><text x="152" y="50" font-family="Outfit, 'DM Sans', sans-serif" font-size="7.5" font-weight="600" fill="#3B4654">Cajas</text><path class="c1" d="M138 47 l2.6 2.6 4.6-5.6" fill="none" stroke="#FF6C0E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><rect x="136" y="60" width="10" height="10" rx="2.5" fill="none" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><text x="152" y="68" font-family="Outfit, 'DM Sans', sans-serif" font-size="7.5" font-weight="600" fill="#3B4654">Duración</text><path class="c2" d="M138 65 l2.6 2.6 4.6-5.6" fill="none" stroke="#FF6C0E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><rect x="136" y="78" width="10" height="10" rx="2.5" fill="none" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><text x="152" y="86" font-family="Outfit, 'DM Sans', sans-serif" font-size="7.5" font-weight="600" fill="#3B4654">Camión</text><path class="c3" d="M138 83 l2.6 2.6 4.6-5.6" fill="none" stroke="#FF6C0E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><rect x="136" y="96" width="10" height="10" rx="2.5" fill="none" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><text x="152" y="104" font-family="Outfit, 'DM Sans', sans-serif" font-size="7.5" font-weight="600" fill="#3B4654">Personal</text><path class="c4" d="M138 101 l2.6 2.6 4.6-5.6" fill="none" stroke="#FF6C0E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g></g>
+  <!-- celular -->
+  <g class="phone"><g><rect x="286" y="38" width="96" height="176" rx="14" fill="#1F2D3A"/>
+    <rect x="291" y="46" width="86" height="160" rx="9" fill="#ECE5DD"/>
+    <path d="M291 55 a9 9 0 0 1 9-9 h68 a9 9 0 0 1 9 9 v13 h-86z" fill="#075E54"/>
+    <circle cx="303" cy="57" r="6" fill="#FF6C0E"/>
+    <path d="M299.5 59 l1.5-3.5 2 2.2 2-2.2 1.5 3.5" fill="none" stroke="#fff" stroke-width="1.1"/>
+    <text x="313" y="56" font-family="Outfit, 'DM Sans', sans-serif" font-size="7" font-weight="700" fill="#fff">Muvex</text>
+    <text x="313" y="64" font-family="Outfit, 'DM Sans', sans-serif" font-size="5" fill="#BFE6DF">en línea</text>
+    <rect x="296" y="190" width="76" height="11" rx="5.5" fill="#fff"/>
+    <g class="b1"><rect x="310" y="78" width="62" height="18" rx="6" fill="#DCF8C6"/><text x="315" y="90" font-family="Outfit, 'DM Sans', sans-serif" font-size="6.6" font-weight="600" fill="#1F2D3A">Hola, me mudo 🏠</text></g>
+    <g class="dots"><rect x="296" y="104" width="28" height="14" rx="6" fill="#fff"/>
+      <circle class="d0" cx="304" cy="111" r="2" fill="#9AA5B1"/><circle class="d1" cx="310" cy="111" r="2" fill="#9AA5B1"/><circle class="d2" cx="316" cy="111" r="2" fill="#9AA5B1"/></g>
+    <g class="b2"><rect x="296" y="104" width="72" height="28" rx="6" fill="#fff"/><text x="301" y="116" font-family="Outfit, 'DM Sans', sans-serif" font-size="6.6" font-weight="600" fill="#1F2D3A">¡Hola! Te visitamos</text><text x="301" y="126" font-family="Outfit, 'DM Sans', sans-serif" font-size="6.6" font-weight="600" fill="#1F2D3A">mañana a las 9 👍</text></g>
+    <g class="b3"><rect x="296" y="142" width="76" height="28" rx="6" fill="#fff"/><text x="301" y="154" font-family="Outfit, 'DM Sans', sans-serif" font-size="6.6" font-weight="600" fill="#1F2D3A">📄 Te enviamos tu</text><text x="301" y="164" font-family="Outfit, 'DM Sans', sans-serif" font-size="6.6" font-weight="600" fill="#1F2D3A">presupuesto</text></g>
+  </g></g>
+  <!-- avioncito de papel -->
+  <g class="plane"><path d="M0 0 l18 7 -18 7 4-7z" fill="#fff" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><path d="M4 7 h14" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></g>
+  <g class="ok"><rect x="124" y="116" width="112" height="24" rx="12" fill="#FF6C0E"/><circle cx="137" cy="128" r="6.5" fill="#fff"/><path d="M133.5 128 l2.5 2.5 4.5-5" fill="none" stroke="#FF6C0E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text x="149" y="132" font-family="Outfit, 'DM Sans', sans-serif" font-size="8.6" font-weight="800" fill="#fff">Relevamiento listo</text></g>
+</g></svg>
       </div>
       <div class="how-step-text">
         <div class="step-num">01</div>
@@ -2348,9 +2610,49 @@
     </div>
 
     <!-- PASO 2: texto izquierda, imagen derecha (alternado) -->
-    <div class="how-step">
+    <div class="how-step" data-scene="e2">
       <div class="how-step-img">
-        <img src="images/paso-2-cajas.webp" alt="Colaborador de Muvex entregando cajas de embalaje" width="813" height="646" loading="lazy" decoding="async">
+        <svg class="e2" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Animación: llega el presupuesto de Muvex, se elige el paquete, se agenda la fecha y llega el kit de embalaje">
+<g class="e2-fade">
+  <path d="M10 230 h380" stroke="#1F2D3A" stroke-width="1.6"/>
+  <!-- presupuesto -->
+  <g class="doc"><g>
+    <rect x="26" y="18" width="188" height="206" rx="10" fill="#fff" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M26 28 a10 10 0 0 1 10-10 h168 a10 10 0 0 1 10 10 v20 h-188z" fill="#FF6C0E" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M38 38 l3-6 3 4 3-4 3 6" fill="none" stroke="#fff" stroke-width="1.6"/>
+    <text x="56" y="38" font-family="Outfit, 'DM Sans', sans-serif" font-size="9" font-weight="800" fill="#fff">PRESUPUESTO MUVEX</text>
+    <text x="38" y="60" font-family="Outfit, 'DM Sans', sans-serif" font-size="6.5" font-weight="700" fill="#8A94A3" letter-spacing=".8">ELEGÍ TU SERVICIO</text>
+    <g class="r1"><circle cx="52" cy="75" r="5" fill="#fff" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><text x="63" y="78" font-family="Outfit, 'DM Sans', sans-serif" font-size="8" font-weight="700" fill="#1F2D3A">Fletes</text></g><g class="r2"><rect class="sel" x="38" y="88" width="164" height="22" rx="6" fill="#FFF1E6" stroke="#FF6C0E" stroke-width="1.6"/><circle cx="52" cy="99" r="5" fill="#fff" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><text x="63" y="102" font-family="Outfit, 'DM Sans', sans-serif" font-size="8" font-weight="700" fill="#1F2D3A">Mudanza Standard</text><circle class="dot" cx="52" cy="99" r="2.8" fill="#FF6C0E"/><g class="star"><rect x="145" y="92" width="52" height="13" rx="6.5" fill="#FF6C0E"/><text x="171" y="101" text-anchor="middle" font-family="Outfit, 'DM Sans', sans-serif" font-size="6" font-weight="800" fill="#fff">★ Más solicitado</text></g></g><g class="r3"><circle cx="52" cy="123" r="5" fill="#fff" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><text x="63" y="126" font-family="Outfit, 'DM Sans', sans-serif" font-size="8" font-weight="700" fill="#1F2D3A">Mudanza Integral</text></g><g class="r4"><circle cx="52" cy="147" r="5" fill="#fff" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><text x="63" y="150" font-family="Outfit, 'DM Sans', sans-serif" font-size="8" font-weight="700" fill="#1F2D3A">Llave en Mano</text></g>
+    <path class="line" d="M38 168 h164" stroke="#D5DBE3" stroke-width="1.6"/>
+    <g class="tot"><text x="38" y="186" font-family="Outfit, 'DM Sans', sans-serif" font-size="9" font-weight="800" fill="#1F2D3A">Total final</text>
+      <rect x="118" y="176" width="84" height="14" rx="3" fill="#EEF1F5"/>
+      <path d="M124 183 h52" stroke="#B9C2CF" stroke-width="3" stroke-linecap="round"/></g>
+    <text class="fine" x="38" y="206" font-family="Outfit, 'DM Sans', sans-serif" font-size="6" fill="#8A94A3">Incluye personal, camión y materiales</text>
+  </g></g>
+  <g class="stamp"><g transform="rotate(-10 159 183)">
+    <rect x="104" y="171" width="110" height="24" rx="5" fill="#fff" stroke="#2BA84A" stroke-width="2.4"/>
+    <text x="159" y="187" text-anchor="middle" font-family="Outfit, 'DM Sans', sans-serif" font-size="9" font-weight="900" fill="#2BA84A" letter-spacing=".6">SIN COSTOS OCULTOS</text></g></g>
+  <!-- calendario -->
+  <g class="cal"><g>
+    <rect x="236" y="18" width="128" height="88" rx="8" fill="#fff" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M236 26 a8 8 0 0 1 8-8 h112 a8 8 0 0 1 8 8 v14 h-128z" fill="#1F2D3A" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <text x="300" y="33" text-anchor="middle" font-family="Outfit, 'DM Sans', sans-serif" font-size="8.5" font-weight="800" fill="#fff">DICIEMBRE</text>
+    <text x="256" y="70" text-anchor="middle" font-family="Outfit, 'DM Sans', sans-serif" font-size="7.5" font-weight="600" fill="#6B7684">1</text><text x="276" y="70" text-anchor="middle" font-family="Outfit, 'DM Sans', sans-serif" font-size="7.5" font-weight="600" fill="#6B7684">2</text><text x="296" y="70" text-anchor="middle" font-family="Outfit, 'DM Sans', sans-serif" font-size="7.5" font-weight="600" fill="#6B7684">3</text><text x="316" y="70" text-anchor="middle" font-family="Outfit, 'DM Sans', sans-serif" font-size="7.5" font-weight="600" fill="#6B7684">4</text><text x="336" y="70" text-anchor="middle" font-family="Outfit, 'DM Sans', sans-serif" font-size="7.5" font-weight="600" fill="#6B7684">5</text><text x="256" y="85" text-anchor="middle" font-family="Outfit, 'DM Sans', sans-serif" font-size="7.5" font-weight="600" fill="#6B7684">8</text><text x="276" y="85" text-anchor="middle" font-family="Outfit, 'DM Sans', sans-serif" font-size="7.5" font-weight="600" fill="#6B7684">9</text><text x="296" y="85" text-anchor="middle" font-family="Outfit, 'DM Sans', sans-serif" font-size="7.5" font-weight="600" fill="#6B7684">10</text><text x="316" y="85" text-anchor="middle" font-family="Outfit, 'DM Sans', sans-serif" font-size="7.5" font-weight="600" fill="#6B7684">11</text><text x="336" y="85" text-anchor="middle" font-family="Outfit, 'DM Sans', sans-serif" font-size="7.5" font-weight="600" fill="#6B7684">12</text><text x="256" y="100" text-anchor="middle" font-family="Outfit, 'DM Sans', sans-serif" font-size="7.5" font-weight="600" fill="#6B7684">15</text><text x="276" y="100" text-anchor="middle" font-family="Outfit, 'DM Sans', sans-serif" font-size="7.5" font-weight="600" fill="#6B7684">16</text><text x="296" y="100" text-anchor="middle" font-family="Outfit, 'DM Sans', sans-serif" font-size="7.5" font-weight="600" fill="#6B7684">17</text><text x="316" y="100" text-anchor="middle" font-family="Outfit, 'DM Sans', sans-serif" font-size="7.5" font-weight="800" fill="#1F2D3A">18</text><text x="336" y="100" text-anchor="middle" font-family="Outfit, 'DM Sans', sans-serif" font-size="7.5" font-weight="600" fill="#6B7684">19</text>
+    <circle class="ring" cx="316" cy="97.5" r="0" fill="none"/>
+  </g></g>
+  <circle class="ring2" cx="316" cy="97" r="8" fill="none" stroke="#FF6C0E" stroke-width="2.2" stroke-linecap="round"/>
+  <g class="hora"><rect x="300" y="110" width="64" height="18" rx="9" fill="#FF6C0E"/>
+    <text x="332" y="122" text-anchor="middle" font-family="Outfit, 'DM Sans', sans-serif" font-size="8" font-weight="800" fill="#fff">🕘 09:00 hs</text></g>
+  <!-- kit de embalaje -->
+  <g transform="translate(252 194)"><g class="k1"><rect x="0" y="0" width="36" height="32" rx="1.5" fill="#D9A46A" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><rect x="0" y="0" width="36" height="6" fill="#C98F55" stroke="#1F2D3A" stroke-width="1.6"/><path d="M12.0 21.0 l3-6 3 4 3-4 3 6" fill="none" stroke="#1F2D3A" stroke-width="1.6"/></g></g>
+  <g transform="translate(290 202)"><g class="k2"><rect x="0" y="0" width="30" height="24" rx="1.5" fill="#D9A46A" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><rect x="0" y="0" width="30" height="6" fill="#C98F55" stroke="#1F2D3A" stroke-width="1.6"/><path d="M9.0 17.0 l3-6 3 4 3-4 3 6" fill="none" stroke="#1F2D3A" stroke-width="1.6"/></g></g>
+  <g transform="translate(268 168)"><g class="k3"><rect x="0" y="0" width="30" height="26" rx="1.5" fill="#D9A46A" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><rect x="0" y="0" width="30" height="6" fill="#C98F55" stroke="#1F2D3A" stroke-width="1.6"/><path d="M9.0 18.0 l3-6 3 4 3-4 3 6" fill="none" stroke="#1F2D3A" stroke-width="1.6"/></g></g>
+  <g transform="translate(330 208)"><g class="k4"><circle cx="11" cy="11" r="11" fill="#E8EEF5" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="11" cy="11" r="4" fill="#fff" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M22 11 v10" stroke="#C9D6EA" stroke-width="3"/></g></g>
+  <g transform="translate(356 196)"><g class="k5"><rect x="0" y="0" width="18" height="34" rx="9" fill="#D9ECF7" opacity=".9" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><path d="M3 8 l12 6 M3 18 l12 6" stroke="#fff" stroke-width="1.6"/></g></g>
+  <g class="kit"><rect x="262" y="140" width="100" height="20" rx="10" fill="#1F2D3A"/>
+    <text x="312" y="153.5" text-anchor="middle" font-family="Outfit, 'DM Sans', sans-serif" font-size="8" font-weight="800" fill="#fff">Kit de embalaje 📦</text></g>
+</g></svg>
       </div>
       <div class="how-step-text">
         <div class="step-num">02</div>
@@ -2360,9 +2662,143 @@
     </div>
 
     <!-- PASO 3: imagen izquierda, texto derecha -->
-    <div class="how-step">
+    <div class="how-step" data-scene="e3">
       <div class="how-step-img">
-        <img src="images/paso-3-mudamos.webp" alt="Camión de Muvex en camino a la mudanza" width="740" height="476" loading="lazy" decoding="async">
+        <svg class="e3" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Animación: el equipo de Muvex carga el sofá, el camión viaja con GPS y en la casa nueva suben el sofá por el balcón">
+<defs><clipPath id="e3clip"><rect x="0" y="0" width="400" height="260"/></clipPath></defs>
+<g class="e3-fade" clip-path="url(#e3clip)">
+  <g class="cl1"><path d="M60 40 a10 10 0 0 1 18-4 a8 8 0 0 1 12 6 h-34 a6 6 0 0 1 4-2z" fill="#DCE5F2"/></g><g class="cl2"><path d="M250 26 a10 10 0 0 1 18-4 a8 8 0 0 1 12 6 h-34 a6 6 0 0 1 4-2z" fill="#DCE5F2"/></g>
+  <g opacity=".9"><rect x="0" y="120" width="40" height="90" fill="#DCE5F2"/><rect x="46" y="96" width="30" height="114" fill="#DCE5F2"/><rect x="82" y="132" width="46" height="78" fill="#DCE5F2"/><rect x="136" y="104" width="34" height="106" fill="#DCE5F2"/><rect x="176" y="124" width="50" height="86" fill="#DCE5F2"/><rect x="232" y="88" width="36" height="122" fill="#DCE5F2"/><rect x="274" y="116" width="44" height="94" fill="#DCE5F2"/><rect x="324" y="100" width="34" height="110" fill="#DCE5F2"/><rect x="364" y="128" width="36" height="82" fill="#DCE5F2"/></g>
+  <rect x="0" y="210" width="400" height="22" fill="#E3E9F2"/>
+  <g class="dash"><rect x="0" y="219" width="22" height="4" rx="2" fill="#fff"/><rect x="40" y="219" width="22" height="4" rx="2" fill="#fff"/><rect x="80" y="219" width="22" height="4" rx="2" fill="#fff"/><rect x="120" y="219" width="22" height="4" rx="2" fill="#fff"/><rect x="160" y="219" width="22" height="4" rx="2" fill="#fff"/><rect x="200" y="219" width="22" height="4" rx="2" fill="#fff"/><rect x="240" y="219" width="22" height="4" rx="2" fill="#fff"/><rect x="280" y="219" width="22" height="4" rx="2" fill="#fff"/><rect x="320" y="219" width="22" height="4" rx="2" fill="#fff"/><rect x="360" y="219" width="22" height="4" rx="2" fill="#fff"/><rect x="400" y="219" width="22" height="4" rx="2" fill="#fff"/><rect x="440" y="219" width="22" height="4" rx="2" fill="#fff"/><rect x="480" y="219" width="22" height="4" rx="2" fill="#fff"/><rect x="520" y="219" width="22" height="4" rx="2" fill="#fff"/><rect x="560" y="219" width="22" height="4" rx="2" fill="#fff"/><rect x="600" y="219" width="22" height="4" rx="2" fill="#fff"/><rect x="640" y="219" width="22" height="4" rx="2" fill="#fff"/><rect x="680" y="219" width="22" height="4" rx="2" fill="#fff"/><rect x="720" y="219" width="22" height="4" rx="2" fill="#fff"/><rect x="760" y="219" width="22" height="4" rx="2" fill="#fff"/></g>
+  <path d="M0 232 h400" stroke="#1F2D3A" stroke-width="1.6"/>
+  <!-- casa de origen -->
+  <g class="hA"><g transform="translate(4 112)">
+    <path d="M0 40 L56 0 L112 40" fill="#E85F0A" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="10" y="38" width="92" height="80" fill="#fff" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="62" y="74" width="24" height="44" rx="2" fill="#B8CAE6" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="20" y="54" width="22" height="18" fill="#DCE5F2" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+  </g></g>
+  <!-- casa nueva de dos pisos con balcón -->
+  <g class="hB">
+    <rect x="252" y="136" width="138" height="96" fill="#fff" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="342" y="176" width="26" height="56" rx="2" fill="#B8CAE6" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="300" y="64" width="90" height="72" fill="#fff" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M294 64 L345 34 L396 64z" fill="#E85F0A" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="352" y="84" width="24" height="20" fill="#DCE5F2" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M300 60 v-2 M262 58 h44" stroke="#1F2D3A" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="266" cy="64" r="5" fill="#fff" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="236" y="132" width="112" height="5" fill="#C9D3E0" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M238 132 v-16 h108 v16 M256 116 v16 M274 116 v16 M292 116 v16 M310 116 v16 M328 116 v16" fill="none" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M266 69 L332 92" stroke="#9C6B3C" stroke-width="1.6"/>
+  </g>
+  <!-- colaborador en el balcón tirando de la soga -->
+  <g transform="translate(314 69) scale(.42)"><g class="bw"><g class="pull">
+    <g><rect x="-15" y="84" width="13" height="58" rx="4" fill="#5E6469" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="-7" cy="145" rx="10" ry="4.5" fill="#2B2F33"/></g>
+    <g><rect x="2" y="84" width="13" height="58" rx="4" fill="#5E6469" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="11" cy="145" rx="10" ry="4.5" fill="#2B2F33"/></g>
+    <rect x="-4" y="29" width="8" height="8" fill="#F5C6A5"/>
+    <rect x="-17" y="35" width="34" height="53" rx="9" fill="#1E2226" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="-17" y="82" width="34" height="5" fill="#33383D"/>
+    <path d="M-6 50 l2.5-4 2.5 3 2.5-3 2.5 4" fill="none" stroke="#FF6C0E" stroke-width="1.6"/>
+    <text x="7" y="51" font-family="Outfit, 'DM Sans', sans-serif" font-size="6" font-weight="800" fill="#fff">muvex</text>
+    <circle cx="-9" cy="21" r="2.6" fill="#F5C6A5" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="0" cy="20" r="12" fill="#F5C6A5" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="5.5" cy="19" r="1.4" fill="#1F2D3A"/>
+    <path d="M3 25.5 q3.5 3 7 0" fill="none" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M-13 15 a13 12 0 0 1 26 0 z" fill="#FF6C0E" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="9" y="12.5" width="15" height="4.2" rx="2" fill="#E85F0A" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M-4 10 l2-3 2 2 2-2 2 3" fill="none" stroke="#1F2D3A" stroke-width="1.3"/>
+    <rect x="4" y="47" width="36" height="10" rx="5" fill="#2A2F34" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="41" cy="52" r="4.5" fill="#F5C6A5" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="6" y="57" width="36" height="10" rx="5" fill="#1E2226" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="43" cy="62" r="4.5" fill="#F5C6A5" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></g></g></g>
+  <!-- soga y sofá que sube -->
+  <rect class="rope" x="265.2" y="69" width="1.6" height="103" fill="#9C6B3C"/>
+  <g transform="translate(244 172)"><g class="lift"><rect x="0" y="6" width="44" height="22" rx="5" fill="#DCE5F2" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><rect x="-3" y="12" width="9" height="18" rx="3" fill="#B8CAE6" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><rect x="38" y="12" width="9" height="18" rx="3" fill="#B8CAE6" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><rect x="5" y="18" width="34" height="8" rx="2" fill="#B8CAE6" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><rect x="-4" y="4" width="52" height="26" rx="6" fill="#EAF4FB" opacity=".55" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><path d="M-2 5 l10 24" stroke="#fff" stroke-width="1.6" opacity=".9"/><path d="M7 5 l10 24" stroke="#fff" stroke-width="1.6" opacity=".9"/><path d="M16 5 l10 24" stroke="#fff" stroke-width="1.6" opacity=".9"/><path d="M25 5 l10 24" stroke="#fff" stroke-width="1.6" opacity=".9"/><path d="M34 5 l10 24" stroke="#fff" stroke-width="1.6" opacity=".9"/><path d="M43 5 l10 24" stroke="#fff" stroke-width="1.6" opacity=".9"/></g></g>
+  <!-- colaborador guiando desde abajo -->
+  <g transform="translate(222 142) scale(.6)"><g class="gw">
+    <g><rect x="-15" y="84" width="13" height="58" rx="4" fill="#5E6469" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="-7" cy="145" rx="10" ry="4.5" fill="#2B2F33"/></g>
+    <g><rect x="2" y="84" width="13" height="58" rx="4" fill="#5E6469" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="11" cy="145" rx="10" ry="4.5" fill="#2B2F33"/></g>
+    <rect x="-4" y="29" width="8" height="8" fill="#F5C6A5"/>
+    <rect x="-17" y="35" width="34" height="53" rx="9" fill="#1E2226" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="-17" y="82" width="34" height="5" fill="#33383D"/>
+    <path d="M-6 50 l2.5-4 2.5 3 2.5-3 2.5 4" fill="none" stroke="#FF6C0E" stroke-width="1.6"/>
+    <text x="7" y="51" font-family="Outfit, 'DM Sans', sans-serif" font-size="6" font-weight="800" fill="#fff">muvex</text>
+    <circle cx="-9" cy="21" r="2.6" fill="#F5C6A5" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="0" cy="20" r="12" fill="#F5C6A5" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="5.5" cy="19" r="1.4" fill="#1F2D3A"/>
+    <path d="M3 25.5 q3.5 3 7 0" fill="none" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M-13 15 a13 12 0 0 1 26 0 z" fill="#FF6C0E" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="9" y="12.5" width="15" height="4.2" rx="2" fill="#E85F0A" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M-4 10 l2-3 2 2 2-2 2 3" fill="none" stroke="#1F2D3A" stroke-width="1.3"/>
+    <rect x="4" y="47" width="36" height="10" rx="5" fill="#2A2F34" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="41" cy="52" r="4.5" fill="#F5C6A5" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="6" y="57" width="36" height="10" rx="5" fill="#1E2226" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="43" cy="62" r="4.5" fill="#F5C6A5" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></g></g>
+  <!-- camión -->
+  <g transform="translate(30 137)"><g class="truck"><g class="bob">
+    <g class="puff"><circle cx="-6" cy="66" r="5" fill="#D5DCE6"/><circle cx="-16" cy="60" r="4" fill="#E2E7EE"/></g>
+    
+    <rect x="0" y="0" width="130" height="70" rx="3" fill="#FF6C0E" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M0 52 h70 l18 18 h-88z" fill="#2B2F33"/>
+    <path d="M70 32 l7-11 6 8 6-8 7 11" fill="none" stroke="#1F2D3A" stroke-width="3" stroke-linejoin="round"/>
+    <text x="64" y="47" font-family="Outfit, 'DM Sans', sans-serif" font-size="17" font-weight="800" fill="#1F2D3A">muvex</text>
+    <text x="74" y="55" font-family="Outfit, 'DM Sans', sans-serif" font-size="5" font-weight="700" letter-spacing="1.5" fill="#1F2D3A">MUDANZAS</text>
+    <path d="M132 22 h28 q6 0 9 6 l14 22 q3 4 3 9 v11 h-54z" fill="#E85F0A" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M140 28 h18 l12 20 h-30z" fill="#2B3240"/>
+    <path d="M150 50 v14" stroke="#1F2D3A" stroke-width="1.2"/>
+    <rect x="180" y="56" width="6" height="5" rx="1" fill="#FFD166"/>
+    <rect x="0" y="68" width="188" height="7" rx="2" fill="#2B2F33"/>
+    <g class="wh"><circle cx="32" cy="82" r="13" fill="#2B2F33" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="32" cy="82" r="5" fill="#C9CFD8"/><rect x="31" y="70" width="2" height="7" fill="#C9CFD8"/></g><g class="wh"><circle cx="160" cy="82" r="13" fill="#2B2F33" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="160" cy="82" r="5" fill="#C9CFD8"/><rect x="159" y="70" width="2" height="7" fill="#C9CFD8"/></g><g class="pin"><g transform="translate(92 -30)">
+      <rect x="-30" y="-22" width="60" height="16" rx="8" fill="#1F2D3A"/>
+      <text x="0" y="-11" text-anchor="middle" font-family="Outfit, 'DM Sans', sans-serif" font-size="7" font-weight="800" fill="#fff">GPS · en camino</text>
+      <path d="M0 18 q-11-13 -11-20 a11 11 0 0 1 22 0 q0 7 -11 20z" fill="#FF6C0E" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="0" cy="-2" r="4" fill="#fff"/></g></g>
+  </g></g></g>
+  <!-- equipo cargando el sofá envuelto -->
+  <g transform="translate(20 142) scale(.6)"><g class="crew">
+    <g transform="translate(0 0)">
+    <g class="e3-la"><rect x="-15" y="84" width="13" height="58" rx="4" fill="#5E6469" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="-7" cy="145" rx="10" ry="4.5" fill="#2B2F33"/></g>
+    <g class="e3-lb"><rect x="2" y="84" width="13" height="58" rx="4" fill="#5E6469" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="11" cy="145" rx="10" ry="4.5" fill="#2B2F33"/></g>
+    <rect x="-4" y="29" width="8" height="8" fill="#F5C6A5"/>
+    <rect x="-17" y="35" width="34" height="53" rx="9" fill="#1E2226" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="-17" y="82" width="34" height="5" fill="#33383D"/>
+    <path d="M-6 50 l2.5-4 2.5 3 2.5-3 2.5 4" fill="none" stroke="#FF6C0E" stroke-width="1.6"/>
+    <text x="7" y="51" font-family="Outfit, 'DM Sans', sans-serif" font-size="6" font-weight="800" fill="#fff">muvex</text>
+    <circle cx="-9" cy="21" r="2.6" fill="#F5C6A5" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="0" cy="20" r="12" fill="#F5C6A5" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="5.5" cy="19" r="1.4" fill="#1F2D3A"/>
+    <path d="M3 25.5 q3.5 3 7 0" fill="none" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M-13 15 a13 12 0 0 1 26 0 z" fill="#FF6C0E" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="9" y="12.5" width="15" height="4.2" rx="2" fill="#E85F0A" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M-4 10 l2-3 2 2 2-2 2 3" fill="none" stroke="#1F2D3A" stroke-width="1.3"/>
+    <rect x="4" y="47" width="36" height="10" rx="5" fill="#2A2F34" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="41" cy="52" r="4.5" fill="#F5C6A5" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></g>
+    <g transform="translate(36 34)"><rect x="0" y="6" width="70" height="28" rx="5" fill="#DCE5F2" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><rect x="-3" y="12" width="9" height="24" rx="3" fill="#B8CAE6" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><rect x="64" y="12" width="9" height="24" rx="3" fill="#B8CAE6" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><rect x="5" y="18" width="60" height="14" rx="2" fill="#B8CAE6" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><rect x="-4" y="4" width="78" height="32" rx="6" fill="#EAF4FB" opacity=".55" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><path d="M-2 5 l10 30" stroke="#fff" stroke-width="1.6" opacity=".9"/><path d="M7 5 l10 30" stroke="#fff" stroke-width="1.6" opacity=".9"/><path d="M16 5 l10 30" stroke="#fff" stroke-width="1.6" opacity=".9"/><path d="M25 5 l10 30" stroke="#fff" stroke-width="1.6" opacity=".9"/><path d="M34 5 l10 30" stroke="#fff" stroke-width="1.6" opacity=".9"/><path d="M43 5 l10 30" stroke="#fff" stroke-width="1.6" opacity=".9"/><path d="M52 5 l10 30" stroke="#fff" stroke-width="1.6" opacity=".9"/><path d="M61 5 l10 30" stroke="#fff" stroke-width="1.6" opacity=".9"/></g>
+    <g transform="translate(0 0)">
+    <rect x="6" y="57" width="36" height="10" rx="5" fill="#1E2226" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="43" cy="62" r="4.5" fill="#F5C6A5" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></g>
+    <g transform="translate(108 0)">
+    <g class="e3-la"><rect x="-15" y="84" width="13" height="58" rx="4" fill="#5E6469" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="-7" cy="145" rx="10" ry="4.5" fill="#2B2F33"/></g>
+    <g class="e3-lb"><rect x="2" y="84" width="13" height="58" rx="4" fill="#5E6469" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="11" cy="145" rx="10" ry="4.5" fill="#2B2F33"/></g>
+    <rect x="-4" y="29" width="8" height="8" fill="#F5C6A5"/>
+    <rect x="-17" y="35" width="34" height="53" rx="9" fill="#1E2226" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="-17" y="82" width="34" height="5" fill="#33383D"/>
+    <path d="M-6 50 l2.5-4 2.5 3 2.5-3 2.5 4" fill="none" stroke="#FF6C0E" stroke-width="1.6"/>
+    <text x="7" y="51" font-family="Outfit, 'DM Sans', sans-serif" font-size="6" font-weight="800" fill="#fff">muvex</text>
+    <circle cx="-9" cy="21" r="2.6" fill="#F5C6A5" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="0" cy="20" r="12" fill="#F5C6A5" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="5.5" cy="19" r="1.4" fill="#1F2D3A"/>
+    <path d="M3 25.5 q3.5 3 7 0" fill="none" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M-13 15 a13 12 0 0 1 26 0 z" fill="#FF6C0E" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="9" y="12.5" width="15" height="4.2" rx="2" fill="#E85F0A" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M-4 10 l2-3 2 2 2-2 2 3" fill="none" stroke="#1F2D3A" stroke-width="1.3"/>
+    <rect x="4" y="47" width="36" height="10" rx="5" fill="#2A2F34" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="41" cy="52" r="4.5" fill="#F5C6A5" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="6" y="57" width="36" height="10" rx="5" fill="#1E2226" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="43" cy="62" r="4.5" fill="#F5C6A5" stroke="#1F2D3A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></g>
+  </g></g>
+  <g class="ok"><rect x="140" y="20" width="112" height="24" rx="12" fill="#FF6C0E"/><circle cx="153" cy="32" r="6.5" fill="#fff"/><path d="M149.5 32 l2.5 2.5 4.5-5" fill="none" stroke="#FF6C0E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text x="165" y="36" font-family="Outfit, 'DM Sans', sans-serif" font-size="8.6" font-weight="800" fill="#fff">¡Mudanza lista!</text></g>
+</g></svg>
       </div>
       <div class="how-step-text">
         <div class="step-num">03</div>
@@ -2372,6 +2808,7 @@
     </div>
 
   </div>
+
 </section>
 
 <!-- CTA BANNER WHATSAPP -->
@@ -2799,6 +3236,32 @@
     new IntersectionObserver(function(entries) {
       document.body.classList.toggle('hero-visible', entries[0].isIntersecting);
     }, { threshold: 0.35 }).observe(document.getElementById('inicio'));
+  }
+
+  // Sección "El proceso": entrada escalonada + camioncito (no corre si el usuario pidió menos movimiento)
+  var howSection = document.getElementById('como-funciona');
+  if (howSection && 'IntersectionObserver' in window && !reduceMotion) {
+    howSection.classList.add('anim-ready');
+    var howMobile = window.matchMedia('(max-width: 900px)').matches;
+    var howTargets = howMobile ? Array.prototype.slice.call(howSection.querySelectorAll('.how-step')) : [howSection.querySelector('.how-grid')];
+    var howObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (!e.isIntersecting) return;
+        (howMobile ? e.target : howSection).classList.add('in-view');
+        howObs.unobserve(e.target);
+      });
+    }, { threshold: howMobile ? 0.25 : 0.35 });
+    howTargets.forEach(function(t) { howObs.observe(t); });
+  }
+
+  // Escenas animadas de cada paso: corren solo mientras la tarjeta está en pantalla
+  if ('IntersectionObserver' in window && !reduceMotion) {
+    var sceneObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        e.target.classList.toggle(e.target.getAttribute('data-scene') + '-run', e.isIntersecting);
+      });
+    }, { threshold: 0.3 });
+    Array.prototype.forEach.call(document.querySelectorAll('.how-step[data-scene]'), function(s) { sceneObs.observe(s); });
   }
 
   // Menú móvil
