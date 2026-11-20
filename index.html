@@ -1464,7 +1464,7 @@
   }
   .coverage-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 32px;
     margin-top: 48px;
   }
@@ -1482,21 +1482,29 @@
   .coverage-zone-head {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
+    gap: 16px;
+    margin-bottom: 24px;
   }
   .coverage-icon {
-    width: 42px; height: 42px;
+    width: 64px; height: 64px;
     flex-shrink: 0;
-    border-radius: 10px;
-    background: var(--orange);
+    border-radius: 18px;
+    background: rgba(255,108,14,0.1);
     display: flex; align-items: center; justify-content: center;
   }
-  .coverage-icon svg { width: 22px; height: 22px; fill: var(--white); }
+  .coverage-icon svg {
+    width: 40px; height: 40px;
+    fill: none;
+    stroke: var(--orange);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
   .coverage-zone-title {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
+    line-height: 1.3;
     color: var(--black);
   }
   .coverage-tags {
@@ -1676,6 +1684,8 @@
     .logo-strip { grid-template-columns: repeat(3, 1fr); gap: 14px; }
     .coverage-grid { grid-template-columns: 1fr; gap: 14px; }
     .coverage-col { padding: 20px 18px; }
+    .coverage-icon { width: 56px; height: 56px; border-radius: 16px; }
+    .coverage-icon svg { width: 36px; height: 36px; }
     .coverage-tag { font-size: 0.8rem; padding: 6px 11px; }
     .coverage-tags { gap: 7px; }
     .how-grid { grid-template-columns: 1fr; gap: 18px; margin-top: 36px; }
@@ -2470,7 +2480,7 @@
     <div class="coverage-col">
       <div class="coverage-zone-head">
         <div class="coverage-icon">
-          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3" fill="#fff"/></svg>
+          <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M26 12c0 7-10 17-10 17S6 19 6 12a10 10 0 0 1 20 0Z"/><path d="m10 12 6-5 6 5M11.5 11v9h9v-9M14.5 20v-5h3v5"/></svg>
         </div>
         <h3 class="coverage-zone-title">Base Central</h3>
       </div>
@@ -2490,7 +2500,7 @@
     <div class="coverage-col">
       <div class="coverage-zone-head">
         <div class="coverage-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle cx="16" cy="12" r="5"/><path d="M16 1v3M16 20v2M5 12H2M30 12h-3M8.2 4.2l2.1 2.1M21.7 17.7l2.1 2.1M23.8 4.2l-2.1 2.1M10.3 17.7l-2.1 2.1M2 25c4.7-3 9.3 3 14 0s9.3 3 14 0M2 29c4.7-3 9.3 3 14 0s9.3 3 14 0"/></svg>
         </div>
         <h3 class="coverage-zone-title">Zonas de Verano</h3>
       </div>
@@ -2509,7 +2519,7 @@
     <div class="coverage-col">
       <div class="coverage-zone-head">
         <div class="coverage-icon">
-          <svg viewBox="0 0 24 24"><path d="M5 17h14M5 17a2 2 0 01-2-2V9a2 2 0 012-2h9l4 4v4a2 2 0 01-2 2"/><circle cx="7.5" cy="17.5" r="2"/><circle cx="16.5" cy="17.5" r="2"/></svg>
+          <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M10 4 3 28M22 4l7 24M16 5v4M16 14v4M16 23v4"/></svg>
         </div>
         <h3 class="coverage-zone-title">Rutas Nacionales</h3>
       </div>
