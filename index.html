@@ -1329,6 +1329,7 @@
   .map-section {
     background: var(--white);
     padding: 0;
+    position: relative;
   }
 
   .map-section iframe {
@@ -1336,8 +1337,36 @@
     height: 360px;
     border: none;
     display: block;
-    filter: grayscale(1) contrast(1.1);
   }
+
+  .map-card {
+    position: absolute;
+    top: 20px;
+    left: 8%;
+    background: var(--white);
+    border-radius: 14px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-width: 260px;
+  }
+  .map-card-title { font-family: var(--font-display); font-size: 17px; font-weight: 700; color: var(--black); }
+  .map-card-addr { font-size: 14px; color: var(--gray-text); }
+  .map-card-btn {
+    margin-top: 10px;
+    align-self: flex-start;
+    background: var(--orange);
+    color: var(--black);
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    padding: 9px 16px;
+    border-radius: 999px;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .map-card-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(255,108,14,0.35); }
 
   /* ===== SOCIAL PROOF BAND ===== */
   .social-proof {
@@ -1723,6 +1752,8 @@
     .mobile-bar { display: flex; }
     body { padding-bottom: 72px; }                /* espacio para la barra inferior */
     .map-section iframe { height: 300px; }
+    .map-card { top: auto; bottom: 14px; left: 5%; right: 5%; max-width: none; flex-direction: row; flex-wrap: wrap; align-items: center; column-gap: 10px; padding: 12px 14px; }
+    .map-card-btn { margin-top: 0; margin-left: auto; }
   }
 
   @media (max-width: 600px) {
@@ -2158,7 +2189,7 @@
     "addressRegion": "Central",
     "addressCountry": "PY"
   },
-  "hasMap": "https://maps.app.goo.gl/Szd9NpGpYLgknSk37",
+  "hasMap": "https://www.google.com/maps/search/?api=1&query=-25.2672502%2C-57.5059692",
   "geo": {
     "@type": "GeoCoordinates",
     "latitude": "-25.2672502",
@@ -3086,7 +3117,7 @@
         </div>
         <div class="contact-detail">
           <div class="contact-label">Dirección</div>
-          <a href="https://maps.app.goo.gl/Szd9NpGpYLgknSk37" class="contact-value" target="_blank" rel="noopener">Tte. Rivas Nº 220 — Ver en mapa</a>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=-25.2672502%2C-57.5059692" class="contact-value" target="_blank" rel="noopener">Tte. Rivas Nº 220 — Ver en mapa</a>
         </div>
       </div>
       <div class="contact-item">
@@ -3269,7 +3300,12 @@
 
 <!-- MAP -->
 <div class="map-section">
-  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3608.0992622429862!2d-57.505990999999995!3d-25.267246099999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x945da5005e4db211%3A0xfa728cdfa781385!2zTXV2ZXggU0EgfCBFeHBlcnRvcyBlbiBNdWRhbnphcyDwn4e18J-Hvg!5e0!3m2!1ses-419!2spy!4v1729535128205!5m2!1ses-419!2spy" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  <iframe src="https://maps.google.com/maps?q=-25.2672502,-57.5059692&amp;z=16&amp;hl=es&amp;output=embed" title="Ubicación de Muvex S.A. — Tte. Rivas Nº 220, Luque" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  <div class="map-card">
+    <strong class="map-card-title">Muvex S.A.</strong>
+    <span class="map-card-addr">Tte. Rivas Nº 220, Luque</span>
+    <a class="map-card-btn" href="https://www.google.com/maps/dir/?api=1&amp;destination=-25.2672502%2C-57.5059692" target="_blank" rel="noopener">Cómo llegar</a>
+  </div>
 </div>
 
 <!-- FOOTER -->
@@ -3311,7 +3347,7 @@
       <ul class="footer-links">
         <li><a href="https://wa.me/595981001530">(+595 981) 001 530</a></li>
         <li><a href="mailto:info@muvexsa.com">info@muvexsa.com</a></li>
-        <li><a href="https://maps.app.goo.gl/Szd9NpGpYLgknSk37" target="_blank" rel="noopener">Ver nuestra ubicación</a></li>
+        <li><a href="https://www.google.com/maps/search/?api=1&amp;query=-25.2672502%2C-57.5059692" target="_blank" rel="noopener">Ver nuestra ubicación</a></li>
         <li><a href="https://www.instagram.com/muvexsa/" target="_blank" rel="noopener">Instagram: @muvexsa</a></li>
         <li><a href="https://www.facebook.com/muvexsa/" target="_blank" rel="noopener">Facebook: muvexsa</a></li>
       </ul>
