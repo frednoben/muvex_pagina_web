@@ -32,3 +32,16 @@
 - Verificación: cinco SVG XML válidos, comparación de la sección sin SVG contra HEAD y `git diff --check` correctos.
 - Se inspeccionó una hoja renderizada desde los SVG reales del HTML (`tmp/iconos-corregidos.png`), con las mismas figuras, trazos y colores. No se usa una nueva imagen generada como sustituto de la implementación.
 - Cambios locales pendientes de commit, push y deploy. La revisión del diseño completo en navegador sigue pendiente.
+
+## 2026-11-20 — Paso 03: se descarta el rediseño de ChatGPT y se corrige la caminata
+
+- Se vuelve a la escena del paso 03 aprobada antes (carga del sofá, viaje con GPS e izamiento por balcón). El rediseño alternativo quedó guardado en `tmp/index-chatgpt-paso03.html` y su registro en `tmp/CAMBIOS-chatgpt.md`.
+- Los dos colaboradores que llevan el sofá ya no mueven las piernas (se veía como un baile): se deslizan juntos como un bloque, igual que el asesor del paso 01, con arranque y frenada suaves, se detienen junto al camión y entran desvaneciéndose. El de adelante sostiene el sofá con los brazos hacia atrás.
+- Sin cambios en los pasos 01 y 02 ni en el resto de la página.
+
+## 2026-11-20 — Íconos animados en los 4 paquetes de servicio
+
+- Cada tarjeta de servicio suma una plaquita con ícono (mismo estilo que cobertura y «Por qué elegirnos»: línea naranja sobre fondo `#FFF0E3`), montada entre la foto y el contenido.
+- Fletes: el camión entra con ruedas girando y la ruta corriendo. Standard: cae la caja, se cierran las solapas, se pasa la cinta y aparece un check. Integral: la copa se envuelve en plástico de burbujas y aparece un escudo. Llave en Mano: la llave entra y gira, se encienden las ventanas y salen destellos.
+- Se animan una vez al aparecer cada tarjeta y de nuevo al pasar el mouse (≈2 s, sin bucle). Con movimiento reducido o sin JavaScript se ven quietos y completos.
+- SVG en línea, sin imágenes ni dependencias nuevas. 76 px en escritorio y 64 px en móvil.
