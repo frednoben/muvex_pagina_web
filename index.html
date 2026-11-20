@@ -836,10 +836,11 @@
   .why-feature:last-child { border-bottom: none; }
 
   .feature-icon {
-    width: 64px;
-    height: 64px;
-    background: rgba(255,108,14,0.1);
-    border-radius: 18px;
+    --feature-icon-bg: #FFF0E3;
+    width: 80px;
+    height: 80px;
+    background: var(--feature-icon-bg);
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -847,14 +848,16 @@
   }
 
   .feature-icon svg {
-    width: 40px;
-    height: 40px;
+    width: 64px;
+    height: 64px;
     stroke: var(--orange);
     fill: none;
-    stroke-width: 1.8;
+    stroke-width: 2.4;
     stroke-linecap: round;
     stroke-linejoin: round;
   }
+
+  .feature-icon .icon-surface { fill: var(--feature-icon-bg); }
 
   .feature-text { min-width: 0; }
 
@@ -1699,8 +1702,8 @@
     .why-layout { grid-template-columns: 1fr; gap: 0; }
     .why-img { display: none; }
     .why-feature { gap: 16px; }
-    .feature-icon { width: 56px; height: 56px; border-radius: 16px; }
-    .feature-icon svg { width: 36px; height: 36px; }
+    .feature-icon { width: 64px; height: 64px; border-radius: 18px; }
+    .feature-icon svg { width: 50px; height: 50px; }
     .why-badge-mobile {
       display: flex; align-items: center; gap: 14px; margin-top: 24px;
       background: var(--black); color: var(--white); border-radius: 14px; padding: 16px 20px;
@@ -2852,7 +2855,7 @@
       <div class="why-features">
         <div class="why-feature">
           <div class="feature-icon">
-            <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle cx="12" cy="10" r="4"/><path d="M3 27v-3a6 6 0 0 1 6-6h6a6 6 0 0 1 6 6v3M23 7a3.5 3.5 0 0 1 0 7M24 19a5 5 0 0 1 5 5v3"/></svg>
+            <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><g stroke-width="2.2"><path d="M43 38v-4M55 34v4M40 60V45c0-3 2-5 5-6l3-1 7 1c4 1 7 4 7 8v9M44 39l5 5 6-5"/><path d="M43 24v5a7 7 0 0 0 14 0v-6M42 20v-3a9 9 0 0 1 18 0v3M40 22c6-4 15-5 21-1v3c-7-1-13 0-21 2Z"/><path d="M52 48h6v3h-6Z"/><path class="icon-surface" d="M3 61V51c0-4 3-7 7-9l7-3h10l8 4c5 2 8 5 8 10v8"/><path d="M17 38v5l5 5 5-5v-5M11 42l6 10 5-4 5 4 6-10M12 26v5a10 10 0 0 0 20 0v-6"/><path class="icon-surface" d="M10 21v-4a12 12 0 0 1 24 0v3M7 23c8-6 20-8 30-3l1 4c-11-2-20 1-30 3Z"/><path d="M29 54h9v4h-9Z"/></g></svg>
           </div>
           <div class="feature-text">
             <div class="feature-title">Personal 100% Propio</div>
@@ -2861,7 +2864,7 @@
         </div>
         <div class="why-feature">
           <div class="feature-icon">
-            <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M18 27a12 12 0 1 1 9-11M15 7v8l5 3M21 25l3 3 6-7"/></svg>
+            <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="29" cy="29" r="25"/><path d="M29 9v4M29 45v4M9 29h4M29 16v14l14-8"/><circle class="icon-surface" cx="49" cy="49" r="12"/><path d="m43 49 4 4 8-9"/></svg>
           </div>
           <div class="feature-text">
             <div class="feature-title">Puntualidad Estricta</div>
@@ -2870,7 +2873,7 @@
         </div>
         <div class="why-feature">
           <div class="feature-icon">
-            <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M14 26H4V5h18v7M10 5v8l3-2 3 2V5M8 21h3M23 15l6 2v5c0 4-6 7-6 7s-6-3-6-7v-5l6-2Z"/><path d="m20 22 2 2 4-4"/></svg>
+            <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="m5 22 24-13 24 11v27L29 60 5 47V22Z"/><path d="m5 22 24 12 24-14M29 34v26M17 15l24 12v9M14 27v10"/><path class="icon-surface" d="m48 36 13 5v9c0 7-13 12-13 12S35 57 35 50v-9l13-5Z"/><path d="m41 49 5 5 9-10"/></svg>
           </div>
           <div class="feature-text">
             <div class="feature-title">Cuidado Especializado</div>
@@ -2879,7 +2882,7 @@
         </div>
         <div class="why-feature">
           <div class="feature-icon">
-            <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M3 3h26M8 3v5h16V3M16 8v5a3 3 0 1 0 3 3M16 19l-9 5M16 19l9 5"/><rect x="5" y="24" width="22" height="6" rx="1"/><path d="M16 24v6"/></svg>
+            <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M26 3h12v5a6 6 0 0 1-12 0V3ZM32 14v2c0 3 6 3 6 8a6 6 0 0 1-12 0v-2M32 30 9 43M32 30l23 13"/><rect x="9" y="43" width="46" height="18" rx="1"/><path d="M27 43v8h10v-8"/></svg>
           </div>
           <div class="feature-text">
             <div class="feature-title">Maniobras Complejas</div>
@@ -2888,7 +2891,7 @@
         </div>
         <div class="why-feature">
           <div class="feature-icon">
-            <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M10 29H4V3h11l6 6v4M15 3v6h6M8 13h7M8 18h2"/><rect x="13" y="17" width="16" height="12" rx="2"/><path d="M13 21h16M17 25h3"/></svg>
+            <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M23 60H9a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h24l11 11v23M33 4v13h11M14 22h18M14 30h18M14 38h10M14 46h5"/><rect class="icon-surface" x="27" y="42" width="35" height="20" rx="3"/><path d="M27 49h35"/><rect x="33" y="55" width="5" height="3" rx="0.5"/><path d="M47 56h8"/></svg>
           </div>
           <div class="feature-text">
             <div class="feature-title">Formalidad y Facilidades</div>

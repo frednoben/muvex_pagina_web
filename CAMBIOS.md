@@ -21,3 +21,14 @@
 - Verificación: cinco SVG XML válidos, comparación de textos y estructura con HEAD y `git diff --check` correctos.
 - Se generó una propuesta visual orientativa; no es una captura del navegador. Revisión en navegador pendiente por las restricciones del entorno ya detectadas.
 - Cambios guardados en `index.html` y este registro; pendientes de commit, push y deploy por parte de Freddy.
+
+## 2026-11-20 — Corrección para reproducir el ejemplo de iconos
+
+- Freddy señaló que los iconos publicados diferían de la muestra: los primeros SVG se habían simplificado demasiado.
+- Se redibujan con más fidelidad: dos operarios con casco, cuello de uniforme e identificación; reloj con círculo de verificación superpuesto; caja en perspectiva con escudo; gancho con eslingas y caja de mayor altura; documento con tarjeta detallada.
+- Fondo melocotón uniforme `#FFF0E3`. Contenedores de 80 px con dibujos de 64 px en escritorio; 64 px con dibujos de 50 px en móvil. Los dibujos ocupan más espacio dentro de su fondo, como en la muestra.
+- Se agregan superficies del mismo color del fondo en las figuras superpuestas para evitar líneas cruzadas detrás del escudo, la verificación y la tarjeta.
+- Se conservan los textos, la estructura de la sección y la cobertura.
+- Verificación: cinco SVG XML válidos, comparación de la sección sin SVG contra HEAD y `git diff --check` correctos.
+- Se inspeccionó una hoja renderizada desde los SVG reales del HTML (`tmp/iconos-corregidos.png`), con las mismas figuras, trazos y colores. No se usa una nueva imagen generada como sustituto de la implementación.
+- Cambios locales pendientes de commit, push y deploy. La revisión del diseño completo en navegador sigue pendiente.
