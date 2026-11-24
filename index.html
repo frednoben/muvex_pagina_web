@@ -3549,6 +3549,16 @@
     });
   });
 
+  // Copia del número: quien selecciona y copia el teléfono en vez de tocar un botón.
+  // Se detecta en cualquier parte de la página si lo copiado contiene 981 001 530.
+  document.addEventListener('copy', function() {
+    var copiado = window.getSelection ? String(window.getSelection()) : '';
+    if (copiado.replace(/\D/g, '').indexOf('981001530') === -1) return;
+    if (typeof gtag !== 'undefined') gtag('event', 'copia_telefono', {
+      'origen_trafico': muvexEsGoogleAds() ? 'google_ads' : 'web'
+    });
+  });
+
   // Formulario: valida nombre y tipo de servicio, arma el mensaje y lo abre en WhatsApp
   var form = document.getElementById('budget-form');
   function setInvalid(el, errId, invalid) {
