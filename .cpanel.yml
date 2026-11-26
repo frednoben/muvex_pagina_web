@@ -9,4 +9,8 @@ deployment:
     - cp -r images $DEPLOYPATH/
     - cp .htaccess $DEPLOYPATH/.htaccess
     - cp sitemap.xml $DEPLOYPATH/sitemap.xml
+    - mkdir -p $DEPLOYPATH/assets $DEPLOYPATH/fletes $DEPLOYPATH/tipos-de-mudanza
+    - cp assets/muvex.css assets/paginas.css assets/paginas.js $DEPLOYPATH/assets/
+    - cp fletes/index.html $DEPLOYPATH/fletes/index.html
+    - cp tipos-de-mudanza/index.html $DEPLOYPATH/tipos-de-mudanza/index.html
     - find $DEPLOYPATH -name '.DS_Store' -type f -delete

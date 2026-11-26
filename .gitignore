@@ -1,1 +1,15 @@
 .DS_Store
+
+# Documentos y archivos sueltos en la raíz (no son parte de la web y el repo es público)
+/*.pdf
+/*.jpg
+/*.jpeg
+/*.png
+/*.docx
+/*.xlsx
+
+# Pruebas, borradores y mockups de trabajo
+/tmp/
+/generated_images/
+/Claude outputs/
+/opciones-hero-colores.html
