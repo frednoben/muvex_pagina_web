@@ -45,3 +45,10 @@
 - Fletes: el camión entra con ruedas girando y la ruta corriendo. Standard: cae la caja, se cierran las solapas, se pasa la cinta y aparece un check. Integral: la copa se envuelve en plástico de burbujas y aparece un escudo. Llave en Mano: la llave entra y gira, se encienden las ventanas y salen destellos.
 - Se animan una vez al aparecer cada tarjeta y de nuevo al pasar el mouse (≈2 s, sin bucle). Con movimiento reducido o sin JavaScript se ven quietos y completos.
 - SVG en línea, sin imágenes ni dependencias nuevas. 76 px en escritorio y 64 px en móvil.
+
+## 2026-11-27 — Medición de comportamiento (GA4)
+
+- Nuevo `assets/medicion.js`, cargado en la portada, `/fletes/` y `/tipos-de-mudanza/`; agregado al `.cpanel.yml`.
+- Eventos: `scroll_profundidad` (25/50/75/100 %), `ver_seccion` (cada `<section>` con id al cruzar la mitad de la pantalla, incluida la tabla `comparar`) y `clic_interno` (enlaces hacia /fletes/ y /tipos-de-mudanza/, con `destino` y `ubicacion`). Todos llevan `pagina`; cada uno se manda una vez por carga.
+- Los datos se ven en el ERP, pestaña «🌐 Web» (solo admin), vía la función de Netlify `web-stats`.
+- En GA4 hay que registrar como dimensiones personalizadas de evento: `porcentaje`, `seccion`, `destino`, `boton`.
